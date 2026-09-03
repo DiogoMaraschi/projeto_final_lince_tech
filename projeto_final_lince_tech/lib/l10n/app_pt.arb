@@ -1,0 +1,28 @@
+{
+  "appName": "Gestão de Produtos",
+
+  "commonSave": "Salvar",
+  "commonCancel": "Cancelar",
+  "commonDelete": "Excluir",
+  "commonEdit": "Editar",
+  "commonBack": "Voltar",
+
+  "productTitle": "Cadastro de Produto",
+  "productName": "Nome do Produto",
+  "productBarcode": "Código de Barras",
+  "productDescription": "Descrição",
+  "productBrand": "Marca",
+  "productAddImage": "Adicionar Imagem",
+
+  "customerTitle": "Cadastro de Cliente",
+  "customerName": "Nome",
+  "customerCnpj": "CNPJ",
+  "customerPhone": "Telefone",
+  "customerEmail": "E-mail",
+
+  "orderTitle": "Pedido",
+  "orderNumber": "Número do Pedido",
+  "orderPaymentMethod": "Forma de Pagamento",
+  "orderInstallments": "Parcelas",
+  "orderTotal": "Total"
+}

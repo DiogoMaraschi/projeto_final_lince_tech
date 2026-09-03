@@ -1,0 +1,28 @@
+{
+  "appName": "Product Management",
+
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "commonEdit": "Edit",
+  "commonBack": "Back",
+
+  "productTitle": "Product Registration",
+  "productName": "Product Name",
+  "productBarcode": "Barcode",
+  "productDescription": "Description",
+  "productBrand": "Brand",
+  "productAddImage": "Add Image",
+
+  "customerTitle": "Customer Registration",
+  "customerName": "Name",
+  "customerCnpj": "CNPJ",
+  "customerPhone": "Phone",
+  "customerEmail": "Email",
+
+  "orderTitle": "Order",
+  "orderNumber": "Order Number",
+  "orderPaymentMethod": "Payment Method",
+  "orderInstallments": "Installments",
+  "orderTotal": "Total"
+}

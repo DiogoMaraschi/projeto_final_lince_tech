@@ -151,7 +151,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   textStyle: TextStyle(fontSize: 16, fontWeight: .w600),
                 ),
-                child: Text('Salvar'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.check, size: 24),
+                    SizedBox(width: 4),
+                    Text(
+                      AppLocalizations.of(context)!.productName,
+                      style: TextStyle(fontSize: 22),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
