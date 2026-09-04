@@ -7,11 +7,16 @@
   "commonEdit": "Edit",
   "commonBack": "Back",
 
+
   "productTitle": "Product Registration",
   "productName": "Product Name",
+  "productHintName": "Ex: Soccer Ball",
   "productBarcode": "Barcode",
+  "productHintBarcode": "984651654892318974",
   "productDescription": "Description",
+  "productHintDescription": "Describe about product details",
   "productBrand": "Brand",
+  "productHintBrand": "Ex: Nike",
   "productAddImage": "Add Image",
 
   "customerTitle": "Customer Registration",

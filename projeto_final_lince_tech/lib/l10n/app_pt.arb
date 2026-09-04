@@ -9,10 +9,15 @@
 
   "productTitle": "Cadastro de Produto",
   "productName": "Nome do Produto",
+  "productHintName": "Ex: Bola de Futebol",
   "productBarcode": "Código de Barras",
+  "productHintBarcode": "984651654892318974",
   "productDescription": "Descrição",
+  "productHintDescription": "Descreva detalhes do produto",
   "productBrand": "Marca",
+  "productHintBrand": "Ex: Nike",
   "productAddImage": "Adicionar Imagem",
+  
 
   "customerTitle": "Cadastro de Cliente",
   "customerName": "Nome",

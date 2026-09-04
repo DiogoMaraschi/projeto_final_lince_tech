@@ -1,6 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
+import '../../l10n/app_localizations.dart';
 
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
@@ -31,9 +31,11 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Cadastro de Produto',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
@@ -42,6 +44,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
+
       body: Column(
         children: [
           Expanded(
@@ -59,8 +62,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: Container(
                               width: 110,
                               height: 110,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFEEF2F6),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFEEF2F6),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -71,12 +74,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                           ),
 
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
                           GestureDetector(
                             onTap: () => print('clicou no texto'),
                             child: Text(
-                              'Adicionar Imagem',
+                              l10n!.productAddImage,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: primaryColor,
@@ -87,56 +90,66 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 24),
 
-                    //Product Name
-                    _buildLabel('Nome do Produto', isPrimary: true),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 24),
+
+                    // Product Name
+                    _buildLabel(l10n.productName, isPrimary: true),
+
+                    const SizedBox(height: 6),
+
                     _buildTextField(
                       controller: _nomeController,
-                      hintText: 'Ex: Bola de Futebol',
+                      hintText: l10n.productHintName,
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                    //Barcode
-                    _buildLabel('Código de Barras', isPrimary: true),
-                    SizedBox(height: 6),
+                    // Barcode
+                    _buildLabel(l10n.productBarcode, isPrimary: true),
+
+                    const SizedBox(height: 6),
+
                     _buildTextField(
                       controller: _codigoBarrasController,
-                      hintText: '98742346987945',
+                      hintText: l10n.productHintBarcode,
                       keyboardType: TextInputType.number,
-                      suffixIcon: Icon(Icons.qr_code_scanner, size: 28),
+                      suffixIcon: const Icon(Icons.qr_code_scanner, size: 28),
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                    //Description
-                    _buildLabel('Descrição', isPrimary: true),
-                    SizedBox(height: 6),
+                    // Description
+                    _buildLabel(l10n.productDescription, isPrimary: true),
+
+                    const SizedBox(height: 6),
+
                     _buildTextField(
                       controller: _descricaoController,
-                      hintText: 'Descreva detalhes do produto',
+                      hintText: l10n.productHintDescription,
                       maxLines: 4,
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                    //Brand
-                    _buildLabel('Marca'),
-                    SizedBox(height: 6),
+                    // Brand
+                    _buildLabel(l10n.productBrand),
+
+                    const SizedBox(height: 6),
+
                     _buildTextField(
                       controller: _marcaController,
-                      hintText: 'Ex: Nike',
+                      hintText: l10n.productHintBrand,
                     ),
                   ],
                 ),
               ),
             ),
           ),
+
           Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(color: Colors.white),
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(color: Colors.white),
             child: SizedBox(
               height: 54,
               width: double.infinity,
@@ -149,17 +162,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  textStyle: TextStyle(fontSize: 16, fontWeight: .w600),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check, size: 24),
-                    SizedBox(width: 4),
-                    Text(
-                      AppLocalizations.of(context)!.productName,
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    const Icon(Icons.check, size: 24),
+
+                    const SizedBox(width: 4),
+
+                    Text(l10n.commonSave, style: const TextStyle(fontSize: 22)),
                   ],
                 ),
               ),
