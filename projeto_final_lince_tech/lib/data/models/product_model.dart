@@ -36,4 +36,15 @@ class ProductModel extends Product {
       'deleted_at': deletedAt,
     };
   }
+
+  factory ProductModel.fromEntity(Product product) {
+    return ProductModel(
+      id: product.id,
+      name: product.name,
+      barcode: product.barcode,
+      description: product.description,
+      brandId: product.brandId,
+      imagePath: product.imagePath,
+    );
+  }
 }

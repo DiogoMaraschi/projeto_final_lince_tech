@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
 import 'package:projeto_final_lince_tech/presentation/pages/product_details.dart';
 
+import 'global.dart';
+
 void main() {
+  inicialize();
   runApp(const MyApp());
 }
 

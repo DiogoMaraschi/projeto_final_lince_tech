@@ -10,7 +10,7 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  final Color primaryColor = Colors.deepPurpleAccent;
+  final Color primaryColor = Colors.indigoAccent;
   final Color backgroundColor = Colors.white;
   final Color hintColor = Colors.grey;
   final Color labelColor = Colors.grey.shade600;
