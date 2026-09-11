@@ -27,6 +27,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonBack => 'Back';
 
   @override
+  String get commomName => 'Name';
+
+  @override
+  String get commomPhone => 'Phone';
+
+  @override
+  String get commomHintPhone => '(47)99900-5060';
+
+  @override
+  String get commomEmail => 'E-mail';
+
+  @override
+  String get commomHintEmail => 'youremail@domain.com';
+
+  @override
+  String get commomAdress => 'Adress';
+
+  @override
+  String get commomAddImage => 'Add Image';
+
+  @override
+  String get commomCnpj => 'CNPJ';
+
+  @override
+  String get commomHintCnpj => 'Ex: 34.562.785/0001-40';
+
+  @override
   String get productTitle => 'Product Registration';
 
   @override
@@ -54,35 +81,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productHintBrand => 'Ex: Nike';
 
   @override
-  String get productAddImage => 'Add Image';
+  String get carrierTitle => 'Carrier Registration';
 
   @override
-  String get customerTitle => 'Customer Registration';
+  String get carrierName => 'Carrier Name';
 
   @override
-  String get customerName => 'Name';
+  String get carrierHintName => 'Ex: UPS';
 
   @override
-  String get customerCnpj => 'CNPJ';
+  String get carrierLegalName => 'Legal Name';
 
   @override
-  String get customerPhone => 'Phone';
+  String get carrierHintLegalName => 'Ex: UPS LLC';
 
   @override
-  String get customerEmail => 'Email';
+  String get carrierCostPerKm => 'Cost Per Km';
 
   @override
-  String get orderTitle => 'Order';
+  String get carrierHintCostPerKm => 'Ex: 7.20';
 
   @override
-  String get orderNumber => 'Order Number';
+  String get carrierMinimumPrice => 'Minimum Price';
 
   @override
-  String get orderPaymentMethod => 'Payment Method';
-
-  @override
-  String get orderInstallments => 'Installments';
-
-  @override
-  String get orderTotal => 'Total';
+  String get carrierHintMinimumPrice => 'Ex: 2.30';
 }

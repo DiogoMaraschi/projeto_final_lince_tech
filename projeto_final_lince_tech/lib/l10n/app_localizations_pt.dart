@@ -27,6 +27,33 @@ class AppLocalizationsPt extends AppLocalizations {
   String get commonBack => 'Voltar';
 
   @override
+  String get commomName => 'Nome';
+
+  @override
+  String get commomPhone => 'Telefone';
+
+  @override
+  String get commomHintPhone => '(47)99900-5060';
+
+  @override
+  String get commomEmail => 'E-mail';
+
+  @override
+  String get commomHintEmail => 'seuemail@dominio.com';
+
+  @override
+  String get commomAdress => 'Endereço';
+
+  @override
+  String get commomAddImage => 'Adicionar Imagem';
+
+  @override
+  String get commomCnpj => 'CNPJ';
+
+  @override
+  String get commomHintCnpj => 'Ex: 34.562.785/0001-40';
+
+  @override
   String get productTitle => 'Cadastro de Produto';
 
   @override
@@ -54,35 +81,29 @@ class AppLocalizationsPt extends AppLocalizations {
   String get productHintBrand => 'Ex: Nike';
 
   @override
-  String get productAddImage => 'Adicionar Imagem';
+  String get carrierTitle => 'Cadastro de Transportadora';
 
   @override
-  String get customerTitle => 'Cadastro de Cliente';
+  String get carrierName => 'Nome da Transportadora';
 
   @override
-  String get customerName => 'Nome';
+  String get carrierHintName => 'Ex: Transportadora Boa Vista';
 
   @override
-  String get customerCnpj => 'CNPJ';
+  String get carrierLegalName => 'Razão Social';
 
   @override
-  String get customerPhone => 'Telefone';
+  String get carrierHintLegalName => 'Ex: Transportadora Boa Vista LTDA';
 
   @override
-  String get customerEmail => 'E-mail';
+  String get carrierCostPerKm => 'Custo Por Km';
 
   @override
-  String get orderTitle => 'Pedido';
+  String get carrierHintCostPerKm => 'Ex: 7.20';
 
   @override
-  String get orderNumber => 'Número do Pedido';
+  String get carrierMinimumPrice => 'Preço Mínimo';
 
   @override
-  String get orderPaymentMethod => 'Forma de Pagamento';
-
-  @override
-  String get orderInstallments => 'Parcelas';
-
-  @override
-  String get orderTotal => 'Total';
+  String get carrierHintMinimumPrice => 'Ex: 2.30';
 }

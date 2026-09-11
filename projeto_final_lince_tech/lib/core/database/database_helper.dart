@@ -26,15 +26,6 @@ class DatabaseHelper {
   }
 
   Future<void> _createDB(Database db, int version) async {
-    // BRANDS
-    await db.execute('''
-      CREATE TABLE brands (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL UNIQUE,
-        deleted_at TEXT
-      )
-    ''');
-
     // ADDRESSES
     await db.execute('''
       CREATE TABLE addresses (
@@ -58,7 +49,7 @@ class DatabaseHelper {
         name TEXT NOT NULL,
         barcode TEXT NOT NULL UNIQUE,
         description TEXT,
-        brand_id INTEGER NOT NULL,
+        brand TEXT NOT NULL,
         image_path TEXT,
         deleted_at TEXT,
 

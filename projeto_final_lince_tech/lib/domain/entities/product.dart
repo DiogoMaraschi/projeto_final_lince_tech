@@ -3,7 +3,7 @@ class Product {
   final String name;
   final String barcode;
   final String? description;
-  final int brandId;
+  final String brand;
   final String? imagePath;
 
   Product({
@@ -11,7 +11,7 @@ class Product {
     required this.name,
     required this.barcode,
     this.description,
-    required this.brandId,
+    required this.brand,
     this.imagePath,
   });
 }

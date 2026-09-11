@@ -134,6 +134,60 @@ abstract class AppLocalizations {
   /// **'Voltar'**
   String get commonBack;
 
+  /// No description provided for @commomName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome'**
+  String get commomName;
+
+  /// No description provided for @commomPhone.
+  ///
+  /// In pt, this message translates to:
+  /// **'Telefone'**
+  String get commomPhone;
+
+  /// No description provided for @commomHintPhone.
+  ///
+  /// In pt, this message translates to:
+  /// **'(47)99900-5060'**
+  String get commomHintPhone;
+
+  /// No description provided for @commomEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail'**
+  String get commomEmail;
+
+  /// No description provided for @commomHintEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'seuemail@dominio.com'**
+  String get commomHintEmail;
+
+  /// No description provided for @commomAdress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get commomAdress;
+
+  /// No description provided for @commomAddImage.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar Imagem'**
+  String get commomAddImage;
+
+  /// No description provided for @commomCnpj.
+  ///
+  /// In pt, this message translates to:
+  /// **'CNPJ'**
+  String get commomCnpj;
+
+  /// No description provided for @commomHintCnpj.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: 34.562.785/0001-40'**
+  String get commomHintCnpj;
+
   /// No description provided for @productTitle.
   ///
   /// In pt, this message translates to:
@@ -188,71 +242,59 @@ abstract class AppLocalizations {
   /// **'Ex: Nike'**
   String get productHintBrand;
 
-  /// No description provided for @productAddImage.
+  /// No description provided for @carrierTitle.
   ///
   /// In pt, this message translates to:
-  /// **'Adicionar Imagem'**
-  String get productAddImage;
+  /// **'Cadastro de Transportadora'**
+  String get carrierTitle;
 
-  /// No description provided for @customerTitle.
+  /// No description provided for @carrierName.
   ///
   /// In pt, this message translates to:
-  /// **'Cadastro de Cliente'**
-  String get customerTitle;
+  /// **'Nome da Transportadora'**
+  String get carrierName;
 
-  /// No description provided for @customerName.
+  /// No description provided for @carrierHintName.
   ///
   /// In pt, this message translates to:
-  /// **'Nome'**
-  String get customerName;
+  /// **'Ex: Transportadora Boa Vista'**
+  String get carrierHintName;
 
-  /// No description provided for @customerCnpj.
+  /// No description provided for @carrierLegalName.
   ///
   /// In pt, this message translates to:
-  /// **'CNPJ'**
-  String get customerCnpj;
+  /// **'Razão Social'**
+  String get carrierLegalName;
 
-  /// No description provided for @customerPhone.
+  /// No description provided for @carrierHintLegalName.
   ///
   /// In pt, this message translates to:
-  /// **'Telefone'**
-  String get customerPhone;
+  /// **'Ex: Transportadora Boa Vista LTDA'**
+  String get carrierHintLegalName;
 
-  /// No description provided for @customerEmail.
+  /// No description provided for @carrierCostPerKm.
   ///
   /// In pt, this message translates to:
-  /// **'E-mail'**
-  String get customerEmail;
+  /// **'Custo Por Km'**
+  String get carrierCostPerKm;
 
-  /// No description provided for @orderTitle.
+  /// No description provided for @carrierHintCostPerKm.
   ///
   /// In pt, this message translates to:
-  /// **'Pedido'**
-  String get orderTitle;
+  /// **'Ex: 7.20'**
+  String get carrierHintCostPerKm;
 
-  /// No description provided for @orderNumber.
+  /// No description provided for @carrierMinimumPrice.
   ///
   /// In pt, this message translates to:
-  /// **'Número do Pedido'**
-  String get orderNumber;
+  /// **'Preço Mínimo'**
+  String get carrierMinimumPrice;
 
-  /// No description provided for @orderPaymentMethod.
+  /// No description provided for @carrierHintMinimumPrice.
   ///
   /// In pt, this message translates to:
-  /// **'Forma de Pagamento'**
-  String get orderPaymentMethod;
-
-  /// No description provided for @orderInstallments.
-  ///
-  /// In pt, this message translates to:
-  /// **'Parcelas'**
-  String get orderInstallments;
-
-  /// No description provided for @orderTotal.
-  ///
-  /// In pt, this message translates to:
-  /// **'Total'**
-  String get orderTotal;
+  /// **'Ex: 2.30'**
+  String get carrierHintMinimumPrice;
 }
 
 class _AppLocalizationsDelegate

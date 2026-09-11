@@ -8,7 +8,7 @@ class ProductModel extends Product {
     required super.name,
     required super.barcode,
     super.description,
-    required super.brandId,
+    required super.brand,
     super.imagePath,
     this.deletedAt,
   });
@@ -19,7 +19,7 @@ class ProductModel extends Product {
       name: map['name'] as String,
       barcode: map['barcode'] as String,
       description: map['description'] as String?,
-      brandId: map['brand_id'] as int,
+      brand: map['brand_id'] as String,
       imagePath: map['image_path'] as String?,
       deletedAt: map['deleted_at'] as String?,
     );
@@ -31,7 +31,7 @@ class ProductModel extends Product {
       'name': name,
       'barcode': barcode,
       'description': description,
-      'brand_id': brandId,
+      'brand_id': brand,
       'image_path': imagePath,
       'deleted_at': deletedAt,
     };
@@ -43,7 +43,7 @@ class ProductModel extends Product {
       name: product.name,
       barcode: product.barcode,
       description: product.description,
-      brandId: product.brandId,
+      brand: product.brand,
       imagePath: product.imagePath,
     );
   }

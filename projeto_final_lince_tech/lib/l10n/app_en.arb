@@ -7,6 +7,15 @@
   "commonEdit": "Edit",
   "commonBack": "Back",
 
+  "commomName": "Name",
+  "commomPhone": "Phone",
+  "commomHintPhone": "(47)99900-5060",
+  "commomEmail": "E-mail",
+  "commomHintEmail": "youremail@domain.com",
+  "commomAdress": "Adress",
+  "commomAddImage": "Add Image",
+  "commomCnpj": "CNPJ",
+  "commomHintCnpj": "Ex: 34.562.785/0001-40",
 
   "productTitle": "Product Registration",
   "productName": "Product Name",
@@ -17,17 +26,14 @@
   "productHintDescription": "Describe about product details",
   "productBrand": "Brand",
   "productHintBrand": "Ex: Nike",
-  "productAddImage": "Add Image",
 
-  "customerTitle": "Customer Registration",
-  "customerName": "Name",
-  "customerCnpj": "CNPJ",
-  "customerPhone": "Phone",
-  "customerEmail": "Email",
-
-  "orderTitle": "Order",
-  "orderNumber": "Order Number",
-  "orderPaymentMethod": "Payment Method",
-  "orderInstallments": "Installments",
-  "orderTotal": "Total"
+  "carrierTitle": "Carrier Registration",
+  "carrierName": "Carrier Name",
+  "carrierHintName": "Ex: UPS",
+  "carrierLegalName": "Legal Name",
+  "carrierHintLegalName": "Ex: UPS LLC",
+  "carrierCostPerKm": "Cost Per Km",
+  "carrierHintCostPerKm": "Ex: 7.20",
+  "carrierMinimumPrice": "Minimum Price",
+  "carrierHintMinimumPrice": "Ex: 2.30"
 }

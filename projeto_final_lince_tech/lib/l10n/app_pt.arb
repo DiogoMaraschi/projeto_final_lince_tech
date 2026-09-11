@@ -7,6 +7,16 @@
   "commonEdit": "Editar",
   "commonBack": "Voltar",
 
+  "commomName": "Nome",
+  "commomPhone": "Telefone",
+  "commomHintPhone": "(47)99900-5060",
+  "commomEmail": "E-mail",
+  "commomHintEmail": "seuemail@dominio.com",
+  "commomAdress": "Endereço",
+  "commomAddImage": "Adicionar Imagem",
+  "commomCnpj": "CNPJ",
+  "commomHintCnpj": "Ex: 34.562.785/0001-40",
+
   "productTitle": "Cadastro de Produto",
   "productName": "Nome do Produto",
   "productHintName": "Ex: Bola de Futebol",
@@ -16,18 +26,16 @@
   "productHintDescription": "Descreva detalhes do produto",
   "productBrand": "Marca",
   "productHintBrand": "Ex: Nike",
-  "productAddImage": "Adicionar Imagem",
+
+  "carrierTitle": "Cadastro de Transportadora",
+  "carrierName": "Nome da Transportadora",
+  "carrierHintName": "Ex: Transportadora Boa Vista",
+  "carrierLegalName": "Razão Social",
+  "carrierHintLegalName": "Ex: Transportadora Boa Vista LTDA",
+  "carrierCostPerKm": "Custo Por Km",
+  "carrierHintCostPerKm": "Ex: 7.20",
+  "carrierMinimumPrice": "Preço Mínimo",
+  "carrierHintMinimumPrice": "Ex: 2.30"
+
   
-
-  "customerTitle": "Cadastro de Cliente",
-  "customerName": "Nome",
-  "customerCnpj": "CNPJ",
-  "customerPhone": "Telefone",
-  "customerEmail": "E-mail",
-
-  "orderTitle": "Pedido",
-  "orderNumber": "Número do Pedido",
-  "orderPaymentMethod": "Forma de Pagamento",
-  "orderInstallments": "Parcelas",
-  "orderTotal": "Total"
 }
