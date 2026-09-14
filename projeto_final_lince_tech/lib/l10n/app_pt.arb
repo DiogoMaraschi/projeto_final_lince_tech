@@ -35,7 +35,21 @@
   "carrierCostPerKm": "Custo Por Km",
   "carrierHintCostPerKm": "Ex: 7.20",
   "carrierMinimumPrice": "Preço Mínimo",
-  "carrierHintMinimumPrice": "Ex: 2.30"
+  "carrierHintMinimumPrice": "Ex: 2.30",
 
-  
+  "addressTitle": "Endereço",
+  "addressCep": "CEP",
+  "addressHintCep": "Ex: 89110-001",
+  "addressState": "Estado",
+  "addressHintState": "Ex: SC",
+  "addressCity": "Cidade",
+  "addressHintCity": "Ex: Gaspar",
+  "addressStreet": "Rua",
+  "addressHintStreet": "Ex: Rua Gisele Brick Maraschi",
+  "addressNumber": "Número",
+  "addressHintNumber": "Ex: 20",
+  "addressNeighborhood": "Bairro",
+  "addressHintNeighborhood": "Ex: Santa Terezinha",
+  "addressComplement": "Complemento",
+  "addressHintComplement": "Ex: Sala 01"
 }

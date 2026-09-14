@@ -106,4 +106,49 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get carrierHintMinimumPrice => 'Ex: 2.30';
+
+  @override
+  String get addressTitle => 'Endereço';
+
+  @override
+  String get addressCep => 'CEP';
+
+  @override
+  String get addressHintCep => 'Ex: 89110-001';
+
+  @override
+  String get addressState => 'Estado';
+
+  @override
+  String get addressHintState => 'Ex: SC';
+
+  @override
+  String get addressCity => 'Cidade';
+
+  @override
+  String get addressHintCity => 'Ex: Gaspar';
+
+  @override
+  String get addressStreet => 'Rua';
+
+  @override
+  String get addressHintStreet => 'Ex: Rua Gisele Brick Maraschi';
+
+  @override
+  String get addressNumber => 'Número';
+
+  @override
+  String get addressHintNumber => 'Ex: 20';
+
+  @override
+  String get addressNeighborhood => 'Bairro';
+
+  @override
+  String get addressHintNeighborhood => 'Ex: Santa Terezinha';
+
+  @override
+  String get addressComplement => 'Complemento';
+
+  @override
+  String get addressHintComplement => 'Ex: Sala 01';
 }

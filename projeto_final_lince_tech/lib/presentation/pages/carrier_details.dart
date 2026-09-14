@@ -14,8 +14,10 @@ class CarrierDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) =>
-          CarrierController(getCnpjUsecase: injection.getCnpjUsecase),
+      create: (context) => CarrierController(
+        getCnpjUsecase: injection.getCnpjUsecase,
+        getAdressUsecase: injection.getAdressUsecase,
+      ),
       child: _CarrierDetailState(),
     );
   }
@@ -123,7 +125,7 @@ class _CarrierDetailState extends StatelessWidget {
                                   SizedBox(height: 6),
                                   CommomTextField(
                                     controller: state.costPerKmController,
-                                    hintText: l10n.carrierCostPerKm,
+                                    hintText: l10n.carrierHintCostPerKm,
                                     keyboardType: TextInputType.number,
                                   ),
                                 ],
@@ -151,7 +153,16 @@ class _CarrierDetailState extends StatelessWidget {
                             ),
                           ],
                         ),
-                        AdressForm(),
+                        AdressForm(
+                          cepController: state.zipcodeController,
+                          stateController: state.stateController,
+                          cityController: state.cityController,
+                          streetController: state.streetController,
+                          numberController: state.numberController,
+                          neighborhoodController: state.neighborhoodController,
+                          complementController: state.complementController,
+                          searchByZipcode: state.searchZipcode,
+                        ),
                       ],
                     ),
                   ),

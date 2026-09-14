@@ -33,16 +33,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commomPhone => 'Phone';
 
   @override
-  String get commomHintPhone => '(47)99900-5060';
+  String get commomHintPhone => '(47) 99900-5060';
 
   @override
-  String get commomEmail => 'E-mail';
+  String get commomEmail => 'Email';
 
   @override
   String get commomHintEmail => 'youremail@domain.com';
 
   @override
-  String get commomAdress => 'Adress';
+  String get commomAdress => 'Address';
 
   @override
   String get commomAddImage => 'Add Image';
@@ -72,7 +72,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productDescription => 'Description';
 
   @override
-  String get productHintDescription => 'Describe about product details';
+  String get productHintDescription => 'Describe product details';
 
   @override
   String get productBrand => 'Brand';
@@ -87,13 +87,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get carrierName => 'Carrier Name';
 
   @override
-  String get carrierHintName => 'Ex: UPS';
+  String get carrierHintName => 'Ex: Boa Vista Transport';
 
   @override
   String get carrierLegalName => 'Legal Name';
 
   @override
-  String get carrierHintLegalName => 'Ex: UPS LLC';
+  String get carrierHintLegalName => 'Ex: Boa Vista Transport Ltd.';
 
   @override
   String get carrierCostPerKm => 'Cost Per Km';
@@ -106,4 +106,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get carrierHintMinimumPrice => 'Ex: 2.30';
+
+  @override
+  String get addressTitle => 'Address';
+
+  @override
+  String get addressCep => 'ZIP Code';
+
+  @override
+  String get addressHintCep => 'Ex: 89110-001';
+
+  @override
+  String get addressState => 'State';
+
+  @override
+  String get addressHintState => 'Ex: SC';
+
+  @override
+  String get addressCity => 'City';
+
+  @override
+  String get addressHintCity => 'Ex: Gaspar';
+
+  @override
+  String get addressStreet => 'Street';
+
+  @override
+  String get addressHintStreet => 'Ex: Gisele Brick Maraschi Street';
+
+  @override
+  String get addressNumber => 'Number';
+
+  @override
+  String get addressHintNumber => 'Ex: 20';
+
+  @override
+  String get addressNeighborhood => 'Neighborhood';
+
+  @override
+  String get addressHintNeighborhood => 'Ex: Santa Terezinha';
+
+  @override
+  String get addressComplement => 'Complement';
+
+  @override
+  String get addressHintComplement => 'Ex: Suite 01';
 }

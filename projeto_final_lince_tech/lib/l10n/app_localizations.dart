@@ -295,6 +295,96 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Ex: 2.30'**
   String get carrierHintMinimumPrice;
+
+  /// No description provided for @addressTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get addressTitle;
+
+  /// No description provided for @addressCep.
+  ///
+  /// In pt, this message translates to:
+  /// **'CEP'**
+  String get addressCep;
+
+  /// No description provided for @addressHintCep.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: 89110-001'**
+  String get addressHintCep;
+
+  /// No description provided for @addressState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Estado'**
+  String get addressState;
+
+  /// No description provided for @addressHintState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: SC'**
+  String get addressHintState;
+
+  /// No description provided for @addressCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cidade'**
+  String get addressCity;
+
+  /// No description provided for @addressHintCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: Gaspar'**
+  String get addressHintCity;
+
+  /// No description provided for @addressStreet.
+  ///
+  /// In pt, this message translates to:
+  /// **'Rua'**
+  String get addressStreet;
+
+  /// No description provided for @addressHintStreet.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: Rua Gisele Brick Maraschi'**
+  String get addressHintStreet;
+
+  /// No description provided for @addressNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Número'**
+  String get addressNumber;
+
+  /// No description provided for @addressHintNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: 20'**
+  String get addressHintNumber;
+
+  /// No description provided for @addressNeighborhood.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bairro'**
+  String get addressNeighborhood;
+
+  /// No description provided for @addressHintNeighborhood.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: Santa Terezinha'**
+  String get addressHintNeighborhood;
+
+  /// No description provided for @addressComplement.
+  ///
+  /// In pt, this message translates to:
+  /// **'Complemento'**
+  String get addressComplement;
+
+  /// No description provided for @addressHintComplement.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex: Sala 01'**
+  String get addressHintComplement;
 }
 
 class _AppLocalizationsDelegate
