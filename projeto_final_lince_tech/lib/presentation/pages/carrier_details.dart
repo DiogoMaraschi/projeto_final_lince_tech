@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier_controller.dart';
 import '../widgets/adress_form.dart';
+import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_field.dart';
 
@@ -171,6 +172,10 @@ class _CarrierDetailState extends StatelessWidget {
             ],
           );
         },
+      ),
+      bottomNavigationBar: BottomButton(
+        btnText: 'Salvar',
+        btnAction: () => print(''),
       ),
     );
   }

@@ -4,6 +4,7 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/product_controller.dart';
+import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_field.dart';
 
@@ -151,44 +152,11 @@ class _ProductDetailsState extends StatelessWidget {
                   ),
                 ),
               ),
-
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(color: Colors.white),
-                child: SizedBox(
-                  height: 54,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => print('clicou'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.check, size: 24),
-
-                        const SizedBox(width: 4),
-
-                        Text(
-                          l10n.commonSave,
-                          style: const TextStyle(fontSize: 22),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
+          ),
+          bottomNavigationBar: BottomButton(
+            btnText: 'Salvar',
+            btnAction: state.takePicture,
           ),
         );
       },
