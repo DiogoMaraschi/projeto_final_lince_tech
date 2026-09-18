@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
 import 'core/dependecies/injection.dart';
 import 'presentation/pages/carrier_details.dart';
+import 'presentation/pages/product_details.dart';
 
 late final Injection injection;
 

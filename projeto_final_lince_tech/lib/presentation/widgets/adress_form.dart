@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../validators/cep_validator.dart';
+import '../validators/not_empty_validator.dart';
 import 'commom_label.dart';
-import 'commom_text_field.dart';
+import 'commom_text_form_field.dart';
 
 class AdressForm extends StatelessWidget {
   final TextEditingController cepController;
@@ -13,6 +16,7 @@ class AdressForm extends StatelessWidget {
   final TextEditingController neighborhoodController;
   final TextEditingController complementController;
   final VoidCallback searchByZipcode;
+  final GlobalKey<FormFieldState> cepFieldKey;
 
   const AdressForm({
     super.key,
@@ -24,6 +28,7 @@ class AdressForm extends StatelessWidget {
     required this.neighborhoodController,
     required this.complementController,
     required this.searchByZipcode,
+    required this.cepFieldKey,
   });
 
   @override
@@ -44,14 +49,18 @@ class AdressForm extends StatelessWidget {
         CommomLabel(text: l10n.addressCep, isPrimary: true),
         const SizedBox(height: 6),
 
-        CommomTextField(
+        CommomTextFormField(
+          key: cepFieldKey,
           controller: cepController,
           hintText: l10n.addressHintCep,
           keyboardType: TextInputType.number,
+          validator: validateCep,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           suffixIcon: IconButton(
             onPressed: () {
-              print('botao form');
-              searchByZipcode();
+              if (cepFieldKey.currentState!.validate()) {
+                searchByZipcode();
+              }
             },
             icon: const Icon(Icons.search, size: 30),
           ),
@@ -69,9 +78,10 @@ class AdressForm extends StatelessWidget {
                   CommomLabel(text: l10n.addressState, isPrimary: true),
                   const SizedBox(height: 6),
 
-                  CommomTextField(
+                  CommomTextFormField(
                     controller: stateController,
                     hintText: l10n.addressHintState,
+                    validator: isNotEmpty,
                   ),
                 ],
               ),
@@ -87,9 +97,10 @@ class AdressForm extends StatelessWidget {
                   CommomLabel(text: l10n.addressCity, isPrimary: true),
                   const SizedBox(height: 6),
 
-                  CommomTextField(
+                  CommomTextFormField(
                     controller: cityController,
                     hintText: l10n.addressHintCity,
+                    validator: isNotEmpty,
                   ),
                 ],
               ),
@@ -103,9 +114,10 @@ class AdressForm extends StatelessWidget {
         CommomLabel(text: l10n.addressStreet, isPrimary: true),
         const SizedBox(height: 6),
 
-        CommomTextField(
+        CommomTextFormField(
           controller: streetController,
           hintText: l10n.addressHintStreet,
+          validator: isNotEmpty,
         ),
 
         const SizedBox(height: 16),
@@ -120,10 +132,12 @@ class AdressForm extends StatelessWidget {
                   CommomLabel(text: l10n.addressNumber, isPrimary: true),
                   const SizedBox(height: 6),
 
-                  CommomTextField(
+                  CommomTextFormField(
                     controller: numberController,
                     hintText: l10n.addressHintNumber,
                     keyboardType: TextInputType.number,
+                    validator: isNotEmpty,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ],
               ),
@@ -139,7 +153,7 @@ class AdressForm extends StatelessWidget {
                   CommomLabel(text: l10n.addressNeighborhood, isPrimary: true),
                   const SizedBox(height: 6),
 
-                  CommomTextField(
+                  CommomTextFormField(
                     controller: neighborhoodController,
                     hintText: l10n.addressHintNeighborhood,
                   ),
@@ -155,7 +169,7 @@ class AdressForm extends StatelessWidget {
         CommomLabel(text: l10n.addressComplement),
         const SizedBox(height: 6),
 
-        CommomTextField(
+        CommomTextFormField(
           controller: complementController,
           hintText: l10n.addressHintComplement,
         ),

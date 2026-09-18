@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier_controller.dart';
+import '../validators/cnpj_validator.dart';
+import '../validators/email_validator.dart';
+import '../validators/not_empty_validator.dart';
+import '../validators/phone_validator.dart';
 import '../widgets/adress_form.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
-import '../widgets/commom_text_field.dart';
+import '../widgets/commom_text_form_field.dart';
 
 class CarrierDetails extends StatelessWidget {
   const CarrierDetails({super.key});
@@ -26,6 +31,9 @@ class CarrierDetails extends StatelessWidget {
 
 class _CarrierDetailState extends StatelessWidget {
   _CarrierDetailState();
+
+  final _formKey = GlobalKey<FormState>();
+  final _cepFieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +58,23 @@ class _CarrierDetailState extends StatelessWidget {
                 child: SingleChildScrollView(
                   padding: EdgeInsets.all(18),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // CNPJ
                         CommomLabel(text: l10n.commomCnpj, isPrimary: true),
                         SizedBox(height: 6),
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.cnpjController,
                           hintText: l10n.commomHintCnpj,
                           keyboardType: TextInputType.number,
+                          validator: validateCnpj,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           suffixIcon: IconButton(
-                            onPressed: () {
-                              context.read<CarrierController>().searchCnpj();
-                              print('botao pressionado');
-                            },
+                            onPressed: state.searchCnpj,
                             icon: const Icon(Icons.search, size: 30),
                           ),
                         ),
@@ -73,9 +83,10 @@ class _CarrierDetailState extends StatelessWidget {
                         // Name
                         CommomLabel(text: l10n.carrierName),
                         SizedBox(height: 6),
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.nameController,
                           hintText: l10n.carrierHintName,
+                          validator: isNotEmpty,
                         ),
 
                         SizedBox(height: 16),
@@ -83,9 +94,10 @@ class _CarrierDetailState extends StatelessWidget {
                         // Legal Name
                         CommomLabel(text: l10n.carrierLegalName),
                         SizedBox(height: 6),
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.legalNameController,
                           hintText: l10n.carrierHintLegalName,
+                          validator: isNotEmpty,
                         ),
 
                         SizedBox(height: 16),
@@ -93,10 +105,11 @@ class _CarrierDetailState extends StatelessWidget {
                         // Email
                         CommomLabel(text: l10n.commomEmail, isPrimary: true),
                         SizedBox(height: 6),
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.emailController,
                           hintText: l10n.commomHintEmail,
                           keyboardType: TextInputType.emailAddress,
+                          validator: validateEmail,
                         ),
 
                         SizedBox(height: 16),
@@ -104,10 +117,11 @@ class _CarrierDetailState extends StatelessWidget {
                         // Phone
                         CommomLabel(text: l10n.commomPhone, isPrimary: true),
                         SizedBox(height: 6),
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.phoneController,
                           hintText: l10n.commomHintPhone,
                           keyboardType: TextInputType.phone,
+                          validator: validatePhone,
                         ),
 
                         SizedBox(height: 16),
@@ -124,10 +138,14 @@ class _CarrierDetailState extends StatelessWidget {
                                     isPrimary: true,
                                   ),
                                   SizedBox(height: 6),
-                                  CommomTextField(
+                                  CommomTextFormField(
                                     controller: state.costPerKmController,
                                     hintText: l10n.carrierHintCostPerKm,
                                     keyboardType: TextInputType.number,
+                                    validator: isNotEmpty,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                   ),
                                 ],
                               ),
@@ -144,10 +162,14 @@ class _CarrierDetailState extends StatelessWidget {
                                     isPrimary: true,
                                   ),
                                   SizedBox(height: 6),
-                                  CommomTextField(
+                                  CommomTextFormField(
                                     controller: state.minimumPriceController,
                                     hintText: l10n.carrierHintMinimumPrice,
                                     keyboardType: TextInputType.phone,
+                                    validator: isNotEmpty,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                   ),
                                 ],
                               ),
@@ -163,6 +185,7 @@ class _CarrierDetailState extends StatelessWidget {
                           neighborhoodController: state.neighborhoodController,
                           complementController: state.complementController,
                           searchByZipcode: state.searchZipcode,
+                          cepFieldKey: _cepFieldKey,
                         ),
                       ],
                     ),
@@ -175,7 +198,12 @@ class _CarrierDetailState extends StatelessWidget {
       ),
       bottomNavigationBar: BottomButton(
         btnText: 'Salvar',
-        btnAction: () => print(''),
+        btnAction: () {
+          if (_formKey.currentState!.validate()) {
+            print('Formulário válido');
+            // TODO salvar no banco
+          }
+        },
       ),
     );
   }

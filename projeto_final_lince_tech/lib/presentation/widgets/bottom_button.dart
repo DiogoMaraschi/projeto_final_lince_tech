@@ -20,7 +20,7 @@ class BottomButton extends StatelessWidget {
         height: 54,
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () => btnAction,
+          onPressed: btnAction,
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors().primaryColor,
             foregroundColor: Colors.white,

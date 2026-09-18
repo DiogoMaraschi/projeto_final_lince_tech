@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/product_controller.dart';
+import '../validators/not_empty_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
-import '../widgets/commom_text_field.dart';
+import '../widgets/commom_text_form_field.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key});
@@ -24,6 +26,8 @@ class ProductDetails extends StatelessWidget {
 
 class _ProductDetailsState extends StatelessWidget {
   _ProductDetailsState();
+
+  final _formKey = GlobalKey<FormState>();
 
   final primaryColor = AppColors().primaryColor;
 
@@ -51,6 +55,7 @@ class _ProductDetailsState extends StatelessWidget {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(18),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -79,7 +84,7 @@ class _ProductDetailsState extends StatelessWidget {
                               GestureDetector(
                                 onTap: () => print('clicou no texto'),
                                 child: Text(
-                                  l10n!.commomAddImage,
+                                  l10n.commomAddImage,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: primaryColor,
@@ -98,9 +103,10 @@ class _ProductDetailsState extends StatelessWidget {
 
                         const SizedBox(height: 6),
 
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.nameController,
                           hintText: l10n.productHintName,
+                          validator: isNotEmpty,
                         ),
 
                         const SizedBox(height: 16),
@@ -110,10 +116,14 @@ class _ProductDetailsState extends StatelessWidget {
 
                         const SizedBox(height: 6),
 
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.barcodeController,
                           hintText: l10n.productHintBarcode,
                           keyboardType: TextInputType.number,
+                          validator: isNotEmpty,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           suffixIcon: const Icon(
                             Icons.qr_code_scanner,
                             size: 28,
@@ -130,7 +140,7 @@ class _ProductDetailsState extends StatelessWidget {
 
                         const SizedBox(height: 6),
 
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.descriptionController,
                           hintText: l10n.productHintDescription,
                           maxLines: 4,
@@ -143,9 +153,10 @@ class _ProductDetailsState extends StatelessWidget {
 
                         const SizedBox(height: 6),
 
-                        CommomTextField(
+                        CommomTextFormField(
                           controller: state.brandController,
                           hintText: l10n.productHintBrand,
+                          validator: isNotEmpty,
                         ),
                       ],
                     ),
@@ -156,7 +167,12 @@ class _ProductDetailsState extends StatelessWidget {
           ),
           bottomNavigationBar: BottomButton(
             btnText: 'Salvar',
-            btnAction: state.takePicture,
+            btnAction: () {
+              if (_formKey.currentState!.validate()) {
+                print('Formulário válido');
+                // TODO salvar no banco
+              }
+            },
           ),
         );
       },
