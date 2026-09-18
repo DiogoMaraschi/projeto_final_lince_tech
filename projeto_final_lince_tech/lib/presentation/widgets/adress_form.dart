@@ -50,7 +50,7 @@ class AdressForm extends StatelessWidget {
         const SizedBox(height: 6),
 
         CommomTextFormField(
-          key: cepFieldKey,
+          fieldKey: cepFieldKey,
           controller: cepController,
           hintText: l10n.addressHintCep,
           keyboardType: TextInputType.number,
