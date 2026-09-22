@@ -4,6 +4,7 @@ import '../entities/product.dart';
 
 abstract class ProductRepository {
   Future<int> insert(Product product);
+  Future<List<Product>> getProducts();
 }
 
 class ProductRepositoryImpl implements ProductRepository {
@@ -20,5 +21,13 @@ class ProductRepositoryImpl implements ProductRepository {
     final conn = await databaseHelper.database;
 
     return conn.insert(tableName, productModel.toMap());
+  }
+
+  @override
+  Future<List<Product>> getProducts() async {
+    final conn = await databaseHelper.database;
+
+    final result = await conn.query(tableName);
+    return result.map((map) => ProductModel.fromMap(map)).toList();
   }
 }

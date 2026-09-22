@@ -4,12 +4,12 @@ import '../../domain/usecases/adress/get_adress_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 
 class CarrierController with ChangeNotifier {
-  final GetCnpjUsecase getCnpjUsecase;
-  final GetAdressUsecase getAdressUsecase;
+  final GetCnpjUsecase _getCnpjUsecase;
+  final GetAdressUsecase _getAdressUsecase;
 
   CarrierController({
-    required this.getCnpjUsecase,
-    required this.getAdressUsecase,
+    required this._getCnpjUsecase,
+    required this._getAdressUsecase,
   });
 
   final nameController = TextEditingController();
@@ -51,7 +51,7 @@ class CarrierController with ChangeNotifier {
 
   Future<void> searchCnpj() async {
     try {
-      final result = await getCnpjUsecase(cnpjController.text);
+      final result = await _getCnpjUsecase(cnpjController.text);
 
       nameController.text = result.nomeFantasia;
       legalNameController.text = result.razaoSocial;
@@ -66,7 +66,7 @@ class CarrierController with ChangeNotifier {
 
   Future<void> searchZipcode() async {
     try {
-      final result = await getAdressUsecase(zipcodeController.text);
+      final result = await _getAdressUsecase(zipcodeController.text);
 
       stateController.text = result.state;
       cityController.text = result.city;

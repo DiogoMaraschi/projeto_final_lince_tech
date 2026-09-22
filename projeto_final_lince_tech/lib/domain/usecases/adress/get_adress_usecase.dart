@@ -2,7 +2,7 @@ import '../../../data/models/adress_model.dart';
 import '../../repositories/adress_repository.dart';
 
 class GetAdressUsecase {
-  final AdressRepositoryImpl repository;
+  final AdressRepository repository;
 
   GetAdressUsecase({required this.repository});
 

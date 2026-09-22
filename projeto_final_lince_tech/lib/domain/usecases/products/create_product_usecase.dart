@@ -6,7 +6,7 @@ class CreateProductUsecase {
 
   CreateProductUsecase({required this.repository});
 
-  Future<int> call(Product product) async {
-    return await repository.insert(product);
+  Future<int> call(Product product) {
+    return repository.insert(product);
   }
 }

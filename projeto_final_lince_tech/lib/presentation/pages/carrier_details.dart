@@ -14,8 +14,8 @@ import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 
-class CarrierDetails extends StatelessWidget {
-  const CarrierDetails({super.key});
+class CarrierDetailsPage extends StatelessWidget {
+  const CarrierDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +12,15 @@ import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+class ProductDetailsPage extends StatelessWidget {
+  const ProductDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => ProductController(
         createProductUsecase: injection.createProductUsecase,
+        captureImageUsecase: injection.captureImageUsecase,
       ),
       child: _ProductDetailsState(),
     );
@@ -63,7 +66,7 @@ class _ProductDetailsState extends StatelessWidget {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () => state.takePicture(),
+                                onTap: state.captureImage,
                                 child: Container(
                                   width: 110,
                                   height: 110,
@@ -71,18 +74,27 @@ class _ProductDetailsState extends StatelessWidget {
                                     color: Color(0xFFEEF2F6),
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 32,
-                                    color: primaryColor,
-                                  ),
+                                  child: state.imagePath != null
+                                      ? ClipOval(
+                                          child: Image.file(
+                                            File(state.imagePath!),
+                                            width: 110,
+                                            height: 110,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : Icon(
+                                          Icons.camera_alt_outlined,
+                                          size: 32,
+                                          color: primaryColor,
+                                        ),
                                 ),
                               ),
 
                               const SizedBox(height: 8),
 
                               GestureDetector(
-                                onTap: () => print('clicou no texto'),
+                                onTap: state.captureImage,
                                 child: Text(
                                   l10n.commomAddImage,
                                   style: TextStyle(
@@ -167,10 +179,15 @@ class _ProductDetailsState extends StatelessWidget {
           ),
           bottomNavigationBar: BottomButton(
             btnText: 'Salvar',
-            btnAction: () {
+            btnAction: () async {
               if (_formKey.currentState!.validate()) {
-                print('Formulário válido');
-                // TODO salvar no banco
+                final success = await state.insertProduct();
+
+                if (!context.mounted) return;
+
+                if (success) {
+                  Navigator.pop(context);
+                }
               }
             },
           ),

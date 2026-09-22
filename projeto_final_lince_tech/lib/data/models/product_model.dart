@@ -19,7 +19,7 @@ class ProductModel extends Product {
       name: map['name'] as String,
       barcode: map['barcode'] as String,
       description: map['description'] as String?,
-      brand: map['brand_id'] as String,
+      brand: map['brand'] as String,
       imagePath: map['image_path'] as String?,
       deletedAt: map['deleted_at'] as String?,
     );
@@ -31,7 +31,7 @@ class ProductModel extends Product {
       'name': name,
       'barcode': barcode,
       'description': description,
-      'brand_id': brand,
+      'brand': brand,
       'image_path': imagePath,
       'deleted_at': deletedAt,
     };

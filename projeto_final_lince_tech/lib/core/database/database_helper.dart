@@ -51,10 +51,7 @@ class DatabaseHelper {
         description TEXT,
         brand TEXT NOT NULL,
         image_path TEXT,
-        deleted_at TEXT,
-
-        FOREIGN KEY (brand_id)
-          REFERENCES brands(id)
+        deleted_at TEXT
       )
     ''');
 
@@ -159,5 +156,12 @@ class DatabaseHelper {
     final db = await database;
     await db.close();
     _database = null;
+  }
+
+  Future<void> resetDatabase() async {
+    final databasePath = await getDatabasesPath();
+    final path = join(databasePath, 'app_database.db');
+
+    await deleteDatabase(path);
   }
 }
