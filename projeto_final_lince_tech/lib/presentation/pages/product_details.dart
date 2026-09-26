@@ -126,6 +126,7 @@ class _ProductDetailsState extends StatelessWidget {
                           controller: state.nameController,
                           hintText: l10n.productHintName,
                           validator: isNotEmpty,
+                          textCapitalization: TextCapitalization.words,
                         ),
 
                         const SizedBox(height: 16),
@@ -163,6 +164,7 @@ class _ProductDetailsState extends StatelessWidget {
                           controller: state.descriptionController,
                           hintText: l10n.productHintDescription,
                           maxLines: 4,
+                          textCapitalization: TextCapitalization.sentences,
                         ),
 
                         const SizedBox(height: 16),
@@ -176,6 +178,7 @@ class _ProductDetailsState extends StatelessWidget {
                           controller: state.brandController,
                           hintText: l10n.productHintBrand,
                           validator: isNotEmpty,
+                          textCapitalization: TextCapitalization.words,
                         ),
                       ],
                     ),
@@ -204,47 +207,46 @@ class _ProductDetailsState extends StatelessWidget {
                 },
               ),
               if (state.isEditing)
-                if (state.isEditing)
-                  DeleteButton(
-                    btnText: 'Excluir',
-                    btnAction: () async {
-                      final confirm = await showDialog<bool>(
-                        context: context,
-                        builder: (dialogContext) {
-                          return AlertDialog(
-                            title: const Text('Excluir produto?'),
-                            content: const Text(
-                              'O produto não será exibido na lista, mas seus dados serão mantidos.',
+                DeleteButton(
+                  btnText: 'Excluir',
+                  btnAction: () async {
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (dialogContext) {
+                        return AlertDialog(
+                          title: const Text('Excluir produto?'),
+                          content: const Text(
+                            'O produto não será exibido na lista, mas seus dados serão mantidos.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(dialogContext, false);
+                              },
+                              child: const Text('Cancelar'),
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(dialogContext, false);
-                                },
-                                child: const Text('Cancelar'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(dialogContext, true);
-                                },
-                                child: const Text('Excluir'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(dialogContext, true);
+                              },
+                              child: const Text('Excluir'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
 
-                      if (confirm != true) return;
+                    if (confirm != true) return;
 
-                      final success = await state.delete();
+                    final success = await state.delete();
 
-                      if (!context.mounted) return;
+                    if (!context.mounted) return;
 
-                      if (success) {
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
+                    if (success) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
               SizedBox(height: 15),
             ],
           ),

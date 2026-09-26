@@ -14,6 +14,7 @@ class CommomTextFormField extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.fieldKey,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   final TextEditingController _controller;
@@ -24,6 +25,7 @@ class CommomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final Key? fieldKey;
+  final TextCapitalization textCapitalization;
 
   final primaryColor = AppColors().primaryColor;
   final hintColor = AppColors().hintColor;
@@ -39,6 +41,7 @@ class CommomTextFormField extends StatelessWidget {
       child: TextFormField(
         key: fieldKey,
         controller: _controller,
+        textCapitalization: textCapitalization,
         keyboardType: _keyboardType,
         maxLines: _maxLines,
         validator: validator,
