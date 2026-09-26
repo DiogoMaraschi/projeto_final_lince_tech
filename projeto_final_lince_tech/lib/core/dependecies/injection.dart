@@ -11,7 +11,9 @@ import '../../domain/usecases/adress/get_adress_usecase.dart';
 import '../../domain/usecases/capture_image_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 import '../../domain/usecases/products/create_product_usecase.dart';
+import '../../domain/usecases/products/delete_product_usecase.dart';
 import '../../domain/usecases/products/get_products_usecase.dart';
+import '../../domain/usecases/products/update_product_usecase.dart';
 import '../database/database_helper.dart';
 import '../storage/preferences_service.dart';
 
@@ -21,6 +23,8 @@ class Injection {
   late final GetAdressUsecase getAdressUsecase;
   late final CaptureImageUsecase captureImageUsecase;
   late final GetProductsUsecase getProductsUsecase;
+  late final UpdateProductUsecase updateProductUsecase;
+  late final DeleteProductUsecase deleteProductUsecase;
 
   Future<void> inicialize() async {
     //DATABASE
@@ -52,5 +56,7 @@ class Injection {
     getCnpjUsecase = GetCnpjUsecase(repository: cnpjRepository);
     getAdressUsecase = GetAdressUsecase(repository: adressRepository);
     captureImageUsecase = CaptureImageUsecase(repository: cameraRepository);
+    updateProductUsecase = UpdateProductUsecase(repository: productRepository);
+    deleteProductUsecase = DeleteProductUsecase(repository: productRepository);
   }
 }

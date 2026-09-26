@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../app_colors.dart';
 
-class BottomButton extends StatelessWidget {
-  const BottomButton({
+class DeleteButton extends StatelessWidget {
+  const DeleteButton({
     super.key,
     required this.btnText,
     required this.btnAction,
@@ -22,23 +21,25 @@ class BottomButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: btnAction,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors().primaryColor,
+            backgroundColor: const Color(0xFFDC2626),
             foregroundColor: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
             ),
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.check, size: 24),
+              const Icon(Icons.delete_outline, size: 24),
               const SizedBox(width: 8),
-              Text(btnText, style: const TextStyle(fontSize: 18)),
+              Text(
+                btnText,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ),

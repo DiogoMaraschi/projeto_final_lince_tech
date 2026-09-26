@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../domain/entities/product.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
@@ -11,9 +12,12 @@ import '../validators/not_empty_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
+import '../widgets/delete_button.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({super.key});
+  const ProductDetailsPage({super.key, this.product});
+
+  final Product? product;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,9 @@ class ProductDetailsPage extends StatelessWidget {
       create: (context) => ProductController(
         createProductUsecase: injection.createProductUsecase,
         captureImageUsecase: injection.captureImageUsecase,
+        updateProductUsecase: injection.updateProductUsecase,
+        deleteProductUsecase: injection.deleteProductUsecase,
+        product: product,
       ),
       child: _ProductDetailsState(),
     );
@@ -177,19 +184,69 @@ class _ProductDetailsState extends StatelessWidget {
               ),
             ],
           ),
-          bottomNavigationBar: BottomButton(
-            btnText: 'Salvar',
-            btnAction: () async {
-              if (_formKey.currentState!.validate()) {
-                final success = await state.insertProduct();
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BottomButton(
+                btnText: state.isEditing ? 'Editar' : 'Salvar',
+                btnAction: () async {
+                  print('bnt clicado');
+                  if (_formKey.currentState!.validate()) {
+                    final success = await state.saveProduct();
+                    print('entrou no salvar no page');
 
-                if (!context.mounted) return;
+                    if (!context.mounted) return;
 
-                if (success) {
-                  Navigator.pop(context);
-                }
-              }
-            },
+                    if (success) {
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+              ),
+              if (state.isEditing)
+                if (state.isEditing)
+                  DeleteButton(
+                    btnText: 'Excluir',
+                    btnAction: () async {
+                      final confirm = await showDialog<bool>(
+                        context: context,
+                        builder: (dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Excluir produto?'),
+                            content: const Text(
+                              'O produto não será exibido na lista, mas seus dados serão mantidos.',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(dialogContext, false);
+                                },
+                                child: const Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(dialogContext, true);
+                                },
+                                child: const Text('Excluir'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+
+                      if (confirm != true) return;
+
+                      final success = await state.delete();
+
+                      if (!context.mounted) return;
+
+                      if (success) {
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+              SizedBox(height: 15),
+            ],
           ),
         );
       },

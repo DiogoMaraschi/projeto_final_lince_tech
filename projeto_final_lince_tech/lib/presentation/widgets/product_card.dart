@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/product.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this._product});
+  const ProductCard({super.key, required this._product, required this.onTap});
 
   final Product _product;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ProductCard extends StatelessWidget {
         children: [
           //PRODUCT IMAGE
           Container(
-            width: 100,
+            width: 80,
             height: 100,
             decoration: BoxDecoration(
               color: const Color(0xFFEEF3F7),
@@ -89,7 +90,14 @@ class ProductCard extends StatelessWidget {
           const SizedBox(width: 8),
 
           //ARROW
-          const Icon(Icons.chevron_right, size: 28, color: Color(0xFFA1A1AA)),
+          IconButton(
+            onPressed: onTap,
+            icon: const Icon(
+              Icons.chevron_right,
+              size: 28,
+              color: Color(0xFFA1A1AA),
+            ),
+          ),
         ],
       ),
     );

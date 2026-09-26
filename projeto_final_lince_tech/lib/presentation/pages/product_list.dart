@@ -38,8 +38,21 @@ class _ProductListView extends StatelessWidget {
                   itemCount: state.products.length,
                   itemBuilder: (context, index) {
                     final product = state.products[index];
+                    return ProductCard(
+                      product: product,
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProductDetailsPage(product: product),
+                          ),
+                        );
+                        if (!context.mounted) return;
 
-                    return ProductCard(product: product);
+                        await state.getProducts();
+                      },
+                    );
                   },
                 ),
           floatingActionButton: FloatingActionButton(
