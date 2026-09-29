@@ -15,6 +15,6 @@ class BrasilApiDatasource {
 
     final data = jsonDecode(response.body);
 
-    return AdressModel.fromMap(data);
+    return AdressModel.fromBrasilApiMap(data);
   }
 }

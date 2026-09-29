@@ -14,7 +14,7 @@ class AdressModel extends Adress {
     super.longitude,
   });
 
-  factory AdressModel.fromMap(Map<String, dynamic> map) {
+  factory AdressModel.fromViaCepApiMap(Map<String, dynamic> map) {
     return AdressModel(
       id: map['id'] as int?,
       zipCode: map['cep'] as String,
@@ -24,6 +24,21 @@ class AdressModel extends Adress {
       complement: map['complemento'] as String?,
       city: map['localidade'] as String,
       state: map['uf'] as String,
+      latitude: null,
+      longitude: null,
+    );
+  }
+
+  factory AdressModel.fromBrasilApiMap(Map<String, dynamic> map) {
+    return AdressModel(
+      id: map['id'] as int?,
+      zipCode: map['cep'] as String,
+      street: map['street'] as String,
+      number: 0,
+      neighborhood: map['neighborhood'] as String?,
+      complement: '',
+      city: map['city'] as String,
+      state: map['state'] as String,
       latitude: null,
       longitude: null,
     );

@@ -18,6 +18,6 @@ class ViacepApiDatasource {
 
     print(data);
 
-    return AdressModel.fromMap(data);
+    return AdressModel.fromViaCepApiMap(data);
   }
 }

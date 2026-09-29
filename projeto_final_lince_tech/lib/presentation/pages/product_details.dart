@@ -193,10 +193,8 @@ class _ProductDetailsState extends StatelessWidget {
               BottomButton(
                 btnText: state.isEditing ? 'Editar' : 'Salvar',
                 btnAction: () async {
-                  print('bnt clicado');
                   if (_formKey.currentState!.validate()) {
                     final success = await state.saveProduct();
-                    print('entrou no salvar no page');
 
                     if (!context.mounted) return;
 

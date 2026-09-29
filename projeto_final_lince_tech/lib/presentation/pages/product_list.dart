@@ -29,9 +29,7 @@ class _ProductListView extends StatelessWidget {
       builder: (context, state, child) {
         return Scaffold(
           appBar: AppBar(title: const Text('Produtos')),
-          body: state.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : state.products.isEmpty
+          body: state.products.isEmpty
               ? const Center(child: Text('Nenhum produto cadastrado'))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
