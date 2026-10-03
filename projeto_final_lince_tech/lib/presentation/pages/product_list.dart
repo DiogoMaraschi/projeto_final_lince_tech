@@ -13,7 +13,7 @@ class ProductListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ProductListController(
-        getProductsUsecase: injection.getProductsUsecase,
+        getProductsUsecase: injection.getAllProductsUsecase,
       )..getProducts(),
       child: const _ProductListView(),
     );

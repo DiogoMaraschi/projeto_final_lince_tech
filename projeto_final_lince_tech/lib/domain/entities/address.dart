@@ -1,8 +1,8 @@
-class Adress {
+class Address {
   final int? id;
   final String zipCode;
   final String street;
-  final int number;
+  final String number;
   final String? neighborhood;
   final String? complement;
   final String city;
@@ -10,7 +10,7 @@ class Adress {
   final double? latitude;
   final double? longitude;
 
-  Adress({
+  Address({
     this.id,
     required this.zipCode,
     required this.street,

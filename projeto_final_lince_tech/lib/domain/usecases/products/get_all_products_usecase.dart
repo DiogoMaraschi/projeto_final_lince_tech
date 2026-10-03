@@ -1,12 +1,12 @@
 import '../../entities/product.dart';
 import '../../repositories/product_repository.dart';
 
-class GetProductsUsecase {
+class GetAllProductsUsecase {
   final ProductRepository repository;
 
-  GetProductsUsecase({required this.repository});
+  GetAllProductsUsecase({required this.repository});
 
   Future<List<Product>> call() async {
-    return await repository.getProducts();
+    return await repository.getAllProducts();
   }
 }

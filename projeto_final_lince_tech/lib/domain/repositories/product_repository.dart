@@ -4,7 +4,7 @@ import '../entities/product.dart';
 
 abstract class ProductRepository {
   Future<int> insert(Product product);
-  Future<List<Product>> getProducts();
+  Future<List<Product>> getAllProducts();
   Future<int> update(Product product);
   Future<int> softDelete(int id);
 }
@@ -26,7 +26,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getAllProducts() async {
     final conn = await databaseHelper.database;
 
     final result = await conn.query(tableName, where: 'deleted_at IS NULL');

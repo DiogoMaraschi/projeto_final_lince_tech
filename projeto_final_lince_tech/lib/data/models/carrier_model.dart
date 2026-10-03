@@ -1,4 +1,5 @@
 import '../../domain/entities/carrier.dart';
+import 'address_model.dart';
 
 class CarrierModel extends Carrier {
   final String? deletedAt;
@@ -11,8 +12,9 @@ class CarrierModel extends Carrier {
     super.email,
     super.phoneNumber,
     required super.costPerKm,
-    required super.minimunPrice,
-    required super.adressId,
+    required super.minimumPrice,
+    super.addressId,
+    super.address,
     this.deletedAt,
   });
 
@@ -23,23 +25,40 @@ class CarrierModel extends Carrier {
       legalName: map['legal_name'] as String?,
       cnpj: map['cnpj'] as String?,
       phoneNumber: map['phone'] as String?,
-      costPerKm: map['cost_per_km'] as double,
-      minimunPrice: map['minimum_price'] as double,
-      adressId: map['adress_id'] as int,
+      costPerKm: (map['cost_per_km'] as num).toDouble(),
+      minimumPrice: (map['minimum_price'] as num).toDouble(),
+      addressId: map['address_id'] as int?,
       deletedAt: map['deleted_at'] as String?,
+    );
+  }
+
+  factory CarrierModel.fromDatabaseMap(Map<String, dynamic> map) {
+    return CarrierModel(
+      id: map['id'] as int?,
+      name: map['name'] as String,
+      legalName: map['legal_name'] as String?,
+      cnpj: map['cnpj'] as String?,
+      phoneNumber: map['phone'] as String?,
+      costPerKm: map['cost_per_km'] as double,
+      minimumPrice: map['minimum_price'] as double,
+      addressId: map['address_id'] as int?,
+      deletedAt: map['deleted_at'] as String?,
+      address: map['address_id'] != null
+          ? AddressModel.fromDatabaseMap(map)
+          : null,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'name': name,
       'legal_name': legalName,
       'cnpj': cnpj,
       'phone': phoneNumber,
       'cost_per_km': costPerKm,
-      'minimum_price': minimunPrice,
-      'adress_id': adressId,
+      'minimum_price': minimumPrice,
+      'address_id': addressId,
       'deleted_at': deletedAt,
     };
   }
@@ -52,8 +71,8 @@ class CarrierModel extends Carrier {
       cnpj: carrier.cnpj,
       phoneNumber: carrier.phoneNumber,
       costPerKm: carrier.costPerKm,
-      minimunPrice: carrier.minimunPrice,
-      adressId: carrier.adressId,
+      minimumPrice: carrier.minimumPrice,
+      addressId: carrier.addressId,
     );
   }
 }

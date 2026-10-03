@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../models/adress_model.dart';
+import '../models/address_model.dart';
 
 class ViacepApiDatasource {
-  Future<AdressModel> getByZipcode(String zipcode) async {
+  Future<AddressModel> getByZipcode(String zipcode) async {
     final url = Uri.parse('https://viacep.com.br/ws/$zipcode/json/');
 
     final response = await http.get(url);
@@ -18,6 +18,6 @@ class ViacepApiDatasource {
 
     print(data);
 
-    return AdressModel.fromViaCepApiMap(data);
+    return AddressModel.fromViaCepApiMap(data);
   }
 }

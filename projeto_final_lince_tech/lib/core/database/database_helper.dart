@@ -162,6 +162,8 @@ class DatabaseHelper {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, 'app_database.db');
 
+    print('banco de dados resetado');
+
     await deleteDatabase(path);
   }
 }

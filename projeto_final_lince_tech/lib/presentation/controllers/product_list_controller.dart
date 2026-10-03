@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/product.dart';
-import '../../domain/usecases/products/get_products_usecase.dart';
+import '../../domain/usecases/products/get_all_products_usecase.dart';
 
 class ProductListController with ChangeNotifier {
-  final GetProductsUsecase _getProductsUsecase;
+  final GetAllProductsUsecase _getProductsUsecase;
 
   ProductListController({required this._getProductsUsecase});
 

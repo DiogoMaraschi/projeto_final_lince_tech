@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/usecases/adress/get_adress_usecase.dart';
+import '../../domain/entities/address.dart';
+import '../../domain/entities/carrier.dart';
+import '../../domain/usecases/carriers/create_carrier_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 
 class CarrierController with ChangeNotifier {
   final GetCnpjUsecase _getCnpjUsecase;
-  final GetAdressUsecase _getAdressUsecase;
+  final CreateCarrierUsecase _createCarrierUsecase;
 
   CarrierController({
     required this._getCnpjUsecase,
-    required this._getAdressUsecase,
+    required this._createCarrierUsecase,
   });
 
   final nameController = TextEditingController();
@@ -20,13 +22,8 @@ class CarrierController with ChangeNotifier {
   final costPerKmController = TextEditingController();
   final minimumPriceController = TextEditingController();
 
-  final zipcodeController = TextEditingController();
-  final stateController = TextEditingController();
-  final cityController = TextEditingController();
-  final streetController = TextEditingController();
-  final numberController = TextEditingController();
-  final neighborhoodController = TextEditingController();
-  final complementController = TextEditingController();
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   @override
   void dispose() {
@@ -38,18 +35,13 @@ class CarrierController with ChangeNotifier {
     costPerKmController.dispose();
     minimumPriceController.dispose();
 
-    zipcodeController.dispose();
-    stateController.dispose();
-    cityController.dispose();
-    streetController.dispose();
-    numberController.dispose();
-    neighborhoodController.dispose();
-    complementController.dispose();
-
     super.dispose();
   }
 
   Future<void> searchCnpj() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       final result = await _getCnpjUsecase(cnpjController.text);
 
@@ -58,24 +50,54 @@ class CarrierController with ChangeNotifier {
       emailController.text = result.email ?? '';
       phoneController.text = result.telefone ?? '';
 
+      _isLoading = false;
+
       notifyListeners();
     } catch (e) {
       print(e);
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
-  Future<void> searchZipcode() async {
+  // Future<void> searchZipcode() async {
+  //   try {
+  //     final result = await _getAddressByZipcodeUsecase(zipcodeController.text);
+
+  //     stateController.text = result.state;
+  //     cityController.text = result.city;
+  //     streetController.text = result.street;
+  //     neighborhoodController.text = result.neighborhood ?? '';
+
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  Future<bool> saveCarrier() async {
+    final carrier = convertTextToCarrier();
+
     try {
-      final result = await _getAdressUsecase(zipcodeController.text);
+      final carrierId = await _createCarrierUsecase(carrier);
 
-      stateController.text = result.state;
-      cityController.text = result.city;
-      streetController.text = result.street;
-      neighborhoodController.text = result.neighborhood ?? '';
-
-      notifyListeners();
+      print('Carrier salvo com ID: $carrierId');
+      return true;
     } catch (e) {
-      print(e);
+      print('Erro ao salvar carrier: $e');
+      return false;
     }
+  }
+
+  Carrier convertTextToCarrier() {
+    return Carrier(
+      name: nameController.text,
+      costPerKm: double.parse(costPerKmController.text),
+      minimumPrice: double.parse(minimumPriceController.text),
+      legalName: legalNameController.text,
+      email: emailController.text,
+      cnpj: cnpjController.text,
+      phoneNumber: phoneController.text,
+    );
   }
 }
