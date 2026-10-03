@@ -22,7 +22,7 @@ class BottomButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: btnAction,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors().primaryColor,
+            backgroundColor: AppColors.primaryColor,
             foregroundColor: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(

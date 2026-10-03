@@ -12,6 +12,7 @@ import '../../domain/usecases/adress/get_address_by_zipcode.dart';
 import '../../domain/usecases/capture_image_usecase.dart';
 import '../../domain/usecases/carriers/create_carrier_usecase.dart';
 import '../../domain/usecases/carriers/get_all_carriers_usecase.dart';
+import '../../domain/usecases/carriers/update_carrier_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 import '../../domain/usecases/products/create_product_usecase.dart';
 import '../../domain/usecases/products/delete_product_usecase.dart';
@@ -30,11 +31,12 @@ class Injection {
   late final DeleteProductUsecase deleteProductUsecase;
   late final CreateCarrierUsecase createCarrierUsecase;
   late final GetAllCarriersUsecase getAllCarriersUsecase;
+  late final UpdateCarrierUsecase updateCarrierUsecase;
 
   Future<void> inicialize() async {
     //DATABASE
     final database = DatabaseHelper();
-    // await database.resetDatabase();
+     await database.resetDatabase();
 
     //SHARED PREFERENCE
     final preferences = await SharedPreferences.getInstance();
@@ -73,5 +75,6 @@ class Injection {
     getAllCarriersUsecase = GetAllCarriersUsecase(
       repository: carrierRepository,
     );
+    updateCarrierUsecase = UpdateCarrierUsecase(repository: carrierRepository);
   }
 }

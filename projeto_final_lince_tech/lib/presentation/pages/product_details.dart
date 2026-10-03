@@ -39,7 +39,7 @@ class _ProductDetailsState extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  final primaryColor = AppColors().primaryColor;
+  final primaryColor = AppColors.primaryColor;
 
   @override
   Widget build(BuildContext context) {

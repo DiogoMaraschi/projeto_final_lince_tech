@@ -3,8 +3,8 @@ import 'address.dart';
 class Carrier {
   final int? id;
   final String name;
-  final String? legalName;
-  final String? cnpj;
+  final String legalName;
+  final String cnpj;
   final String? email;
   final String? phoneNumber;
   final double costPerKm;
@@ -15,8 +15,8 @@ class Carrier {
   Carrier({
     this.id,
     required this.name,
-    this.legalName,
-    this.cnpj,
+    required this.legalName,
+    required this.cnpj,
     this.email,
     this.phoneNumber,
     required this.costPerKm,

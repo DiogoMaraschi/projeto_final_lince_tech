@@ -47,7 +47,7 @@ class CarrierCard extends StatelessWidget {
                       Text(
                         'Rs ${carrier.costPerKm}',
                         style: TextStyle(
-                          color: AppColors().primaryColor,
+                          color: AppColors.primaryColor,
                           fontWeight: .w600,
                           fontSize: 18,
                         ),

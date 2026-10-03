@@ -3,16 +3,25 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/address.dart';
 import '../../domain/entities/carrier.dart';
 import '../../domain/usecases/carriers/create_carrier_usecase.dart';
+import '../../domain/usecases/carriers/update_carrier_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 
 class CarrierController with ChangeNotifier {
+  final Carrier? _carrierReceived;
   final GetCnpjUsecase _getCnpjUsecase;
   final CreateCarrierUsecase _createCarrierUsecase;
+  final UpdateCarrierUsecase _updateCarrierUsecase;
 
   CarrierController({
     required this._getCnpjUsecase,
     required this._createCarrierUsecase,
-  });
+    required this._updateCarrierUsecase,
+    Carrier? carrier,
+  }) : _carrierReceived = carrier {
+    if (carrier != null) {
+      _fillFields(carrier);
+    }
+  }
 
   final nameController = TextEditingController();
   final legalNameController = TextEditingController();
@@ -23,7 +32,10 @@ class CarrierController with ChangeNotifier {
   final minimumPriceController = TextEditingController();
 
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
+
+  bool get isEditing => _carrierReceived != null;
 
   @override
   void dispose() {
@@ -76,12 +88,16 @@ class CarrierController with ChangeNotifier {
   // }
 
   Future<bool> saveCarrier() async {
-    final carrier = convertTextToCarrier();
+    final carrierEdited = convertTextToCarrier();
 
     try {
-      final carrierId = await _createCarrierUsecase(carrier);
-
-      print('Carrier salvo com ID: $carrierId');
+      if (isEditing) {
+        await _updateCarrierUsecase(carrierEdited);
+        print('editado');
+      } else {
+        await _createCarrierUsecase(carrierEdited);
+        print('criado');
+      }
       return true;
     } catch (e) {
       print('Erro ao salvar carrier: $e');
@@ -91,6 +107,7 @@ class CarrierController with ChangeNotifier {
 
   Carrier convertTextToCarrier() {
     return Carrier(
+      id: _carrierReceived?.id,
       name: nameController.text,
       costPerKm: double.parse(costPerKmController.text),
       minimumPrice: double.parse(minimumPriceController.text),
@@ -99,5 +116,15 @@ class CarrierController with ChangeNotifier {
       cnpj: cnpjController.text,
       phoneNumber: phoneController.text,
     );
+  }
+
+  void _fillFields(Carrier carrier) {
+    nameController.text = carrier.name;
+    legalNameController.text = carrier.legalName;
+    cnpjController.text = carrier.cnpj;
+    emailController.text = carrier.email ?? '';
+    phoneController.text = carrier.phoneNumber ?? '';
+    costPerKmController.text = carrier.costPerKm.toString();
+    minimumPriceController.text = carrier.minimumPrice.toString();
   }
 }

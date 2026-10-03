@@ -27,8 +27,8 @@ class CommomTextFormField extends StatelessWidget {
   final Key? fieldKey;
   final TextCapitalization textCapitalization;
 
-  final primaryColor = AppColors().primaryColor;
-  final hintColor = AppColors().hintColor;
+  final primaryColor = AppColors.primaryColor;
+  final hintColor = AppColors.hintColor;
 
   @override
   Widget build(BuildContext context) {

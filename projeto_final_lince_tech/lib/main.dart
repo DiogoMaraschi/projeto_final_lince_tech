@@ -3,6 +3,7 @@ import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
 import 'core/dependecies/injection.dart';
 import 'presentation/pages/carrier_details.dart';
 import 'presentation/pages/carrier_list.dart';
+import 'presentation/pages/customers_details.dart';
 import 'presentation/pages/product_details.dart';
 import 'presentation/pages/product_list.dart';
 import 'presentation/widgets/carrier_card.dart';

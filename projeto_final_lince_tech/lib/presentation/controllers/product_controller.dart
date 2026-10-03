@@ -39,8 +39,6 @@ class ProductController with ChangeNotifier {
     super.dispose();
   }
 
-  String? _errorMessage;
-
   String? _imagePath;
   String? get imagePath => _imagePath;
 
@@ -56,9 +54,6 @@ class ProductController with ChangeNotifier {
   }
 
   Future<bool> saveProduct() async {
-    _errorMessage = null;
-    notifyListeners();
-
     final productEdited = convertTextToProduct();
 
     try {
@@ -71,7 +66,6 @@ class ProductController with ChangeNotifier {
       }
       return true;
     } catch (e) {
-      _errorMessage = 'Erro ao cadastrar produto';
       return false;
     }
   }
@@ -104,7 +98,6 @@ class ProductController with ChangeNotifier {
       await _deleteProductUsecase(_productReceived!.id!);
       return true;
     } catch (e) {
-      _errorMessage = 'Erro ao cadastrar produto';
       return false;
     }
   }

@@ -1,6 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'tables/table_carrier.dart';
+
 class DatabaseHelper {
   static Database? _database;
 
@@ -41,6 +43,9 @@ class DatabaseHelper {
         longitude REAL
       )
     ''');
+
+    // await db.execute(TableCarrier.createTable);
+    // TODO TROCAR IMPLEMENTACAO DO BANCO DE DADOS
 
     // PRODUCTS
     await db.execute('''

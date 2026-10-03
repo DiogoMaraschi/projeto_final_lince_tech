@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../domain/entities/carrier.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier_controller.dart';
@@ -14,7 +15,9 @@ import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 
 class CarrierDetailsPage extends StatelessWidget {
-  const CarrierDetailsPage({super.key});
+  const CarrierDetailsPage({super.key, this.carrier});
+
+  final Carrier? carrier;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,8 @@ class CarrierDetailsPage extends StatelessWidget {
       create: (_) => CarrierController(
         getCnpjUsecase: injection.getCnpjUsecase,
         createCarrierUsecase: injection.createCarrierUsecase,
+        updateCarrierUsecase: injection.updateCarrierUsecase,
+        carrier: carrier,
       ),
       child: const _CarrierDetailState(),
     );

@@ -35,13 +35,13 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<int> update(Product product) async {
-    final productModel = ProductModel.fromEntity(product).toMap();
+    final productModel = ProductModel.fromEntity(product);
 
     final conn = await databaseHelper.database;
 
     return conn.update(
       tableName,
-      productModel,
+      productModel.toMap(),
       where: 'id = ?',
       whereArgs: [product.id],
     );

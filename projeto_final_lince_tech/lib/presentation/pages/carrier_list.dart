@@ -39,15 +39,28 @@ class _CarrierListPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final carrier = state.carriers[index];
 
+                    print('-----page----');
+                    print('id ${carrier.id}');
+                    print('nome ${carrier.name}');
+                    print('id email ${carrier.email}');
+                    print('id cnpj ${carrier.cnpj}');
+                    print('id mim ${carrier.minimumPrice}');
+                    print('id cost ${carrier.costPerKm}');
+                    print('id phone ${carrier.phoneNumber}');
+
                     return CarrierCard(
                       carrier: carrier,
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async{
+                        await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CarrierDetailsPage(),
+                            builder: (context) =>
+                                CarrierDetailsPage(carrier: carrier),
                           ),
                         );
+                        if (!context.mounted) return;
+
+                        await state.getAllCarriers();
                       },
                     );
                   },
