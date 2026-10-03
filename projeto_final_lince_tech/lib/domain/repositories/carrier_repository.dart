@@ -5,10 +5,9 @@ import '../usecases/carriers/update_carrier_usecase.dart';
 
 abstract class CarrierRepository {
   Future<int> insert(Carrier carrier);
-
   Future<List<Carrier>> getAllCarriers();
-
   Future<int> update(Carrier carrier);
+  Future<int> softDelete(int id);
 }
 
 class CarrierRepositoryImpl implements CarrierRepository {
@@ -69,7 +68,20 @@ class CarrierRepositoryImpl implements CarrierRepository {
       whereArgs: [carrier.id],
     );
   }
+
+  @override
+  Future<int> softDelete(int id) async {
+    final conn = await databaseHelper.database;
+
+    return conn.update(
+      tableName,
+      {'deleted_at': DateTime.now().toIso8601String()},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
+
 
 sealed class Result {
   final String message;

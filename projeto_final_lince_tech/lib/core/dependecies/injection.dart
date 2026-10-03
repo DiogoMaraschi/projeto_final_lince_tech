@@ -11,6 +11,7 @@ import '../../domain/repositories/product_repository.dart';
 import '../../domain/usecases/adress/get_address_by_zipcode.dart';
 import '../../domain/usecases/capture_image_usecase.dart';
 import '../../domain/usecases/carriers/create_carrier_usecase.dart';
+import '../../domain/usecases/carriers/delete_carrier_usecase.dart';
 import '../../domain/usecases/carriers/get_all_carriers_usecase.dart';
 import '../../domain/usecases/carriers/update_carrier_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
@@ -32,6 +33,7 @@ class Injection {
   late final CreateCarrierUsecase createCarrierUsecase;
   late final GetAllCarriersUsecase getAllCarriersUsecase;
   late final UpdateCarrierUsecase updateCarrierUsecase;
+  late final DeleteCarrierUsecase deleteCarrierUsecase;
 
   Future<void> inicialize() async {
     //DATABASE
@@ -76,5 +78,6 @@ class Injection {
       repository: carrierRepository,
     );
     updateCarrierUsecase = UpdateCarrierUsecase(repository: carrierRepository);
+    deleteCarrierUsecase = DeleteCarrierUsecase(repository: carrierRepository);
   }
 }

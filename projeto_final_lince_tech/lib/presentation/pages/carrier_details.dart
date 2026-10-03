@@ -13,6 +13,7 @@ import '../validators/phone_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
+import '../widgets/delete_button.dart';
 
 class CarrierDetailsPage extends StatelessWidget {
   const CarrierDetailsPage({super.key, this.carrier});
@@ -26,6 +27,7 @@ class CarrierDetailsPage extends StatelessWidget {
         getCnpjUsecase: injection.getCnpjUsecase,
         createCarrierUsecase: injection.createCarrierUsecase,
         updateCarrierUsecase: injection.updateCarrierUsecase,
+        deleteCarrierUsecase: injection.deleteCarrierUsecase,
         carrier: carrier,
       ),
       child: const _CarrierDetailState(),
@@ -201,19 +203,64 @@ class _CarrierDetailState extends StatelessWidget {
                     ),
                   ],
                 ),
-          bottomNavigationBar: BottomButton(
-            btnText: 'Salvar',
-            btnAction: () async {
-              if (!_formKey.currentState!.validate()) {
-                return;
-              }
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BottomButton(
+                btnText: state.isEditing ? 'Editar' : 'Salvar',
+                btnAction: () async {
+                  if (!_formKey.currentState!.validate()) {
+                    return;
+                  }
+                  await state.saveCarrier();
 
-              await state.saveCarrier();
+                  if (!context.mounted) return;
 
-              if (!context.mounted) return;
+                  Navigator.pop(context);
+                },
+              ),
+              if (state.isEditing)
+                DeleteButton(
+                  btnText: 'Excluir',
+                  btnAction: () async {
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (dialogContext) {
+                        return AlertDialog(
+                          title: const Text('Excluir transportadora?'),
+                          content: const Text(
+                            'A transportadora não será exibido na lista, mas seus dados serão mantidos.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(dialogContext, false);
+                              },
+                              child: const Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(dialogContext, true);
+                              },
+                              child: const Text('Excluir'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
 
-              Navigator.pop(context);
-            },
+                    if (confirm != true) return;
+
+                    final success = await state.delete();
+
+                    if (!context.mounted) return;
+
+                    if (success) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+            ],
           ),
         );
       },

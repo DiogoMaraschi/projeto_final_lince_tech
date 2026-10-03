@@ -13,13 +13,14 @@ class CommomLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return Container(padding: EdgeInsets.only(left: 5),
+        child: Text(
       text,
       style: TextStyle(
         fontSize: 16,
         color: isPrimary ? primaryColor : labelColor,
         fontWeight: FontWeight.w500,
       ),
-    );
+    ));
   }
 }

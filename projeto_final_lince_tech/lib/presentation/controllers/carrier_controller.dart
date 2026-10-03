@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/address.dart';
 import '../../domain/entities/carrier.dart';
 import '../../domain/usecases/carriers/create_carrier_usecase.dart';
+import '../../domain/usecases/carriers/delete_carrier_usecase.dart';
 import '../../domain/usecases/carriers/update_carrier_usecase.dart';
 import '../../domain/usecases/cnpj/get_cnpj_usecase.dart';
 
@@ -11,11 +12,13 @@ class CarrierController with ChangeNotifier {
   final GetCnpjUsecase _getCnpjUsecase;
   final CreateCarrierUsecase _createCarrierUsecase;
   final UpdateCarrierUsecase _updateCarrierUsecase;
+  final DeleteCarrierUsecase _deleteCarrierUsecase;
 
   CarrierController({
     required this._getCnpjUsecase,
     required this._createCarrierUsecase,
     required this._updateCarrierUsecase,
+    required this._deleteCarrierUsecase,
     Carrier? carrier,
   }) : _carrierReceived = carrier {
     if (carrier != null) {
@@ -126,5 +129,18 @@ class CarrierController with ChangeNotifier {
     phoneController.text = carrier.phoneNumber ?? '';
     costPerKmController.text = carrier.costPerKm.toString();
     minimumPriceController.text = carrier.minimumPrice.toString();
+  }
+
+  Future<bool> delete() async {
+    if (_carrierReceived?.id == null) {
+      return false;
+    }
+
+    try {
+      await _deleteCarrierUsecase(_carrierReceived!.id!);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
