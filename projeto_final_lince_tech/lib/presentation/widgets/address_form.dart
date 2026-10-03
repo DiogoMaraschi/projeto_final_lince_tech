@@ -7,8 +7,8 @@ import '../validators/not_empty_validator.dart';
 import 'commom_label.dart';
 import 'commom_text_form_field.dart';
 
-class AdressForm extends StatelessWidget {
-  final TextEditingController cepController;
+class AddressForm extends StatelessWidget {
+  final TextEditingController zipcodeController;
   final TextEditingController stateController;
   final TextEditingController cityController;
   final TextEditingController streetController;
@@ -16,11 +16,11 @@ class AdressForm extends StatelessWidget {
   final TextEditingController neighborhoodController;
   final TextEditingController complementController;
   final VoidCallback searchByZipcode;
-  final GlobalKey<FormFieldState> cepFieldKey;
+  final GlobalKey<FormFieldState> zipcodeFieldKey;
 
-  const AdressForm({
+  const AddressForm({
     super.key,
-    required this.cepController,
+    required this.zipcodeController,
     required this.stateController,
     required this.cityController,
     required this.streetController,
@@ -28,7 +28,7 @@ class AdressForm extends StatelessWidget {
     required this.neighborhoodController,
     required this.complementController,
     required this.searchByZipcode,
-    required this.cepFieldKey,
+    required this.zipcodeFieldKey,
   });
 
   @override
@@ -50,15 +50,15 @@ class AdressForm extends StatelessWidget {
         const SizedBox(height: 6),
 
         CommomTextFormField(
-          fieldKey: cepFieldKey,
-          controller: cepController,
+          fieldKey: zipcodeFieldKey,
+          controller: zipcodeController,
           hintText: l10n.addressHintCep,
           keyboardType: TextInputType.number,
           validator: validateCep,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           suffixIcon: IconButton(
             onPressed: () {
-              if (cepFieldKey.currentState!.validate()) {
+              if (zipcodeFieldKey.currentState!.validate()) {
                 searchByZipcode();
               }
             },

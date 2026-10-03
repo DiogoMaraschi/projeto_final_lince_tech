@@ -51,5 +51,9 @@
   "addressNeighborhood": "Bairro",
   "addressHintNeighborhood": "Ex: Santa Terezinha",
   "addressComplement": "Complemento",
-  "addressHintComplement": "Ex: Sala 01"
+  "addressHintComplement": "Ex: Sala 01",
+
+  "costumerCategoryGym": "Academia",
+  "costumerCategorySchool": "Escola",
+  "costumerCategoryOther": "Outro"
 }

@@ -75,21 +75,6 @@ class CarrierController with ChangeNotifier {
     }
   }
 
-  // Future<void> searchZipcode() async {
-  //   try {
-  //     final result = await _getAddressByZipcodeUsecase(zipcodeController.text);
-
-  //     stateController.text = result.state;
-  //     cityController.text = result.city;
-  //     streetController.text = result.street;
-  //     neighborhoodController.text = result.neighborhood ?? '';
-
-  //     notifyListeners();
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   Future<bool> saveCarrier() async {
     final carrierEdited = convertTextToCarrier();
 

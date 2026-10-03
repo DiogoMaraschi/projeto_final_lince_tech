@@ -51,5 +51,9 @@
   "addressNeighborhood": "Neighborhood",
   "addressHintNeighborhood": "Ex: Santa Terezinha",
   "addressComplement": "Complement",
-  "addressHintComplement": "Ex: Suite 01"
+  "addressHintComplement": "Ex: Suite 01",
+
+  "costumerCategoryGym": "Gym",
+  "costumerCategorySchool": "School",
+  "costumerCategoryOther": "Other"
 }

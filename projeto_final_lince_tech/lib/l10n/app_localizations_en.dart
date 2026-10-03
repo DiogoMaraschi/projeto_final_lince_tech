@@ -151,4 +151,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addressHintComplement => 'Ex: Suite 01';
+
+  @override
+  String get costumerCategoryGym => 'Gym';
+
+  @override
+  String get costumerCategorySchool => 'School';
+
+  @override
+  String get costumerCategoryOther => 'Other';
 }

@@ -151,4 +151,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get addressHintComplement => 'Ex: Sala 01';
+
+  @override
+  String get costumerCategoryGym => 'Academia';
+
+  @override
+  String get costumerCategorySchool => 'Escola';
+
+  @override
+  String get costumerCategoryOther => 'Outro';
 }

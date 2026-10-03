@@ -385,6 +385,24 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Ex: Sala 01'**
   String get addressHintComplement;
+
+  /// No description provided for @costumerCategoryGym.
+  ///
+  /// In pt, this message translates to:
+  /// **'Academia'**
+  String get costumerCategoryGym;
+
+  /// No description provided for @costumerCategorySchool.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escola'**
+  String get costumerCategorySchool;
+
+  /// No description provided for @costumerCategoryOther.
+  ///
+  /// In pt, this message translates to:
+  /// **'Outro'**
+  String get costumerCategoryOther;
 }
 
 class _AppLocalizationsDelegate
