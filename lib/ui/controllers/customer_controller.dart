@@ -5,21 +5,31 @@ import '../../entities/customer.dart';
 import '../../modules/address/usecases/get_address_by_zipcode_usecase.dart';
 import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
 import '../../modules/customer/usecases/create_customer_usecase.dart';
+import '../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../modules/customer/usecases/get_all_customers_usecase.dart';
 import '../../l10n/app_localizations.dart';
+import '../../modules/customer/usecases/update_customer_usecase.dart';
 
 class CustomerController with ChangeNotifier {
+  final Customer? _customerReceived;
   final GetAddressByZipcodeUsecase _getAddressByZipcodeUsecase;
   final GetCnpjUsecase _getCnpjUsecase;
   final CreateCustomerUsecase _createCustomerUsecase;
-  final GetAllCustomersUsecase _getAllCustomersUsecase;
+  final UpdateCustomerUsecase _updateCustomerUsecase;
+  final DeleteCustomerUsecase _deleteCustomerUsecase;
 
   CustomerController({
     required this._getAddressByZipcodeUsecase,
     required this._getCnpjUsecase,
     required this._createCustomerUsecase,
-    required this._getAllCustomersUsecase,
-  });
+    required this._updateCustomerUsecase,
+    required this._deleteCustomerUsecase,
+    Customer? customer,
+  }) : _customerReceived = customer {
+    if (customer != null) {
+      _fillFields(customer);
+    }
+  }
 
   final nameController = TextEditingController();
   final legalNameController = TextEditingController();
@@ -46,6 +56,8 @@ class CustomerController with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
+  bool get isEditing => _customerReceived != null;
+
   @override
   void dispose() {
     cnpjController.dispose();
@@ -57,6 +69,9 @@ class CustomerController with ChangeNotifier {
   }
 
   Future<void> searchZipcode() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       final result = await _getAddressByZipcodeUsecase(zipcodeController.text);
 
@@ -68,6 +83,9 @@ class CustomerController with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
@@ -97,9 +115,11 @@ class CustomerController with ChangeNotifier {
     final customerEdited = convertTextToCustomer();
 
     try {
-      print('entrou try');
-      await _createCustomerUsecase(customerEdited);
-
+      if (isEditing) {
+        await _updateCustomerUsecase(customerEdited);
+      } else {
+        await _createCustomerUsecase(customerEdited);
+      }
       return true;
     } catch (e) {
       print(e);
@@ -109,6 +129,7 @@ class CustomerController with ChangeNotifier {
 
   Customer convertTextToCustomer() {
     return Customer(
+      id: _customerReceived?.id,
       name: nameController.text,
       cnpj: cnpjController.text,
       legalName: legalNameController.text,
@@ -118,8 +139,39 @@ class CustomerController with ChangeNotifier {
       zipCode: zipcodeController.text,
       street: streetController.text,
       number: numberController.text,
+      phoneNumber: phoneController.text,
+      email: emailController.text,
       latitude: 0,
       longitude: 0,
     );
+  }
+
+  void _fillFields(Customer customer) {
+    nameController.text = customer.name;
+    cnpjController.text = customer.cnpj;
+    legalNameController.text = customer.legalName;
+    emailController.text = customer.email ?? '';
+    phoneController.text = customer.phoneNumber ?? '';
+
+    stateController.text = customer.state;
+    cityController.text = customer.city;
+    zipcodeController.text = customer.zipCode;
+    streetController.text = customer.street;
+    numberController.text = customer.number;
+
+    setEstablishmentType(customer.establishmentType);
+  }
+
+
+  Future<bool> delete() async {
+    final id = _customerReceived?.id;
+    if (id == null) return false;
+
+    try {
+      await _deleteCustomerUsecase(id);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -27,9 +27,6 @@ class ProductListController with ChangeNotifier {
     try {
       final result = await _getProductsUsecase();
 
-      print('PRODUTOS VINDOS DO USECASE: $result');
-      print('QUANTIDADE: ${result.length}');
-
       _products = result;
     } catch (e) {
       print('ERRO AO BUSCAR PRODUTOS: $e');

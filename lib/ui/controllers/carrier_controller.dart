@@ -80,10 +80,10 @@ class CarrierController with ChangeNotifier {
     try {
       if (isEditing) {
         await _updateCarrierUsecase(carrierEdited);
-        print('editado');
+        print('editou');
       } else {
         await _createCarrierUsecase(carrierEdited);
-        print('criado');
+        print('salvou');
       }
       return true;
     } catch (e) {

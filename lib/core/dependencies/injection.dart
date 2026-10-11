@@ -12,6 +12,8 @@ import '../../modules/carrier/repository.dart';
 import '../../data/repositories/carrier_repository_impl.dart';
 import '../../modules/cnpj/repository.dart';
 import '../../data/repositories/cnpj_repository_impl.dart';
+import '../../modules/customer/usecases/delete_customer_usecase.dart';
+import '../../modules/customer/usecases/update_customer_usecase.dart';
 import '../../modules/product/repository.dart';
 import '../../data/repositories/product_repository_impl.dart';
 import '../../modules/address/usecases/get_address_by_zipcode_usecase.dart';
@@ -45,11 +47,13 @@ class Injection {
   late final DeleteCarrierUsecase deleteCarrierUsecase;
   late final CreateCustomerUsecase createCustomerUsecase;
   late final GetAllCustomersUsecase getAllCustomersUsecase;
+  late final UpdateCustomerUsecase updateCustomerUsecase;
+  late final DeleteCustomerUsecase deleteCustomerUsecase;
 
   Future<void> inicialize() async {
     //DATABASE
     final database = DatabaseHelper();
-    await database.resetDatabase();
+    // await database.resetDatabase();
 
     //SHARED PREFERENCE
     final preferences = await SharedPreferences.getInstance();
@@ -95,6 +99,12 @@ class Injection {
       repository: customerRepository,
     );
     getAllCustomersUsecase = GetAllCustomersUsecase(
+      repository: customerRepository,
+    );
+    updateCustomerUsecase = UpdateCustomerUsecase(
+      repository: customerRepository,
+    );
+    deleteCustomerUsecase = DeleteCustomerUsecase(
       repository: customerRepository,
     );
   }

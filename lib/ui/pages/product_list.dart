@@ -15,13 +15,13 @@ class ProductListPage extends StatelessWidget {
       create: (_) => ProductListController(
         getProductsUsecase: injection.getAllProductsUsecase,
       )..getProducts(),
-      child: const _ProductListView(),
+      child: const _ProductListPage(),
     );
   }
 }
 
-class _ProductListView extends StatelessWidget {
-  const _ProductListView();
+class _ProductListPage extends StatelessWidget {
+  const _ProductListPage();
 
   @override
   Widget build(BuildContext context) {

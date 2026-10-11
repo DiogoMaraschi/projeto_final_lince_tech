@@ -8,6 +8,7 @@ import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/customer_controller.dart';
 import '../extensions/establishment_type_localization.dart';
+import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';
 import '../validators/not_empty_validator.dart';
@@ -19,8 +20,10 @@ import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 import '../widgets/delete_button.dart';
 
-class CostumerDetailsPage extends StatelessWidget {
-  const CostumerDetailsPage({super.key});
+class CustomerDetailsPage extends StatelessWidget {
+  const CustomerDetailsPage({super.key, this._customer});
+
+  final Customer? _customer;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,9 @@ class CostumerDetailsPage extends StatelessWidget {
         getAddressByZipcodeUsecase: injection.getAddressByZipcodeUsecase,
         getCnpjUsecase: injection.getCnpjUsecase,
         createCustomerUsecase: injection.createCustomerUsecase,
-        getAllCustomersUsecase: injection.getAllCustomersUsecase,
+        updateCustomerUsecase: injection.updateCustomerUsecase,
+        deleteCustomerUsecase: injection.deleteCustomerUsecase,
+        customer: _customer,
       ),
       child: _CostumerDetailsPage(),
     );
@@ -41,6 +46,9 @@ class _CostumerDetailsPage extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   final _zipcodeFieldKey = GlobalKey<FormFieldState>();
+
+  final cnpjFormatter = AppFormatters.cnpj();
+  final phoneFormatter = AppFormatters.phone();
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +86,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                           hintText: l10n.commomCnpj,
                           keyboardType: TextInputType.number,
                           validator: validateCnpj,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
+                          inputFormatters: [cnpjFormatter],
                           suffixIcon: IconButton(
                             onPressed: state.searchCnpj,
                             icon: const Icon(Icons.search, size: 30),
@@ -129,6 +135,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                           hintText: l10n.commomHintPhone,
                           keyboardType: TextInputType.phone,
                           validator: validatePhone,
+                          inputFormatters: [phoneFormatter],
                         ),
 
                         const SizedBox(height: 16),
@@ -144,6 +151,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                           width: 280,
                           height: 70,
                           child: DropdownButtonFormField<EstablishmentType>(
+                            initialValue: state.establishmentType,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
@@ -203,7 +211,7 @@ class _CostumerDetailsPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BottomButton(
-                btnText: state.isLoading ? 'Editar' : 'Salvar',
+                btnText: state.isEditing ? 'Editar' : 'Salvar',
                 btnAction: () async {
                   if (!_formKey.currentState!.validate()) {
                     return;
@@ -213,10 +221,10 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                   if (!context.mounted) return;
 
-                  //  Navigator.pop(context);
+                  Navigator.pop(context);
                 },
               ),
-              if (state.isLoading)
+              if (state.isEditing)
                 DeleteButton(
                   btnText: 'Excluir',
                   btnAction: () async {
@@ -248,13 +256,13 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                     if (confirm != true) return;
 
-                    // final success = await state.delete();
+                    final success = await state.delete();
 
                     if (!context.mounted) return;
 
-                    // if (success) {
-                    //   Navigator.pop(context);
-                    // }
+                    if (success) {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
             ],

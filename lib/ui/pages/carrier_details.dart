@@ -30,13 +30,13 @@ class CarrierDetailsPage extends StatelessWidget {
         deleteCarrierUsecase: injection.deleteCarrierUsecase,
         carrier: carrier,
       ),
-      child: const _CarrierDetailState(),
+      child: const _CarrierDetailPage(),
     );
   }
 }
 
-class _CarrierDetailState extends StatelessWidget {
-  const _CarrierDetailState();
+class _CarrierDetailPage extends StatelessWidget {
+  const _CarrierDetailPage();
 
   @override
   Widget build(BuildContext context) {

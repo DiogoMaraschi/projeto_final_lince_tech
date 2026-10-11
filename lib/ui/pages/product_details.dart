@@ -143,6 +143,7 @@ class _ProductDetailsState extends StatelessWidget {
                           validator: isNotEmpty,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(14),
                           ],
                           suffixIcon: const Icon(
                             Icons.qr_code_scanner,

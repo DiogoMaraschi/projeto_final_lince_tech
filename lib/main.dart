@@ -3,7 +3,8 @@ import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
 import 'core/dependencies/injection.dart';
 import 'ui/pages/carrier_details.dart';
 import 'ui/pages/carrier_list.dart';
-import 'ui/pages/customers_details.dart';
+import 'ui/pages/costumer_list.dart';
+import 'ui/pages/costumers_details.dart';
 import 'ui/pages/product_details.dart';
 import 'ui/pages/product_list.dart';
 import 'ui/widgets/carrier_card.dart';
@@ -18,11 +19,11 @@ Future<void> main() async {
 
   await injection.inicialize();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
 
-      home: const CostumerDetailsPage(),
+      home: CustomerListPage(),
     );
   }
 }

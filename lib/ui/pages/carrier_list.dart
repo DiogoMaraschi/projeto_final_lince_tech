@@ -31,23 +31,13 @@ class _CarrierListPage extends StatelessWidget {
           appBar: AppBar(title: const Text('Transportadoras')),
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
-              : state.carriers.isEmpty
+              : state.carriers.isNotEmpty
               ? const Center(child: Text('Nenhuma transportadora cadastrada'))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  itemCount: state.carriers.length,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     final carrier = state.carriers[index];
-
-                    print('-----page----');
-                    print('id ${carrier.id}');
-                    print('nome ${carrier.name}');
-                    print('id email ${carrier.email}');
-                    print('id cnpj ${carrier.cnpj}');
-                    print('id mim ${carrier.minimumPrice}');
-                    print('id cost ${carrier.costPerKm}');
-                    print('id phone ${carrier.phoneNumber}');
-
                     return CarrierCard(
                       carrier: carrier,
                       onTap: () async {
