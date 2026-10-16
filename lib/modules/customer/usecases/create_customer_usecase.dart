@@ -1,4 +1,4 @@
-import '../../../entities/customer.dart';
+import '../../../entities/costumer.dart';
 import '../repository.dart';
 
 class CreateCustomerUsecase {

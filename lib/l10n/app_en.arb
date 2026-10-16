@@ -1,12 +1,10 @@
 {
   "appName": "Product Management",
-
   "commonSave": "Save",
   "commonCancel": "Cancel",
   "commonDelete": "Delete",
   "commonEdit": "Edit",
   "commonBack": "Back",
-
   "commomName": "Name",
   "commomPhone": "Phone",
   "commomHintPhone": "(47) 99900-5060",
@@ -16,7 +14,6 @@
   "commomAddImage": "Add Image",
   "commomCnpj": "CNPJ",
   "commomHintCnpj": "Ex: 34.562.785/0001-40",
-
   "productTitle": "Product Registration",
   "productName": "Product Name",
   "productHintName": "Ex: Soccer Ball",
@@ -26,7 +23,6 @@
   "productHintDescription": "Describe product details",
   "productBrand": "Brand",
   "productHintBrand": "Ex: Nike",
-
   "carrierTitle": "Carrier Registration",
   "carrierName": "Carrier Name",
   "carrierHintName": "Ex: Boa Vista Transport",
@@ -36,7 +32,6 @@
   "carrierHintCostPerKm": "Ex: 7.20",
   "carrierMinimumPrice": "Minimum Price",
   "carrierHintMinimumPrice": "Ex: 2.30",
-
   "addressTitle": "Address",
   "addressCep": "ZIP Code",
   "addressHintCep": "Ex: 89110-001",
@@ -52,8 +47,29 @@
   "addressHintNeighborhood": "Ex: Santa Terezinha",
   "addressComplement": "Complement",
   "addressHintComplement": "Ex: Suite 01",
-
   "costumerCategoryGym": "Gym",
   "costumerCategorySchool": "School",
-  "costumerCategoryOther": "Other"
+  "costumerCategoryOther": "Other",
+  "profileTitle": "Profile",
+  "profilePreferences": "Preferences",
+  "profileDarkMode": "Dark Mode",
+  "profileStoreInformation": "Store Information",
+  "profileLanguage": "Language",
+  "storeTitle": "Store Information",
+  "storeCompanyName": "Company Name",
+  "storeHintCompanyName": "Enter the company name",
+  "customerTitle": "Customer Registration",
+  "customerListTitle": "Customers",
+  "customerChooseOption": "Choose an option",
+  "productListTitle": "Products",
+  "carrierListTitle": "Carriers",
+  "productListEmpty": "No products registered",
+  "customerListEmpty": "No customers registered",
+  "carrierListEmpty": "No carriers registered",
+  "productDeleteConfirmationTitle": "Delete product?",
+  "productDeleteConfirmationMessage": "The product will be hidden from the list, but its data will be kept.",
+  "carrierDeleteConfirmationTitle": "Delete carrier?",
+  "carrierDeleteConfirmationMessage": "The carrier will be hidden from the list, but its data will be kept.",
+  "customerDeleteConfirmationTitle": "Delete customer?",
+  "customerDeleteConfirmationMessage": "The customer will be hidden from the list, but their data will be kept."
 }

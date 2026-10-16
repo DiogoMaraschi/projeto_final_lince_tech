@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../entities/customer.dart';
+import '../../entities/costumer.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/customer_controller.dart';
-import '../extensions/establishment_type_localization.dart';
 import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';
@@ -59,7 +58,7 @@ class _CostumerDetailsPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Clientes',
+              l10n.customerTitle,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             leading: IconButton(
@@ -165,7 +164,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            hint: Text('Escolha uma opção'),
+                            hint: Text(l10n.customerChooseOption),
                             icon: const Icon(
                               Icons.arrow_downward_sharp,
                               color: AppColors.primaryColor,
@@ -211,7 +210,7 @@ class _CostumerDetailsPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BottomButton(
-                btnText: state.isEditing ? 'Editar' : 'Salvar',
+                btnText: state.isEditing ? l10n.commonEdit : l10n.commonSave,
                 btnAction: () async {
                   if (!_formKey.currentState!.validate()) {
                     return;
@@ -226,28 +225,26 @@ class _CostumerDetailsPage extends StatelessWidget {
               ),
               if (state.isEditing)
                 DeleteButton(
-                  btnText: 'Excluir',
+                  btnText: l10n.commonDelete,
                   btnAction: () async {
                     final confirm = await showDialog<bool>(
                       context: context,
                       builder: (dialogContext) {
                         return AlertDialog(
-                          title: const Text('Excluir cliente?'),
-                          content: const Text(
-                            'O cliente não será exibido na lista, mas seus dados serão mantidos.',
-                          ),
+                          title: Text(l10n.customerDeleteConfirmationTitle),
+                          content: Text(l10n.customerDeleteConfirmationMessage),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, false);
                               },
-                              child: const Text('Cancelar'),
+                              child: Text(l10n.commonCancel),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, true);
                               },
-                              child: const Text('Excluir'),
+                              child: Text(l10n.commonDelete),
                             ),
                           ],
                         );

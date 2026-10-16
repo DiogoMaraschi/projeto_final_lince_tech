@@ -207,7 +207,7 @@ class _CarrierDetailPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BottomButton(
-                btnText: state.isEditing ? 'Editar' : 'Salvar',
+                btnText: state.isEditing ? l10n.commonEdit : l10n.commonSave,
                 btnAction: () async {
                   if (!_formKey.currentState!.validate()) {
                     return;
@@ -221,28 +221,26 @@ class _CarrierDetailPage extends StatelessWidget {
               ),
               if (state.isEditing)
                 DeleteButton(
-                  btnText: 'Excluir',
+                  btnText: l10n.commonDelete,
                   btnAction: () async {
                     final confirm = await showDialog<bool>(
                       context: context,
                       builder: (dialogContext) {
                         return AlertDialog(
-                          title: const Text('Excluir transportadora?'),
-                          content: const Text(
-                            'A transportadora não será exibido na lista, mas seus dados serão mantidos.',
-                          ),
+                          title: Text(l10n.carrierDeleteConfirmationTitle),
+                          content: Text(l10n.carrierDeleteConfirmationMessage),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, false);
                               },
-                              child: const Text('Cancelar'),
+                              child: Text(l10n.commonCancel),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, true);
                               },
-                              child: const Text('Excluir'),
+                              child: Text(l10n.commonDelete),
                             ),
                           ],
                         );

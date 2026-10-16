@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier_list_controller.dart';
 import '../widgets/carrier_card.dart';
@@ -27,12 +28,13 @@ class _CarrierListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CarrierListController>(
       builder: (context, state, child) {
+        final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: const Text('Transportadoras')),
+          appBar: AppBar(title: Text(l10n.carrierListTitle)),
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
               : state.carriers.isNotEmpty
-              ? const Center(child: Text('Nenhuma transportadora cadastrada'))
+              ? Center(child: Text(l10n.carrierListEmpty))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: 3,

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../core/dependencies/injection.dart';
-import '../../entities/customer.dart';
-import '../../modules/address/usecases/get_address_by_zipcode_usecase.dart';
+import '../../entities/costumer.dart';
+import '../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
 import '../../modules/customer/usecases/create_customer_usecase.dart';
 import '../../modules/customer/usecases/delete_customer_usecase.dart';

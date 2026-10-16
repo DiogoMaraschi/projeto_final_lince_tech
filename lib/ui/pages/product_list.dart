@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/product_list_controller.dart';
 import '../widgets/product_card.dart';
@@ -27,10 +28,11 @@ class _ProductListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ProductListController>(
       builder: (context, state, child) {
+        final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: const Text('Produtos')),
+          appBar: AppBar(title: Text(l10n.productListTitle)),
           body: state.products.isEmpty
-              ? const Center(child: Text('Nenhum produto cadastrado'))
+              ? Center(child: Text(l10n.productListEmpty))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: state.products.length,

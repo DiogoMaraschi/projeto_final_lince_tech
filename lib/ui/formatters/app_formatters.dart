@@ -30,4 +30,11 @@ class AppFormatters {
   static String onlyNumber(String valor) {
     return valor.replaceAll(RegExp(r'\D'), '');
   }
+
+  static MaskTextInputFormatter zipcode() {
+    return MaskTextInputFormatter(
+      mask: '#####-###',
+      filter: {'#': RegExp(r'[0-9]')},
+    );
+  }
 }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'core/dependencies/injection.dart';
+import 'ui/app_colors.dart';
+import 'ui/controllers/profile_controller.dart';
 import 'ui/pages/carrier_details.dart';
 import 'ui/pages/carrier_list.dart';
 import 'ui/pages/costumer_list.dart';
 import 'ui/pages/costumers_details.dart';
 import 'ui/pages/product_details.dart';
 import 'ui/pages/product_list.dart';
+import 'ui/pages/profile.dart';
+import 'ui/pages/store_details.dart';
 import 'ui/widgets/carrier_card.dart';
 import 'ui/widgets/product_card.dart';
 
@@ -16,10 +21,15 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   injection = Injection();
-
   await injection.inicialize();
 
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) =>
+          ProfileController(preferences: injection.preferencesService)..load(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,15 +37,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<ProfileController>();
+
     return MaterialApp(
       title: 'Gestão de Produtos',
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: settings.locale,
 
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
 
-      home: CustomerListPage(),
+      themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
+
+      home: ProfilePage(),
     );
   }
 }

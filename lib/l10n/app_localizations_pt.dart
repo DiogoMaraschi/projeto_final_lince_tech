@@ -160,4 +160,73 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get costumerCategoryOther => 'Outro';
+
+  @override
+  String get profileTitle => 'Perfil';
+
+  @override
+  String get profilePreferences => 'Preferências';
+
+  @override
+  String get profileDarkMode => 'Modo Escuro';
+
+  @override
+  String get profileStoreInformation => 'Informações da loja';
+
+  @override
+  String get profileLanguage => 'Idioma';
+
+  @override
+  String get storeTitle => 'Informações da loja';
+
+  @override
+  String get storeCompanyName => 'Nome da empresa';
+
+  @override
+  String get storeHintCompanyName => 'Digite o nome da empresa';
+
+  @override
+  String get customerTitle => 'Cadastro de Cliente';
+
+  @override
+  String get customerListTitle => 'Clientes';
+
+  @override
+  String get customerChooseOption => 'Escolha uma opção';
+
+  @override
+  String get productListTitle => 'Produtos';
+
+  @override
+  String get carrierListTitle => 'Transportadoras';
+
+  @override
+  String get productListEmpty => 'Nenhum produto cadastrado';
+
+  @override
+  String get customerListEmpty => 'Nenhum cliente cadastrado';
+
+  @override
+  String get carrierListEmpty => 'Nenhuma transportadora cadastrada';
+
+  @override
+  String get productDeleteConfirmationTitle => 'Excluir produto?';
+
+  @override
+  String get productDeleteConfirmationMessage =>
+      'O produto não será exibido na lista, mas seus dados serão mantidos.';
+
+  @override
+  String get carrierDeleteConfirmationTitle => 'Excluir transportadora?';
+
+  @override
+  String get carrierDeleteConfirmationMessage =>
+      'A transportadora não será exibida na lista, mas seus dados serão mantidos.';
+
+  @override
+  String get customerDeleteConfirmationTitle => 'Excluir cliente?';
+
+  @override
+  String get customerDeleteConfirmationMessage =>
+      'O cliente não será exibido na lista, mas seus dados serão mantidos.';
 }

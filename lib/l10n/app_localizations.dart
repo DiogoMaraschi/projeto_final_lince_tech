@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
 import 'app_localizations_pt.dart';
 
 // ignore_for_file: type=lint
@@ -95,6 +96,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('es'),
     Locale('pt'),
   ];
 
@@ -403,6 +405,138 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Outro'**
   String get costumerCategoryOther;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Perfil'**
+  String get profileTitle;
+
+  /// No description provided for @profilePreferences.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preferências'**
+  String get profilePreferences;
+
+  /// No description provided for @profileDarkMode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Modo Escuro'**
+  String get profileDarkMode;
+
+  /// No description provided for @profileStoreInformation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações da loja'**
+  String get profileStoreInformation;
+
+  /// No description provided for @profileLanguage.
+  ///
+  /// In pt, this message translates to:
+  /// **'Idioma'**
+  String get profileLanguage;
+
+  /// No description provided for @storeTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações da loja'**
+  String get storeTitle;
+
+  /// No description provided for @storeCompanyName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome da empresa'**
+  String get storeCompanyName;
+
+  /// No description provided for @storeHintCompanyName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite o nome da empresa'**
+  String get storeHintCompanyName;
+
+  /// No description provided for @customerTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cadastro de Cliente'**
+  String get customerTitle;
+
+  /// No description provided for @customerListTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Clientes'**
+  String get customerListTitle;
+
+  /// No description provided for @customerChooseOption.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escolha uma opção'**
+  String get customerChooseOption;
+
+  /// No description provided for @productListTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Produtos'**
+  String get productListTitle;
+
+  /// No description provided for @carrierListTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Transportadoras'**
+  String get carrierListTitle;
+
+  /// No description provided for @productListEmpty.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum produto cadastrado'**
+  String get productListEmpty;
+
+  /// No description provided for @customerListEmpty.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum cliente cadastrado'**
+  String get customerListEmpty;
+
+  /// No description provided for @carrierListEmpty.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhuma transportadora cadastrada'**
+  String get carrierListEmpty;
+
+  /// No description provided for @productDeleteConfirmationTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Excluir produto?'**
+  String get productDeleteConfirmationTitle;
+
+  /// No description provided for @productDeleteConfirmationMessage.
+  ///
+  /// In pt, this message translates to:
+  /// **'O produto não será exibido na lista, mas seus dados serão mantidos.'**
+  String get productDeleteConfirmationMessage;
+
+  /// No description provided for @carrierDeleteConfirmationTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Excluir transportadora?'**
+  String get carrierDeleteConfirmationTitle;
+
+  /// No description provided for @carrierDeleteConfirmationMessage.
+  ///
+  /// In pt, this message translates to:
+  /// **'A transportadora não será exibida na lista, mas seus dados serão mantidos.'**
+  String get carrierDeleteConfirmationMessage;
+
+  /// No description provided for @customerDeleteConfirmationTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Excluir cliente?'**
+  String get customerDeleteConfirmationTitle;
+
+  /// No description provided for @customerDeleteConfirmationMessage.
+  ///
+  /// In pt, this message translates to:
+  /// **'O cliente não será exibido na lista, mas seus dados serão mantidos.'**
+  String get customerDeleteConfirmationMessage;
 }
 
 class _AppLocalizationsDelegate
@@ -416,7 +550,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'pt'].contains(locale.languageCode);
+      <String>['en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -427,6 +561,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
     case 'pt':
       return AppLocalizationsPt();
   }

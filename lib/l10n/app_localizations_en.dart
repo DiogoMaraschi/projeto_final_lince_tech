@@ -160,4 +160,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get costumerCategoryOther => 'Other';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get profilePreferences => 'Preferences';
+
+  @override
+  String get profileDarkMode => 'Dark Mode';
+
+  @override
+  String get profileStoreInformation => 'Store Information';
+
+  @override
+  String get profileLanguage => 'Language';
+
+  @override
+  String get storeTitle => 'Store Information';
+
+  @override
+  String get storeCompanyName => 'Company Name';
+
+  @override
+  String get storeHintCompanyName => 'Enter the company name';
+
+  @override
+  String get customerTitle => 'Customer Registration';
+
+  @override
+  String get customerListTitle => 'Customers';
+
+  @override
+  String get customerChooseOption => 'Choose an option';
+
+  @override
+  String get productListTitle => 'Products';
+
+  @override
+  String get carrierListTitle => 'Carriers';
+
+  @override
+  String get productListEmpty => 'No products registered';
+
+  @override
+  String get customerListEmpty => 'No customers registered';
+
+  @override
+  String get carrierListEmpty => 'No carriers registered';
+
+  @override
+  String get productDeleteConfirmationTitle => 'Delete product?';
+
+  @override
+  String get productDeleteConfirmationMessage =>
+      'The product will be hidden from the list, but its data will be kept.';
+
+  @override
+  String get carrierDeleteConfirmationTitle => 'Delete carrier?';
+
+  @override
+  String get carrierDeleteConfirmationMessage =>
+      'The carrier will be hidden from the list, but its data will be kept.';
+
+  @override
+  String get customerDeleteConfirmationTitle => 'Delete customer?';
+
+  @override
+  String get customerDeleteConfirmationMessage =>
+      'The customer will be hidden from the list, but their data will be kept.';
 }

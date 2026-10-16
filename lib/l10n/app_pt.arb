@@ -1,12 +1,10 @@
 {
   "appName": "Gestão de Produtos",
-
   "commonSave": "Salvar",
   "commonCancel": "Cancelar",
   "commonDelete": "Excluir",
   "commonEdit": "Editar",
   "commonBack": "Voltar",
-
   "commomName": "Nome",
   "commomPhone": "Telefone",
   "commomHintPhone": "(47)99900-5060",
@@ -16,7 +14,6 @@
   "commomAddImage": "Adicionar Imagem",
   "commomCnpj": "CNPJ",
   "commomHintCnpj": "Ex: 34.562.785/0001-40",
-
   "productTitle": "Cadastro de Produto",
   "productName": "Nome do Produto",
   "productHintName": "Ex: Bola de Futebol",
@@ -26,7 +23,6 @@
   "productHintDescription": "Descreva detalhes do produto",
   "productBrand": "Marca",
   "productHintBrand": "Ex: Nike",
-
   "carrierTitle": "Cadastro de Transportadora",
   "carrierName": "Nome da Transportadora",
   "carrierHintName": "Ex: Transportadora Boa Vista",
@@ -36,7 +32,6 @@
   "carrierHintCostPerKm": "Ex: 7.20",
   "carrierMinimumPrice": "Preço Mínimo",
   "carrierHintMinimumPrice": "Ex: 2.30",
-
   "addressTitle": "Endereço",
   "addressCep": "CEP",
   "addressHintCep": "Ex: 89110-001",
@@ -52,8 +47,29 @@
   "addressHintNeighborhood": "Ex: Santa Terezinha",
   "addressComplement": "Complemento",
   "addressHintComplement": "Ex: Sala 01",
-
   "costumerCategoryGym": "Academia",
   "costumerCategorySchool": "Escola",
-  "costumerCategoryOther": "Outro"
+  "costumerCategoryOther": "Outro",
+  "profileTitle": "Perfil",
+  "profilePreferences": "Preferências",
+  "profileDarkMode": "Modo Escuro",
+  "profileStoreInformation": "Informações da loja",
+  "profileLanguage": "Idioma",
+  "storeTitle": "Informações da loja",
+  "storeCompanyName": "Nome da empresa",
+  "storeHintCompanyName": "Digite o nome da empresa",
+  "customerTitle": "Cadastro de Cliente",
+  "customerListTitle": "Clientes",
+  "customerChooseOption": "Escolha uma opção",
+  "productListTitle": "Produtos",
+  "carrierListTitle": "Transportadoras",
+  "productListEmpty": "Nenhum produto cadastrado",
+  "customerListEmpty": "Nenhum cliente cadastrado",
+  "carrierListEmpty": "Nenhuma transportadora cadastrada",
+  "productDeleteConfirmationTitle": "Excluir produto?",
+  "productDeleteConfirmationMessage": "O produto não será exibido na lista, mas seus dados serão mantidos.",
+  "carrierDeleteConfirmationTitle": "Excluir transportadora?",
+  "carrierDeleteConfirmationMessage": "A transportadora não será exibida na lista, mas seus dados serão mantidos.",
+  "customerDeleteConfirmationTitle": "Excluir cliente?",
+  "customerDeleteConfirmationMessage": "O cliente não será exibido na lista, mas seus dados serão mantidos."
 }

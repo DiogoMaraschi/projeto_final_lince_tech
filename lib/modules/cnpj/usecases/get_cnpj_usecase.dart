@@ -1,4 +1,5 @@
 import '../../../data/models/cnpj_model.dart';
+import '../../../ui/formatters/app_formatters.dart';
 import '../repository.dart';
 
 class GetCnpjUsecase {
@@ -7,6 +8,7 @@ class GetCnpjUsecase {
   GetCnpjUsecase({required this.repository});
 
   Future<CnpjModel> call(String cnpj) async {
-    return await repository.getCnpj(cnpj);
+    final onlyDigitsCnpj = AppFormatters.onlyNumber(cnpj);
+    return await repository.getCnpj(onlyDigitsCnpj);
   }
 }

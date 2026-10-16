@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/customer_list_controller.dart';
 import '../widgets/customer_card.dart';
@@ -27,12 +28,13 @@ class _CostumerListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CustomerListController>(
       builder: (context, state, child) {
+        final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: const Text('Clientes')),
+          appBar: AppBar(title: Text(l10n.customerListTitle)),
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
               : state.customers.isEmpty
-              ? Center(child: Text('Nenhum cliente cadastrado'))
+              ? Center(child: Text(l10n.customerListEmpty))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: state.customers.length,

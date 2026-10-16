@@ -51,11 +51,15 @@ class _ProductDetailsState extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               l10n!.productTitle,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primaryColor,
+              ),
             ),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back_ios_new),
             ),
           ),
 
@@ -192,7 +196,7 @@ class _ProductDetailsState extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BottomButton(
-                btnText: state.isEditing ? 'Editar' : 'Salvar',
+                btnText: state.isEditing ? l10n.commonEdit : l10n.commonSave,
                 btnAction: () async {
                   if (_formKey.currentState!.validate()) {
                     final success = await state.saveProduct();
@@ -207,28 +211,26 @@ class _ProductDetailsState extends StatelessWidget {
               ),
               if (state.isEditing)
                 DeleteButton(
-                  btnText: 'Excluir',
+                  btnText: l10n.commonDelete,
                   btnAction: () async {
                     final confirm = await showDialog<bool>(
                       context: context,
                       builder: (dialogContext) {
                         return AlertDialog(
-                          title: const Text('Excluir produto?'),
-                          content: const Text(
-                            'O produto não será exibido na lista, mas seus dados serão mantidos.',
-                          ),
+                          title: Text(l10n.productDeleteConfirmationTitle),
+                          content: Text(l10n.productDeleteConfirmationMessage),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, false);
                               },
-                              child: const Text('Cancelar'),
+                              child: Text(l10n.commonCancel),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(dialogContext, true);
                               },
-                              child: const Text('Excluir'),
+                              child: Text(l10n.commonDelete),
                             ),
                           ],
                         );

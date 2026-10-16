@@ -3,22 +3,17 @@ import '../../data/datasources/brasil_api_datasource.dart';
 import '../../data/datasources/camera_datasource.dart';
 import '../../data/datasources/cnpj_api_datasource.dart';
 import '../../data/datasources/viacep_api_datasource.dart';
-import '../../data/repositories/address_repository_impl.dart';
 import '../../modules/customer/repository.dart';
-import '../../data/repositories/customer_repository_impl.dart';
-import '../../modules/camera/repository.dart';
-import '../../data/repositories/camera_repository_impl.dart';
+import '../../modules/imagePicker/repository.dart';
 import '../../modules/carrier/repository.dart';
-import '../../data/repositories/carrier_repository_impl.dart';
 import '../../modules/cnpj/repository.dart';
-import '../../data/repositories/cnpj_repository_impl.dart';
 import '../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../modules/customer/usecases/update_customer_usecase.dart';
+import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 import '../../modules/product/repository.dart';
-import '../../data/repositories/product_repository_impl.dart';
-import '../../modules/address/usecases/get_address_by_zipcode_usecase.dart';
+import '../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../modules/address/repository.dart';
-import '../../modules/camera/usecases/capture_image_usecase.dart';
+import '../../modules/imagePicker/usecases/capture_image_usecase.dart';
 import '../../modules/carrier/usecases/create_carrier_usecase.dart';
 import '../../modules/carrier/usecases/delete_carrier_usecase.dart';
 import '../../modules/carrier/usecases/get_all_carriers_usecase.dart';
@@ -49,6 +44,9 @@ class Injection {
   late final GetAllCustomersUsecase getAllCustomersUsecase;
   late final UpdateCustomerUsecase updateCustomerUsecase;
   late final DeleteCustomerUsecase deleteCustomerUsecase;
+  late final PickImageFromGaleryUsecase pickImageFromGaleryUsecase;
+
+  late final PreferencesService preferencesService;
 
   Future<void> inicialize() async {
     //DATABASE
@@ -57,13 +55,13 @@ class Injection {
 
     //SHARED PREFERENCE
     final preferences = await SharedPreferences.getInstance();
-    final preferencesService = PreferencesService(preferences: preferences);
+    preferencesService = PreferencesService(preferences: preferences);
 
     //DATASOURCES
     final cnpjApiDatasource = CnpjApiDatasource();
     final brasilApiDatasource = BrasilApiDatasource();
     final viacepApiDatasource = ViacepApiDatasource();
-    final cameraDatasource = CameraDatasource();
+    final cameraDatasource = ImagePickerDatasource();
 
     //REPOSITORIES
     final productRepository = ProductRepositoryImpl(databaseHelper: database);
@@ -73,7 +71,9 @@ class Injection {
       viacepApiDatasource: viacepApiDatasource,
     );
 
-    final cameraRepository = CameraRepositoryImpl(datasource: cameraDatasource);
+    final imagePickerRepository = ImagePickerRepositoryImpl(
+      datasource: cameraDatasource,
+    );
     final carrierRepository = CarrierRepositoryImpl(databaseHelper: database);
     final customerRepository = CustomerRepositoryImpl(databaseHelper: database);
 
@@ -86,7 +86,9 @@ class Injection {
     getAddressByZipcodeUsecase = GetAddressByZipcodeUsecase(
       repository: addressRepository,
     );
-    captureImageUsecase = CaptureImageUsecase(repository: cameraRepository);
+    captureImageUsecase = CaptureImageUsecase(
+      repository: imagePickerRepository,
+    );
     updateProductUsecase = UpdateProductUsecase(repository: productRepository);
     deleteProductUsecase = DeleteProductUsecase(repository: productRepository);
     createCarrierUsecase = CreateCarrierUsecase(repository: carrierRepository);
@@ -106,6 +108,9 @@ class Injection {
     );
     deleteCustomerUsecase = DeleteCustomerUsecase(
       repository: customerRepository,
+    );
+    pickImageFromGaleryUsecase = PickImageFromGaleryUsecase(
+      repository: imagePickerRepository,
     );
   }
 }

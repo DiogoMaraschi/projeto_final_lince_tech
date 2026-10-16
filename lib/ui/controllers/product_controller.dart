@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../entities/product.dart';
-import '../../modules/camera/usecases/capture_image_usecase.dart';
+import '../../modules/imagePicker/usecases/capture_image_usecase.dart';
 import '../../modules/product/usecases/create_product_usecase.dart';
 import '../../modules/product/usecases/delete_product_usecase.dart';
 import '../../modules/product/usecases/update_product_usecase.dart';

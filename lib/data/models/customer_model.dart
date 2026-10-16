@@ -1,4 +1,4 @@
-import '../../entities/customer.dart';
+import '../../entities/costumer.dart';
 
 class CustomerModel extends Customer {
   final String? deletedAt;

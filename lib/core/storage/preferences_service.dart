@@ -19,7 +19,7 @@ class PreferencesService {
 
   //Language
   Future<void> saveLanguage(String language) async {
-    await preferences.getString(_languageKey);
+    await preferences.setString(_languageKey, language);
   }
 
   String getLanguage() {
