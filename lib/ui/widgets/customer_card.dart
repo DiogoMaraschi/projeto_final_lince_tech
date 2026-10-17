@@ -52,7 +52,7 @@ class CustomerCard extends StatelessWidget {
                 ),
                 padding: EdgeInsets.only(left: 7, right: 7, top: 2, bottom: 2),
                 child: Text(
-                  customer.establishmentType.name,
+                  customer.establishmentType.translate(context),
                   style: TextStyle(color: Colors.deepPurpleAccent),
                 ),
               ),

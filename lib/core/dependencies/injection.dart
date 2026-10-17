@@ -1,5 +1,8 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../modules/address/datasources/brasil_api_datasource.dart';
+import '../../modules/address/datasources/geocoding_datasource.dart';
+import '../../modules/address/usecases/get_location_by_address_usecase.dart';
 import '../../modules/imagePicker/datasources/camera_datasource.dart';
 import '../../modules/cnpj/datasources/cnpj_api_datasource.dart';
 import '../../modules/address/datasources/viacep_api_datasource.dart';
@@ -32,6 +35,7 @@ class Injection {
   late final CreateProductUsecase createProductUsecase;
   late final GetCnpjUsecase getCnpjUsecase;
   late final GetAddressByZipcodeUsecase getAddressByZipcodeUsecase;
+  late final GetLocationByAddressUsecase getLocationByAddressUsecase;
   late final CaptureImageUsecase captureImageUsecase;
   late final GetAllProductsUsecase getAllProductsUsecase;
   late final UpdateProductUsecase updateProductUsecase;
@@ -57,11 +61,14 @@ class Injection {
     final preferences = await SharedPreferences.getInstance();
     preferencesService = PreferencesService(preferences: preferences);
 
+    final geocoding = Geocoding();
+
     //DATASOURCES
     final cnpjApiDatasource = CnpjApiDatasource();
     final brasilApiDatasource = BrasilApiDatasource();
     final viacepApiDatasource = ViacepApiDatasource();
     final cameraDatasource = ImagePickerDatasource();
+    final geocodingDatasource = GeocodingDatasource(geocoding: geocoding);
 
     //REPOSITORIES
     final productRepository = ProductRepositoryImpl(databaseHelper: database);
@@ -69,6 +76,7 @@ class Injection {
     final addressRepository = AddressRepositoryImpl(
       brasilApiDatasource: brasilApiDatasource,
       viacepApiDatasource: viacepApiDatasource,
+      geocodingDatasource: geocodingDatasource,
     );
 
     final imagePickerRepository = ImagePickerRepositoryImpl(
@@ -111,6 +119,9 @@ class Injection {
     );
     pickImageFromGaleryUsecase = PickImageFromGaleryUsecase(
       repository: imagePickerRepository,
+    );
+    getLocationByAddressUsecase = GetLocationByAddressUsecase(
+      repository: addressRepository,
     );
   }
 }

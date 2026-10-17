@@ -21,7 +21,7 @@ class AddressForm extends StatelessWidget {
   final VoidCallback searchByZipcode;
   final GlobalKey<FormFieldState> zipcodeFieldKey;
 
-   AddressForm({
+  AddressForm({
     super.key,
     required this.zipcodeController,
     required this.stateController,

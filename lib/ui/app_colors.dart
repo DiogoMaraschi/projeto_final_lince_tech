@@ -6,6 +6,12 @@ class AppColors {
   static const Color labelColor = Colors.grey;
 }
 
+// final teste = ThemeData(
+//   textTheme: ,
+//   cardColor: ,
+//
+// );
+
 class AppTheme {
 
   static final ThemeData light = ThemeData(

@@ -1,17 +1,23 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../modules/address/usecases/get_address_by_zipcode.dart';
+import '../../modules/address/usecases/get_location_by_address_usecase.dart';
 import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
 import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 
 class StoreDetailsController with ChangeNotifier {
   final GetAddressByZipcodeUsecase _getAddressByZipcodeUsecase;
+  final GetLocationByAddressUsecase _getLocationByAddressUsecase;
   final GetCnpjUsecase _getCnpjUsecase;
   final PickImageFromGaleryUsecase _pickImageFromGaleryUsecase;
 
   StoreDetailsController({
     required this._getCnpjUsecase,
     required this._getAddressByZipcodeUsecase,
+    required this._getLocationByAddressUsecase,
     required this._pickImageFromGaleryUsecase,
   });
 
@@ -29,12 +35,22 @@ class StoreDetailsController with ChangeNotifier {
   final neighborhoodController = TextEditingController();
   final complementController = TextEditingController();
 
+  GoogleMapController? _mapController ;
+
   String? _imagePath;
   bool _isLoading = false;
+  LatLng? _location;
+  LatLng defaultPosition =  LatLng(-23.5505, -46.6333);
 
   bool get isLoading => _isLoading;
 
   String? get imagePath => _imagePath;
+
+  LatLng? get location => _location;
+
+  void setController(GoogleMapController controller) {
+    _mapController = controller;
+  }
 
   Future<void> searchZipcode() async {
     _isLoading = true;
@@ -84,5 +100,27 @@ class StoreDetailsController with ChangeNotifier {
       _imagePath = path;
       notifyListeners();
     }
+  }
+
+  Future<void> getLocationByAddress() async {
+    final street = streetController.text;
+    final city = cityController.text;
+    final number = numberController.text;
+    final result  = await _getLocationByAddressUsecase(street, city, number);
+
+    _location = LatLng(result!.latitude, result.longitude);
+    changeCameraPosition();
+    notifyListeners();
+  }
+
+  void changeCameraPosition() {
+    _mapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(_location!.latitude, _location!.longitude),
+          zoom: 18,
+        ),
+      ),
+    );
   }
 }

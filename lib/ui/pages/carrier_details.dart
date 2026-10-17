@@ -14,6 +14,7 @@ import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 import '../widgets/delete_button.dart';
+import '../widgets/labeled_text_form_field.dart';
 
 class CarrierDetailsPage extends StatelessWidget {
   const CarrierDetailsPage({super.key, this.carrier});
@@ -70,12 +71,8 @@ class _CarrierDetailPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // CNPJ
-                              CommomLabel(
-                                text: l10n.commomCnpj,
-                                isPrimary: true,
-                              ),
-                              const SizedBox(height: 6),
-                              CommomTextFormField(
+                              LabeledTextFormField(
+                                label: l10n.commomCnpj,
                                 controller: state.cnpjController,
                                 hintText: l10n.commomHintCnpj,
                                 keyboardType: TextInputType.number,
@@ -92,9 +89,8 @@ class _CarrierDetailPage extends StatelessWidget {
                               const SizedBox(height: 16),
 
                               // Name
-                              CommomLabel(text: l10n.carrierName),
-                              const SizedBox(height: 6),
-                              CommomTextFormField(
+                              LabeledTextFormField(
+                                label: l10n.carrierName,
                                 controller: state.nameController,
                                 hintText: l10n.carrierHintName,
                                 validator: isNotEmpty,
@@ -103,9 +99,8 @@ class _CarrierDetailPage extends StatelessWidget {
                               const SizedBox(height: 16),
 
                               // Legal Name
-                              CommomLabel(text: l10n.carrierLegalName),
-                              const SizedBox(height: 6),
-                              CommomTextFormField(
+                              LabeledTextFormField(
+                                label: l10n.carrierLegalName,
                                 controller: state.legalNameController,
                                 hintText: l10n.carrierHintLegalName,
                                 validator: isNotEmpty,
@@ -113,13 +108,8 @@ class _CarrierDetailPage extends StatelessWidget {
 
                               const SizedBox(height: 16),
 
-                              // Email
-                              CommomLabel(
-                                text: l10n.commomEmail,
-                                isPrimary: true,
-                              ),
-                              const SizedBox(height: 6),
-                              CommomTextFormField(
+                               LabeledTextFormField(
+                                label: l10n.commomEmail,
                                 controller: state.emailController,
                                 hintText: l10n.commomHintEmail,
                                 keyboardType: TextInputType.emailAddress,
@@ -129,12 +119,8 @@ class _CarrierDetailPage extends StatelessWidget {
                               const SizedBox(height: 16),
 
                               // Phone
-                              CommomLabel(
-                                text: l10n.commomPhone,
-                                isPrimary: true,
-                              ),
-                              const SizedBox(height: 6),
-                              CommomTextFormField(
+                              LabeledTextFormField(
+                                label: l10n.commomPhone,
                                 controller: state.phoneController,
                                 hintText: l10n.commomHintPhone,
                                 keyboardType: TextInputType.phone,
@@ -150,12 +136,8 @@ class _CarrierDetailPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        CommomLabel(
-                                          text: l10n.carrierCostPerKm,
-                                          isPrimary: true,
-                                        ),
-                                        const SizedBox(height: 6),
-                                        CommomTextFormField(
+                                        LabeledTextFormField(
+                                          label: l10n.carrierCostPerKm,
                                           controller: state.costPerKmController,
                                           hintText: l10n.carrierHintCostPerKm,
                                           keyboardType: TextInputType.number,
@@ -174,12 +156,8 @@ class _CarrierDetailPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        CommomLabel(
-                                          text: l10n.carrierMinimumPrice,
-                                          isPrimary: true,
-                                        ),
-                                        const SizedBox(height: 6),
-                                        CommomTextFormField(
+                                        LabeledTextFormField(
+                                          label: l10n.carrierMinimumPrice,
                                           controller:
                                               state.minimumPriceController,
                                           hintText:

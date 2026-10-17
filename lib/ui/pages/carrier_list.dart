@@ -33,11 +33,11 @@ class _CarrierListPage extends StatelessWidget {
           appBar: AppBar(title: Text(l10n.carrierListTitle)),
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
-              : state.carriers.isNotEmpty
+              : state.carriers.isEmpty
               ? Center(child: Text(l10n.carrierListEmpty))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  itemCount: 3,
+                  itemCount: state.carriers.length,
                   itemBuilder: (context, index) {
                     final carrier = state.carriers[index];
                     return CarrierCard(

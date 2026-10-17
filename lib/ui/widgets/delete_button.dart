@@ -12,16 +12,19 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(5),
-      decoration: const BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(color: colors.surface ),
       child: SizedBox(
         height: 54,
         width: double.infinity,
         child: ElevatedButton(
           onPressed: btnAction,
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFDC2626),
+            backgroundColor: colors.surface,
             foregroundColor: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
