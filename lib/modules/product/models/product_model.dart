@@ -1,4 +1,4 @@
-import '../../entities/product.dart';
+import '../../../entities/product.dart';
 
 class ProductModel extends Product {
   final String? deletedAt;

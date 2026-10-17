@@ -1,4 +1,4 @@
-import '../../entities/carrier.dart';
+import '../../../entities/carrier.dart';
 
 class CarrierModel extends Carrier {
   final String? deletedAt;

@@ -1,5 +1,5 @@
-import '../../data/datasources/cnpj_api_datasource.dart';
-import '../../data/models/cnpj_model.dart';
+import './datasources/cnpj_api_datasource.dart';
+import './models/cnpj_model.dart';
 
 abstract class CnpjRepository {
   Future<CnpjModel> getCnpj(String cnpj);

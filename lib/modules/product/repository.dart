@@ -1,5 +1,5 @@
 import '../../core/database/database_helper.dart';
-import '../../data/models/product_model.dart';
+import './models/product_model.dart';
 import '../../entities/product.dart';
 
 abstract class ProductRepository {

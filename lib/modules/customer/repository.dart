@@ -1,5 +1,5 @@
 import '../../core/database/database_helper.dart';
-import '../../data/models/customer_model.dart';
+import './models/customer_model.dart';
 import '../../entities/costumer.dart';
 
 abstract class CustomerRepository {

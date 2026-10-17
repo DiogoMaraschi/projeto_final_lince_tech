@@ -1,7 +1,7 @@
 import '../../entities/address.dart';
 import 'package:flutter/foundation.dart';
-import '../../data/datasources/brasil_api_datasource.dart';
-import '../../data/datasources/viacep_api_datasource.dart';
+import './datasources/brasil_api_datasource.dart';
+import './datasources/viacep_api_datasource.dart';
 
 abstract class AddressRepository {
   Future<Address> getByZipcode(String zipcode);

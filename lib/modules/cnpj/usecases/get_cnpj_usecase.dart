@@ -1,4 +1,4 @@
-import '../../../data/models/cnpj_model.dart';
+import '../models/cnpj_model.dart';
 import '../../../ui/formatters/app_formatters.dart';
 import '../repository.dart';
 

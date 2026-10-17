@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../data/datasources/brasil_api_datasource.dart';
-import '../../data/datasources/camera_datasource.dart';
-import '../../data/datasources/cnpj_api_datasource.dart';
-import '../../data/datasources/viacep_api_datasource.dart';
+import '../../modules/address/datasources/brasil_api_datasource.dart';
+import '../../modules/imagePicker/datasources/camera_datasource.dart';
+import '../../modules/cnpj/datasources/cnpj_api_datasource.dart';
+import '../../modules/address/datasources/viacep_api_datasource.dart';
 import '../../modules/customer/repository.dart';
 import '../../modules/imagePicker/repository.dart';
 import '../../modules/carrier/repository.dart';

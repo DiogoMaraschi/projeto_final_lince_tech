@@ -1,4 +1,4 @@
-import '../../data/datasources/camera_datasource.dart';
+import './datasources/camera_datasource.dart';
 
 abstract class ImagePickerRepository {
   Future<String?> captureImage();

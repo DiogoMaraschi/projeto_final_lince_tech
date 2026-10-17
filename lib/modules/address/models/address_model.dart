@@ -1,4 +1,4 @@
-import '../../entities/address.dart';
+import '../../../entities/address.dart';
 
 class AddressModel extends Address {
   const AddressModel({

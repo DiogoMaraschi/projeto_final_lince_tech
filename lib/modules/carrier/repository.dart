@@ -1,5 +1,5 @@
 import '../../core/database/database_helper.dart';
-import '../../data/models/carrier_model.dart';
+import './models/carrier_model.dart';
 import '../../entities/carrier.dart';
 
 abstract class CarrierRepository {
