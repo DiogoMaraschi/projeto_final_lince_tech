@@ -8,6 +8,7 @@ import 'ui/pages/carrier_details.dart';
 import 'ui/pages/carrier_list.dart';
 import 'ui/pages/costumer_list.dart';
 import 'ui/pages/costumers_details.dart';
+import 'ui/pages/map_page.dart';
 import 'ui/pages/product_details.dart';
 import 'ui/pages/product_list.dart';
 import 'ui/pages/profile.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
 
       themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
 
-      home: ProfilePage(),
+      home: MapPage(),
     );
   }
 }
