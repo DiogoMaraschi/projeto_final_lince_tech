@@ -56,7 +56,7 @@ class _LabeledTextFormFieldState extends State<LabeledTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+     final colors = Theme.of(context).colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

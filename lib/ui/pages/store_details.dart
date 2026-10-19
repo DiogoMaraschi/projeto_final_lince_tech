@@ -176,7 +176,7 @@ class _StoreDetailsPage extends StatelessWidget {
                           zipcodeFieldKey: _zipcodeFieldKey,
                         ),
 
-                        SizedBox(height: 50),
+                        SizedBox(height: 30),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -207,15 +207,6 @@ class _StoreDetailsPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            state.getLocationByAddress();
-                          },
-                          child: Text('Obter localização atual'),
-                        ),
                       ],
                     ),
                   ),

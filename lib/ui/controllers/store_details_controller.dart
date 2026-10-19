@@ -19,7 +19,11 @@ class StoreDetailsController with ChangeNotifier {
     required this._getAddressByZipcodeUsecase,
     required this._getLocationByAddressUsecase,
     required this._pickImageFromGaleryUsecase,
-  });
+  }) {
+    streetController.addListener(_onAddressChanged);
+    cityController.addListener(_onAddressChanged);
+    numberController.addListener(_onAddressChanged);
+  }
 
   final nameController = TextEditingController();
   final legalNameController = TextEditingController();
@@ -35,12 +39,14 @@ class StoreDetailsController with ChangeNotifier {
   final neighborhoodController = TextEditingController();
   final complementController = TextEditingController();
 
-  GoogleMapController? _mapController ;
+  GoogleMapController? _mapController;
 
   String? _imagePath;
   bool _isLoading = false;
   LatLng? _location;
-  LatLng defaultPosition =  LatLng(-23.5505, -46.6333);
+  LatLng defaultPosition = LatLng(-23.5505, -46.6333);
+  Timer? _addressDebounce;
+  String? _lastSearchedAddress;
 
   bool get isLoading => _isLoading;
 
@@ -106,11 +112,20 @@ class StoreDetailsController with ChangeNotifier {
     final street = streetController.text;
     final city = cityController.text;
     final number = numberController.text;
-    final result  = await _getLocationByAddressUsecase(street, city, number);
 
-    _location = LatLng(result!.latitude, result.longitude);
-    changeCameraPosition();
-    notifyListeners();
+    if (street.isEmpty || city.isEmpty || number.isEmpty) return;
+
+    try {
+      final result = await _getLocationByAddressUsecase(street, city, number);
+
+      if (result == null) result;
+
+      _location = LatLng(result!.latitude, result.longitude);
+      changeCameraPosition();
+      notifyListeners();
+    } catch (e) {
+      print('Não foi possível localizar o endereço: $e');
+    }
   }
 
   void changeCameraPosition() {
@@ -122,5 +137,50 @@ class StoreDetailsController with ChangeNotifier {
         ),
       ),
     );
+  }
+
+  void _onAddressChanged() {
+    _addressDebounce?.cancel();
+
+    final street = streetController.text.trim();
+    final city = cityController.text.trim();
+    final number = numberController.text.trim();
+
+    if (street.isEmpty || city.isEmpty || number.isEmpty) {
+      _lastSearchedAddress = null;
+      return;
+    }
+
+    final address = '$street|$number|$city';
+    _addressDebounce = Timer(const Duration(milliseconds: 700), () {
+      if (address == _lastSearchedAddress) return;
+
+      _lastSearchedAddress = address;
+      getLocationByAddress();
+    });
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    legalNameController.dispose();
+    cnpjController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+
+    zipcodeController.dispose();
+    cityController.dispose();
+    stateController.dispose();
+    streetController.dispose();
+    numberController.dispose();
+    neighborhoodController.dispose();
+    complementController.dispose();
+
+    _addressDebounce?.cancel();
+
+    streetController.removeListener(_onAddressChanged);
+    cityController.removeListener(_onAddressChanged);
+    numberController.removeListener(_onAddressChanged);
+
   }
 }
