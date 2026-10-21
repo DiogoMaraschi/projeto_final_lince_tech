@@ -77,24 +77,25 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE store_settings (
+      CREATE TABLE profile (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
         name TEXT NOT NULL,
         legal_name TEXT,
-        cnpj TEXT,
+        cnpj TEXT NOT NULL,
+        
+        image_path TEXT,
 
-        phone TEXT,
-        email TEXT,
+        state TEXT NOT NULL,
+        city TEXT NOT NULL,
+        zip_code TEXT NOT NULL,
+        street TEXT NOT NULL,
+        number TEXT NOT NULL,
+        neighborhood TEXT,
+        complement TEXT,
 
-        state TEXT,
-        city TEXT,
-        zip_code TEXT,
-        street TEXT,
-        number TEXT,
-
-        latitude REAL,
-        longitude REAL
+        latitude REAL NOT NULL,
+        longitude REAL NOT NULL
       )
     ''');
 

@@ -9,6 +9,7 @@ import '../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../modules/customer/usecases/get_all_customers_usecase.dart';
 import '../../l10n/app_localizations.dart';
 import '../../modules/customer/usecases/update_customer_usecase.dart';
+import '../formatters/app_formatters.dart';
 
 class CustomerController with ChangeNotifier {
   final Customer? _customerReceived;
@@ -131,15 +132,15 @@ class CustomerController with ChangeNotifier {
     return Customer(
       id: _customerReceived?.id,
       name: nameController.text,
-      cnpj: cnpjController.text,
+      cnpj: AppFormatters.onlyNumber(cnpjController.text),
       legalName: legalNameController.text,
       establishmentType: _establishmentType!,
       state: stateController.text,
       city: cityController.text,
-      zipCode: zipcodeController.text,
+      zipCode: AppFormatters.onlyNumber(zipcodeController.text),
       street: streetController.text,
       number: numberController.text,
-      phoneNumber: phoneController.text,
+      phoneNumber: AppFormatters.onlyNumber(phoneController.text),
       email: emailController.text,
       latitude: 0,
       longitude: 0,

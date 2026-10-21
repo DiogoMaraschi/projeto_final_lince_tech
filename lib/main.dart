@@ -10,7 +10,7 @@ import 'ui/pages/costumer_list.dart';
 import 'ui/pages/product_details.dart';
 import 'ui/pages/product_list.dart';
 import 'ui/pages/profile.dart';
-import 'ui/pages/store_details.dart';
+import 'ui/pages/profile_details.dart';
 import 'ui/widgets/carrier_card.dart';
 import 'ui/widgets/product_card.dart';
 
@@ -25,7 +25,12 @@ Future<void> main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) =>
-          ProfileController(preferences: injection.preferencesService)..load(),
+          ProfileController(
+              preferences: injection.preferencesService,
+              getProfileUsecase: injection.getProfileUsecase,
+            )
+            ..loadTheme()
+            ..loadProfile(),
       child: MyApp(),
     ),
   );

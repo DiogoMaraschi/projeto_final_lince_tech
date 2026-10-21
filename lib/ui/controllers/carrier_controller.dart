@@ -5,6 +5,7 @@ import '../../modules/carrier/usecases/create_carrier_usecase.dart';
 import '../../modules/carrier/usecases/delete_carrier_usecase.dart';
 import '../../modules/carrier/usecases/update_carrier_usecase.dart';
 import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../formatters/app_formatters.dart';
 
 class CarrierController with ChangeNotifier {
   final Carrier? _carrierReceived;
@@ -100,8 +101,8 @@ class CarrierController with ChangeNotifier {
       minimumPrice: double.parse(minimumPriceController.text),
       legalName: legalNameController.text,
       email: emailController.text,
-      cnpj: cnpjController.text,
-      phoneNumber: phoneController.text,
+      cnpj: AppFormatters.onlyNumber(cnpjController.text),
+      phoneNumber: AppFormatters.onlyNumber(phoneController.text),
     );
   }
 

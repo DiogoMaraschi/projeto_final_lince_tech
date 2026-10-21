@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../controllers/profile_controller.dart';
-import 'store_details.dart';
+import '../formatters/app_formatters.dart';
+import 'profile_details.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -19,12 +20,15 @@ class ProfilePage extends StatelessWidget {
 class _ProfilePage extends StatelessWidget {
   _ProfilePage();
 
+  final cnpjFormatter = AppFormatters.cnpj();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileController>(
       builder: (context, state, child) {
         final colors = Theme.of(context).colorScheme;
         final l10n = AppLocalizations.of(context)!;
+        final profile = state.profile;
 
         return Scaffold(
           backgroundColor: colors.surface,
@@ -63,10 +67,10 @@ class _ProfilePage extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Center(
-                        child: state.imagePath != null
+                        child: profile?.imagePath != null
                             ? ClipOval(
                                 child: Image.file(
-                                  File(state.imagePath!),
+                                  File(profile!.imagePath!),
                                   width: 90,
                                   height: 90,
                                   fit: BoxFit.cover,
@@ -87,13 +91,13 @@ class _ProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Diogo Bernardo Maraschi',
+                            profile?.name ?? '',
                             style: TextStyle(fontSize: 18, fontWeight: .w500),
                           ),
 
                           SizedBox(height: 7),
                           Text(
-                            'CNPJ: 21.601,949/0001-47',
+                            'CNPJ: ${profile?.cnpj ?? ''}',
                             style: TextStyle(fontSize: 15),
                           ),
                         ],
@@ -119,11 +123,16 @@ class _ProfilePage extends StatelessWidget {
                     ListTile(
                       title: Text(l10n.profileStoreInformation),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async{
+                        await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => StoreDetailsPage()),
+                          MaterialPageRoute(
+                            builder: (_) => ProfileDetailsPage(),
+                          ),
                         );
+                        if (!context.mounted) return;
+
+                        await state.loadProfile();
                       },
                     ),
                     SwitchListTile(

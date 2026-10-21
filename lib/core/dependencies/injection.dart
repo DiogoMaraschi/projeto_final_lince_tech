@@ -28,6 +28,10 @@ import '../../modules/product/usecases/create_product_usecase.dart';
 import '../../modules/product/usecases/delete_product_usecase.dart';
 import '../../modules/product/usecases/get_all_products_usecase.dart';
 import '../../modules/product/usecases/update_product_usecase.dart';
+import '../../modules/profile/repository.dart';
+import '../../modules/profile/usecases/create_profile_usecase.dart';
+import '../../modules/profile/usecases/get_profile_usecase.dart';
+import '../../modules/profile/usecases/update_profile_usecase.dart';
 import '../database/database_helper.dart';
 import '../storage/preferences_service.dart';
 
@@ -49,6 +53,9 @@ class Injection {
   late final UpdateCustomerUsecase updateCustomerUsecase;
   late final DeleteCustomerUsecase deleteCustomerUsecase;
   late final PickImageFromGaleryUsecase pickImageFromGaleryUsecase;
+  late final CreateProfileUsecase createProfileUsecase;
+  late final UpdateProfileUsecase updateProfileUsecase;
+  late final GetProfileUsecase getProfileUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -78,6 +85,7 @@ class Injection {
       viacepApiDatasource: viacepApiDatasource,
       geocodingDatasource: geocodingDatasource,
     );
+    final profileRepository = ProfileRepositoryImpl(databaseHelper: database);
 
     final imagePickerRepository = ImagePickerRepositoryImpl(
       datasource: cameraDatasource,
@@ -123,5 +131,8 @@ class Injection {
     getLocationByAddressUsecase = GetLocationByAddressUsecase(
       repository: addressRepository,
     );
+    createProfileUsecase = CreateProfileUsecase(repository: profileRepository);
+    updateProfileUsecase = UpdateProfileUsecase(repository: profileRepository);
+    getProfileUsecase = GetProfileUsecase(repository: profileRepository);
   }
 }
