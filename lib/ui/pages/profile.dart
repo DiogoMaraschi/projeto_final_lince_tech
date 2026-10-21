@@ -79,7 +79,7 @@ class _ProfilePage extends StatelessWidget {
                             : Text(
                                 state.getFirstWord(),
                                 style: TextStyle(
-                                  fontSize: 40,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -97,7 +97,7 @@ class _ProfilePage extends StatelessWidget {
 
                           SizedBox(height: 7),
                           Text(
-                            'CNPJ: ${profile?.cnpj ?? ''}',
+                            'CNPJ: ${cnpjFormatter.maskText(state.profile?.cnpj ?? '')}',
                             style: TextStyle(fontSize: 15),
                           ),
                         ],
