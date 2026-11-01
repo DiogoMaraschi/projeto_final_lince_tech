@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../entities/carrier.dart';
-import '../../modules/carrier/usecases/create_carrier_usecase.dart';
 import '../../modules/carrier/usecases/get_all_carriers_usecase.dart';
 
 class CarrierListController with ChangeNotifier {

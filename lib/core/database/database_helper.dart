@@ -4,6 +4,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'database_seed.dart';
+
 class DatabaseHelper {
   static const String _databaseName = 'app_database.db';
   static const int _databaseVersion = 1;
@@ -23,7 +25,11 @@ class DatabaseHelper {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, _databaseName);
 
-    return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
+    return openDatabase(
+      path,
+      version: _databaseVersion,
+      onCreate: _onCreate,
+    );
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -35,6 +41,7 @@ class DatabaseHelper {
         description TEXT,
         brand TEXT,
         image_path TEXT,
+        sale_price REAL NOT NULL CHECK (sale_price > 0),
         deleted_at TEXT
       )
     ''');
@@ -136,6 +143,8 @@ class DatabaseHelper {
           REFERENCES products(id)
       )
     ''');
+
+    await DatabaseSeed.insertInitialData(db);
   }
 
   Future<void> resetDatabase() async {

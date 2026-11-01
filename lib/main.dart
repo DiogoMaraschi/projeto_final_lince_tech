@@ -8,12 +8,13 @@ import 'ui/pages/carrier_details.dart';
 import 'ui/pages/carrier_list.dart';
 import 'ui/pages/costumer_list.dart';
 import 'ui/pages/main_navigation_page.dart';
-import 'ui/pages/order_details.dart';
+import 'ui/pages/order/order_details.dart';
 import 'ui/pages/product_details.dart';
 import 'ui/pages/product_list.dart';
 import 'ui/pages/profile.dart';
 import 'ui/pages/profile_details.dart';
 import 'ui/widgets/carrier_card.dart';
+import 'ui/widgets/order_item_draft_card.dart';
 import 'ui/widgets/product_card.dart';
 
 late final Injection injection;
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
 
       themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
 
-      home:  OrderDetailsPage(),
+      home:  MainNavigationPage(),
     );
   }
 }

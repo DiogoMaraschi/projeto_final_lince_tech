@@ -6,10 +6,12 @@ import '../../entities/carrier.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier_controller.dart';
+import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';
 import '../validators/not_empty_validator.dart';
 import '../validators/phone_validator.dart';
+import '../validators/positive_money_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
@@ -108,7 +110,7 @@ class _CarrierDetailPage extends StatelessWidget {
 
                               const SizedBox(height: 16),
 
-                               LabeledTextFormField(
+                              LabeledTextFormField(
                                 label: l10n.commomEmail,
                                 controller: state.emailController,
                                 hintText: l10n.commomHintEmail,
@@ -140,11 +142,13 @@ class _CarrierDetailPage extends StatelessWidget {
                                           label: l10n.carrierCostPerKm,
                                           controller: state.costPerKmController,
                                           hintText: l10n.carrierHintCostPerKm,
-                                          keyboardType: TextInputType.number,
-                                          validator: isNotEmpty,
+                                          keyboardType:
+                                              const TextInputType.numberWithOptions(
+                                                decimal: true,
+                                              ),
+                                          validator: validatePositiveMoney,
                                           inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
+                                            AppFormatters.money(),
                                           ],
                                         ),
                                       ],
@@ -162,11 +166,13 @@ class _CarrierDetailPage extends StatelessWidget {
                                               state.minimumPriceController,
                                           hintText:
                                               l10n.carrierHintMinimumPrice,
-                                          keyboardType: TextInputType.number,
-                                          validator: isNotEmpty,
+                                          keyboardType:
+                                              const TextInputType.numberWithOptions(
+                                                decimal: true,
+                                              ),
+                                          validator: validatePositiveMoney,
                                           inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
+                                            AppFormatters.money(),
                                           ],
                                         ),
                                       ],

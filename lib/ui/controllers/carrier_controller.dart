@@ -81,10 +81,8 @@ class CarrierController with ChangeNotifier {
     try {
       if (isEditing) {
         await _updateCarrierUsecase(carrierEdited);
-        print('editou');
       } else {
         await _createCarrierUsecase(carrierEdited);
-        print('salvou');
       }
       return true;
     } catch (e) {
@@ -97,13 +95,18 @@ class CarrierController with ChangeNotifier {
     return Carrier(
       id: _carrierReceived?.id,
       name: nameController.text,
-      costPerKm: double.parse(costPerKmController.text),
-      minimumPrice: double.parse(minimumPriceController.text),
+      costPerKm: _parseMoney(costPerKmController.text),
+      minimumPrice: _parseMoney(minimumPriceController.text),
       legalName: legalNameController.text,
       email: emailController.text,
       cnpj: AppFormatters.onlyNumber(cnpjController.text),
       phoneNumber: AppFormatters.onlyNumber(phoneController.text),
     );
+  }
+
+  double _parseMoney(String value) {
+    final digits = AppFormatters.onlyNumber(value);
+    return int.parse(digits) / 100;
   }
 
   void _fillFields(Carrier carrier) {

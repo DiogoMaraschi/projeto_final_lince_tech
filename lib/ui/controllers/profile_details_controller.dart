@@ -89,7 +89,7 @@ class ProfileDetailsController with ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -110,7 +110,7 @@ class ProfileDetailsController with ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       _isLoading = false;
       notifyListeners();
     }
@@ -141,7 +141,7 @@ class ProfileDetailsController with ChangeNotifier {
       changeCameraPosition();
       notifyListeners();
     } catch (e) {
-      print('Não foi possível localizar o endereço: $e');
+      debugPrint('Não foi possível localizar o endereço: $e');
     }
   }
 
@@ -183,14 +183,12 @@ class ProfileDetailsController with ChangeNotifier {
 
       if (isEditing) {
         await _updateProfileUsecase(profileEdited);
-        print('editado');
       } else {
         await _createProfileUsecase(profileEdited);
-        print('criado');
       }
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -207,7 +205,7 @@ class ProfileDetailsController with ChangeNotifier {
         _location = LatLng(result.latitude, result.longitude);
       }
     } catch (e) {
-      print('ERRO AO BUSCAR PERFIL: $e');
+      debugPrint('ERRO AO BUSCAR PERFIL: $e');
     } finally {
       _isLoading = false;
       notifyListeners();

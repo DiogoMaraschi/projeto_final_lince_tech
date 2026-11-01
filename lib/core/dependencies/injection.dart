@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../modules/address/datasources/brasil_api_datasource.dart';
 import '../../modules/address/datasources/geocoding_datasource.dart';
 import '../../modules/address/usecases/get_location_by_address_usecase.dart';
+import '../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
+import '../../modules/customer/usecases/get_customer_by_id_usecase.dart';
 import '../../modules/imagePicker/datasources/camera_datasource.dart';
 import '../../modules/cnpj/datasources/cnpj_api_datasource.dart';
 import '../../modules/address/datasources/viacep_api_datasource.dart';
@@ -56,13 +58,15 @@ class Injection {
   late final CreateProfileUsecase createProfileUsecase;
   late final UpdateProfileUsecase updateProfileUsecase;
   late final GetProfileUsecase getProfileUsecase;
+  late final GetCustomerByIdUsecase getCustomerByIdUsecase;
+  late final GetCarrierByIdUsecase getCarrierByIdUsecase;
 
   late final PreferencesService preferencesService;
 
   Future<void> inicialize() async {
     //DATABASE
     final database = DatabaseHelper();
-    // await database.resetDatabase();
+    await database.resetDatabase();
 
     //SHARED PREFERENCE
     final preferences = await SharedPreferences.getInstance();
@@ -134,5 +138,11 @@ class Injection {
     createProfileUsecase = CreateProfileUsecase(repository: profileRepository);
     updateProfileUsecase = UpdateProfileUsecase(repository: profileRepository);
     getProfileUsecase = GetProfileUsecase(repository: profileRepository);
+    getCustomerByIdUsecase = GetCustomerByIdUsecase(
+      repository: customerRepository,
+    );
+    getCarrierByIdUsecase = GetCarrierByIdUsecase(
+      repository: carrierRepository,
+    );
   }
 }

@@ -10,6 +10,7 @@ class ProductModel extends Product {
     super.description,
     required super.brand,
     super.imagePath,
+    required super.salePrice,
     this.deletedAt,
   });
 
@@ -21,6 +22,7 @@ class ProductModel extends Product {
       description: map['description'] as String?,
       brand: map['brand'] as String,
       imagePath: map['image_path'] as String?,
+      salePrice: (map['sale_price'] as num).toDouble(),
       deletedAt: map['deleted_at'] as String?,
     );
   }
@@ -33,6 +35,7 @@ class ProductModel extends Product {
       'description': description,
       'brand': brand,
       'image_path': imagePath,
+      'sale_price': salePrice,
       'deleted_at': deletedAt,
     };
   }
@@ -45,6 +48,7 @@ class ProductModel extends Product {
       description: product.description,
       brand: product.brand,
       imagePath: product.imagePath,
+      salePrice: product.salePrice,
     );
   }
 }

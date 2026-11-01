@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'carrier_list.dart';
 import 'costumer_list.dart';
-import 'order_details.dart';
+import 'order/order_details.dart';
 import 'product_list.dart';
 import 'profile.dart';
 import 'profile_details.dart';

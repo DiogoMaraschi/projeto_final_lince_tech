@@ -4,9 +4,14 @@ import '../../entities/carrier.dart';
 
 abstract class CarrierRepository {
   Future<int> insert(Carrier carrier);
+
   Future<List<Carrier>> getAllCarriers();
+
   Future<int> update(Carrier carrier);
+
   Future<int> softDelete(int id);
+
+  Future<Carrier?> getById(int id);
 }
 
 class CarrierRepositoryImpl implements CarrierRepository {
@@ -22,13 +27,6 @@ class CarrierRepositoryImpl implements CarrierRepository {
 
     final conn = await databaseHelper.database;
 
-    // final result = await conn.query(tableName, where: 'cnpj = ?', whereArgs: [carrierModel.cnpj]);
-    // // if (result.isNotEmpty) {
-    // //   return UpdateCarrierStatus.cnpjAlreadyExists;
-    // // }
-    print('email no repo enti ${carrier.email}');
-    print('email no repo model ${carrierModel.email}');
-
     return conn.insert(tableName, carrierModel.toMap());
   }
 
@@ -38,8 +36,6 @@ class CarrierRepositoryImpl implements CarrierRepository {
 
     final result = await conn.query(tableName, where: 'deleted_at IS NULL');
 
-    print(result.map((map) => CarrierModel.fromMap(map)).toList().length);
-
     return result.map((map) => CarrierModel.fromMap(map)).toList();
   }
 
@@ -48,17 +44,6 @@ class CarrierRepositoryImpl implements CarrierRepository {
     final carrierModel = CarrierModel.fromEntity(carrier);
 
     final conn = await databaseHelper.database;
-
-    print('-----repo----');
-    print('id ${carrier.id}');
-    print('nome ${carrier.name}');
-    print('id email ${carrier.email}');
-    print('id cnpj ${carrier.cnpj}');
-    print('id mim ${carrier.minimumPrice}');
-    print('id cost ${carrier.costPerKm}');
-    print('id phone ${carrier.phoneNumber}');
-
-
 
     return await conn.update(
       tableName,
@@ -79,12 +64,24 @@ class CarrierRepositoryImpl implements CarrierRepository {
       whereArgs: [id],
     );
   }
-}
 
+  @override
+  Future<Carrier?> getById(int id) async {
+    final conn = await databaseHelper.database;
+
+    final result = await conn.query(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    return CarrierModel.fromMap(result.first);
+  }
+}
 
 sealed class Result {
   final String message;
+
   //TODO estudar sobre
   const Result({required this.message});
 }
-

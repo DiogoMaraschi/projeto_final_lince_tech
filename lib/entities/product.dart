@@ -5,6 +5,7 @@ class Product {
   final String? description;
   final String brand;
   final String? imagePath;
+  final double salePrice;
 
   Product({
     this.id,
@@ -13,5 +14,6 @@ class Product {
     this.description,
     required this.brand,
     this.imagePath,
+    required this.salePrice,
   });
 }

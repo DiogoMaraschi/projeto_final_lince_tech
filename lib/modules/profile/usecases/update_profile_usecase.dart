@@ -6,10 +6,8 @@ class UpdateProfileUsecase {
 
   UpdateProfileUsecase({required this.repository});
 
-  Future<int> call(Profile profile) async{
-
-    final id =  repository.update(profile);
-    print('id $id');
+  Future<int> call(Profile profile) async {
+    final id = repository.update(profile);
     return id;
   }
 }

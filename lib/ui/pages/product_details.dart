@@ -8,11 +8,14 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/product_controller.dart';
+import '../formatters/app_formatters.dart';
 import '../validators/not_empty_validator.dart';
+import '../validators/positive_money_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/commom_label.dart';
 import '../widgets/commom_text_form_field.dart';
 import '../widgets/delete_button.dart';
+import '../widgets/labeled_text_form_field.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage({super.key, this.product});
@@ -122,11 +125,8 @@ class _ProductDetailsState extends StatelessWidget {
                         const SizedBox(height: 24),
 
                         // Product Name
-                        CommomLabel(text: l10n.productName, isPrimary: true),
-
-                        const SizedBox(height: 6),
-
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.productName,
                           controller: state.nameController,
                           hintText: l10n.productHintName,
                           validator: isNotEmpty,
@@ -136,11 +136,8 @@ class _ProductDetailsState extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         // Barcode
-                        CommomLabel(text: l10n.productBarcode, isPrimary: true),
-
-                        const SizedBox(height: 6),
-
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.productBarcode,
                           controller: state.barcodeController,
                           hintText: l10n.productHintBarcode,
                           keyboardType: TextInputType.number,
@@ -158,14 +155,8 @@ class _ProductDetailsState extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         // Description
-                        CommomLabel(
-                          text: l10n.productDescription,
-                          isPrimary: true,
-                        ),
-
-                        const SizedBox(height: 6),
-
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.productDescription,
                           controller: state.descriptionController,
                           hintText: l10n.productHintDescription,
                           maxLines: 4,
@@ -175,15 +166,25 @@ class _ProductDetailsState extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         // Brand
-                        CommomLabel(text: l10n.productBrand),
-
-                        const SizedBox(height: 6),
-
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.productBrand,
                           controller: state.brandController,
                           hintText: l10n.productHintBrand,
                           validator: isNotEmpty,
                           textCapitalization: TextCapitalization.words,
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        LabeledTextFormField(
+                          label: 'Preço',
+                          controller: state.salePriceController,
+                          hintText: 'hint',
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                          ),
+                          validator: validatePositiveMoney,
+                        inputFormatters: [AppFormatters.money()],
                         ),
                       ],
                     ),

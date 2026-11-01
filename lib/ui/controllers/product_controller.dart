@@ -4,6 +4,7 @@ import '../../modules/imagePicker/usecases/capture_image_usecase.dart';
 import '../../modules/product/usecases/create_product_usecase.dart';
 import '../../modules/product/usecases/delete_product_usecase.dart';
 import '../../modules/product/usecases/update_product_usecase.dart';
+import '../formatters/app_formatters.dart';
 
 class ProductController with ChangeNotifier {
   Product? _productReceived;
@@ -28,6 +29,7 @@ class ProductController with ChangeNotifier {
   final barcodeController = TextEditingController();
   final descriptionController = TextEditingController();
   final brandController = TextEditingController();
+  final salePriceController = TextEditingController();
 
   @override
   void dispose() {
@@ -35,6 +37,7 @@ class ProductController with ChangeNotifier {
     barcodeController.dispose();
     descriptionController.dispose();
     brandController.dispose();
+    salePriceController.dispose();
 
     super.dispose();
   }
@@ -79,7 +82,13 @@ class ProductController with ChangeNotifier {
       description: descriptionController.text,
       brand: brandController.text,
       imagePath: _imagePath,
+      salePrice: _parseMoney(salePriceController.text),
     );
+  }
+
+  double _parseMoney(String value) {
+    final digits = AppFormatters.onlyNumber(value);
+    return int.parse(digits) / 100;
   }
 
   void _fillFields(Product product) {
@@ -88,6 +97,7 @@ class ProductController with ChangeNotifier {
     brandController.text = product.brand;
     descriptionController.text = product.description ?? '';
     _imagePath = product.imagePath;
+    salePriceController.text = product.salePrice.toString();
   }
 
   Future<bool> delete() async {

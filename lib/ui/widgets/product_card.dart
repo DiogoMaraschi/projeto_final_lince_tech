@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../entities/product.dart';
+import '../formatters/app_formatters.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this._product, required this.onTap});
@@ -13,7 +14,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125,
+      height: 145,
       margin: const EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
@@ -82,6 +83,18 @@ class ProductCard extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF4F46E5),
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                //SALE PRICE
+                Text(
+                  AppFormatters.formatMoney(_product.salePrice),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF18181B),
                   ),
                 ),
               ],

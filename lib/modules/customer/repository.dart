@@ -4,9 +4,14 @@ import '../../entities/costumer.dart';
 
 abstract class CustomerRepository {
   Future<int> insert(Customer customer);
+
   Future<List<Customer>> getAllCustomers();
+
   Future<int> update(Customer customer);
+
   Future<int> softDelete(int id);
+
+  Future<Customer?> getById(int id);
 }
 
 class CustomerRepositoryImpl implements CustomerRepository {
@@ -17,7 +22,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   CustomerRepositoryImpl({required this.databaseHelper});
 
   @override
-  Future<int> insert(Customer customer) async{
+  Future<int> insert(Customer customer) async {
     final customerModel = CustomerModel.fromEntity(customer);
 
     final conn = await databaseHelper.database;
@@ -29,7 +34,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   }
 
   @override
-  Future<List<Customer>> getAllCustomers() async{
+  Future<List<Customer>> getAllCustomers() async {
     final conn = await databaseHelper.database;
 
     final result = await conn.query(tableName, where: 'deleted_at IS NULL');
@@ -49,4 +54,20 @@ class CustomerRepositoryImpl implements CustomerRepository {
     throw UnimplementedError();
   }
 
+  @override
+  Future<Customer?> getById(int id) async {
+    final conn = await databaseHelper.database;
+
+    final result = await conn.query(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    return CustomerModel.fromMap(result.first);
+  }
 }
