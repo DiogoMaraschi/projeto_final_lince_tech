@@ -14,7 +14,7 @@ import 'ui/pages/product_list.dart';
 import 'ui/pages/profile.dart';
 import 'ui/pages/profile_details.dart';
 import 'ui/widgets/carrier_card.dart';
-import 'ui/widgets/order_item_draft_card.dart';
+import 'ui/pages/order/order_item_draft_card.dart';
 import 'ui/widgets/product_card.dart';
 
 late final Injection injection;

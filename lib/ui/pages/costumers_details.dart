@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../entities/costumer.dart';
+import '../../entities/customer/costumer.dart';
+import '../../entities/customer/establishment_type.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
@@ -33,6 +34,7 @@ class CustomerDetailsPage extends StatelessWidget {
         createCustomerUsecase: injection.createCustomerUsecase,
         updateCustomerUsecase: injection.updateCustomerUsecase,
         deleteCustomerUsecase: injection.deleteCustomerUsecase,
+        getLocationByAddressUsecase: injection.getLocationByAddressUsecase,
         customer: _customer,
       ),
       child: _CostumerDetailsPage(),
@@ -216,7 +218,6 @@ class _CostumerDetailsPage extends StatelessWidget {
                     return;
                   }
                   await state.saveCostumer();
-                  print('clicou');
 
                   if (!context.mounted) return;
 

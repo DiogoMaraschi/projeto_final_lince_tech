@@ -162,6 +162,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get costumerCategoryOther => 'Outro';
 
   @override
+  String get paymentTypeCreditCard => 'Cartão de crédito';
+
+  @override
+  String get paymentTypeCash => 'Em espécie';
+
+  @override
+  String get paymentTypeBankTransfer => 'Transferência bancária (TED/DOC)';
+
+  @override
+  String get paymentTypePix => 'Pix';
+
+  @override
   String get profileTitle => 'Perfil';
 
   @override

@@ -113,9 +113,8 @@ class DatabaseHelper {
         carrier_id INTEGER NOT NULL,
         payment_method TEXT NOT NULL,
         installments INTEGER NOT NULL,
-        discount REAL NOT NULL DEFAULT 0,
         freight REAL NOT NULL DEFAULT 0,
-        notes TEXT,
+        payment_notes TEXT,
         created_at TEXT NOT NULL,
         deleted_at TEXT,
 
@@ -132,9 +131,10 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
-        quantity REAL NOT NULL,
+        quantity INTEGER NOT NULL,
         unit_price REAL NOT NULL,
-        discount REAL NOT NULL DEFAULT 0,
+        discount_amount REAL NOT NULL DEFAULT 0,
+        discount_percent REAL NOT NULL DEFAULT 0,
 
         FOREIGN KEY (order_id)
           REFERENCES orders(id),

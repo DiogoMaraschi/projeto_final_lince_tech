@@ -141,7 +141,7 @@ class ProfileDetailsController with ChangeNotifier {
       changeCameraPosition();
       notifyListeners();
     } catch (e) {
-      debugPrint('Não foi possível localizar o endereço: $e');
+      debugPrint('Não foi possível localizar o endereço $e');
     }
   }
 
@@ -158,6 +158,7 @@ class ProfileDetailsController with ChangeNotifier {
 
   void _onAddressChanged() {
     _addressDebounce?.cancel();
+    _location = null;
 
     final street = streetController.text.trim();
     final city = cityController.text.trim();

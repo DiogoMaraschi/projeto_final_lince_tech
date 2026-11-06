@@ -1,6 +1,6 @@
 import '../../core/database/database_helper.dart';
 import './models/customer_model.dart';
-import '../../entities/costumer.dart';
+import '../../entities/customer/costumer.dart';
 
 abstract class CustomerRepository {
   Future<int> insert(Customer customer);

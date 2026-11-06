@@ -1,4 +1,5 @@
-import '../../../entities/costumer.dart';
+import '../../../entities/customer/costumer.dart';
+import '../../../entities/customer/establishment_type.dart';
 
 class CustomerModel extends Customer {
   final String? deletedAt;

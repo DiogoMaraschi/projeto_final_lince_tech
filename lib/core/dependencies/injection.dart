@@ -34,6 +34,9 @@ import '../../modules/profile/repository.dart';
 import '../../modules/profile/usecases/create_profile_usecase.dart';
 import '../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../modules/profile/usecases/update_profile_usecase.dart';
+import '../../modules/routes/datasources/routes_datasource.dart';
+import '../../modules/routes/repository.dart';
+import '../../modules/routes/usecases/get_distance_between_latlng.dart';
 import '../database/database_helper.dart';
 import '../storage/preferences_service.dart';
 
@@ -60,6 +63,7 @@ class Injection {
   late final GetProfileUsecase getProfileUsecase;
   late final GetCustomerByIdUsecase getCustomerByIdUsecase;
   late final GetCarrierByIdUsecase getCarrierByIdUsecase;
+  late final GetDistanceBetweenLatlng getDistanceBetweenLatlng;
 
   late final PreferencesService preferencesService;
 
@@ -80,6 +84,7 @@ class Injection {
     final viacepApiDatasource = ViacepApiDatasource();
     final cameraDatasource = ImagePickerDatasource();
     final geocodingDatasource = GeocodingDatasource(geocoding: geocoding);
+    final routesDatasource = RoutesDatasource();
 
     //REPOSITORIES
     final productRepository = ProductRepositoryImpl(databaseHelper: database);
@@ -96,6 +101,9 @@ class Injection {
     );
     final carrierRepository = CarrierRepositoryImpl(databaseHelper: database);
     final customerRepository = CustomerRepositoryImpl(databaseHelper: database);
+    final routeRepository = RoutesRepositoryImpl(
+      routesDatasource: routesDatasource,
+    );
 
     //USECASES
     createProductUsecase = CreateProductUsecase(repository: productRepository);
@@ -143,6 +151,9 @@ class Injection {
     );
     getCarrierByIdUsecase = GetCarrierByIdUsecase(
       repository: carrierRepository,
+    );
+    getDistanceBetweenLatlng = GetDistanceBetweenLatlng(
+      repository: routeRepository,
     );
   }
 }

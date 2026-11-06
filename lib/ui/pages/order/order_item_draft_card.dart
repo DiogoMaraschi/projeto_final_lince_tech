@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/product.dart';
+import '../../../entities/product.dart';
 
 class OrderItemDraftCard extends StatelessWidget {
   const OrderItemDraftCard({
@@ -10,6 +10,8 @@ class OrderItemDraftCard extends StatelessWidget {
     required this.onIncrement,
     required this.onDecrement,
     required this.onRemove,
+    this.discountPercent = 0,
+    required this.onDiscountChanged,
   });
 
   final Product product;
@@ -17,11 +19,24 @@ class OrderItemDraftCard extends StatelessWidget {
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
   final VoidCallback onRemove;
+  final double discountPercent;
+  final ValueChanged<double> onDiscountChanged;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final subtotal = product.salePrice * quantity;
+    final subtotal =
+        product.salePrice *
+        quantity *
+        (1 - discountPercent.clamp(0, 100) / 100);
+    ;
+    final discountText = discountPercent == 0
+        ? ''
+        : discountPercent
+              .toStringAsFixed(
+                discountPercent == discountPercent.truncateToDouble() ? 0 : 1,
+              )
+              .replaceAll('.', '.');
 
     return Container(
       decoration: BoxDecoration(
@@ -88,32 +103,77 @@ class OrderItemDraftCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: colors.surfaceContainer,
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(color: colors.outlineVariant),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: quantity > 1 ? onDecrement : null,
-                        icon: const Icon(Icons.remove),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: colors.surfaceContainer,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(color: colors.outlineVariant),
                       ),
-                      Text(
-                        '$quantity',
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: quantity > 1 ? onDecrement : null,
+                            icon: const Icon(Icons.remove),
+                          ),
+                          Text(
+                            '$quantity',
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: onIncrement,
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 76,
+                      child: TextFormField(
+                        initialValue: discountText,
+                        textAlign: TextAlign.end,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: [],
                         style: const TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
+                        onChanged: (v) => onDiscountChanged(
+                          double.tryParse(v.replaceAll(',', '.')) ?? 0,
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Desc.',
+                          hintText: '0',
+                          suffixText: '%',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: colors.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: colors.outlineVariant,
+                            ),
+                          ),
+                        ),
                       ),
-                      IconButton(
-                        onPressed: onIncrement,
-                        icon: const Icon(Icons.add),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [

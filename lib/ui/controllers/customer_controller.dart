@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/dependencies/injection.dart';
-import '../../entities/costumer.dart';
+import '../../entities/customer/costumer.dart';
+import '../../entities/customer/establishment_type.dart';
 import '../../modules/address/usecases/get_address_by_zipcode.dart';
+import '../../modules/address/usecases/get_location_by_address_usecase.dart';
 import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
 import '../../modules/customer/usecases/create_customer_usecase.dart';
 import '../../modules/customer/usecases/delete_customer_usecase.dart';
@@ -18,6 +23,7 @@ class CustomerController with ChangeNotifier {
   final CreateCustomerUsecase _createCustomerUsecase;
   final UpdateCustomerUsecase _updateCustomerUsecase;
   final DeleteCustomerUsecase _deleteCustomerUsecase;
+  final GetLocationByAddressUsecase _getLocationByAddressUsecase;
 
   CustomerController({
     required this._getAddressByZipcodeUsecase,
@@ -25,11 +31,16 @@ class CustomerController with ChangeNotifier {
     required this._createCustomerUsecase,
     required this._updateCustomerUsecase,
     required this._deleteCustomerUsecase,
+    required this._getLocationByAddressUsecase,
     Customer? customer,
   }) : _customerReceived = customer {
     if (customer != null) {
       _fillFields(customer);
     }
+
+    streetController.addListener(_onAddressChanged);
+    cityController.addListener(_onAddressChanged);
+    numberController.addListener(_onAddressChanged);
   }
 
   final nameController = TextEditingController();
@@ -48,6 +59,11 @@ class CustomerController with ChangeNotifier {
 
   bool _isLoading = false;
   EstablishmentType? _establishmentType;
+  LatLng? _location;
+  Timer? _addressDebounce;
+  String? _lastSearchedAddress;
+
+  LatLng? get location => _location;
 
   EstablishmentType? get establishmentType => _establishmentType;
 
@@ -61,6 +77,12 @@ class CustomerController with ChangeNotifier {
 
   @override
   void dispose() {
+    _addressDebounce?.cancel();
+
+    streetController.removeListener(_onAddressChanged);
+    cityController.removeListener(_onAddressChanged);
+    numberController.removeListener(_onAddressChanged);
+
     cnpjController.dispose();
     nameController.dispose();
     legalNameController.dispose();
@@ -129,6 +151,11 @@ class CustomerController with ChangeNotifier {
   }
 
   Customer convertTextToCustomer() {
+    final location = _location;
+    if (location == null) {
+      throw StateError('Busque a localização do endereço antes de salvar.');
+    }
+
     return Customer(
       id: _customerReceived?.id,
       name: nameController.text,
@@ -142,8 +169,8 @@ class CustomerController with ChangeNotifier {
       number: numberController.text,
       phoneNumber: AppFormatters.onlyNumber(phoneController.text),
       email: emailController.text,
-      latitude: 0,
-      longitude: 0,
+      latitude: location.latitude,
+      longitude: location.longitude,
     );
   }
 
@@ -161,8 +188,9 @@ class CustomerController with ChangeNotifier {
     numberController.text = customer.number;
 
     setEstablishmentType(customer.establishmentType);
-  }
 
+    _location = LatLng(customer.latitude, customer.longitude);
+  }
 
   Future<bool> delete() async {
     final id = _customerReceived?.id;
@@ -174,5 +202,46 @@ class CustomerController with ChangeNotifier {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<void> getLocationByAddress() async {
+    final street = streetController.text;
+    final city = cityController.text;
+    final number = numberController.text;
+
+    if (street.isEmpty || city.isEmpty || number.isEmpty) return;
+
+    try {
+      final result = await _getLocationByAddressUsecase(street, city, number);
+
+      if (result == null) return;
+
+      _location = LatLng(result.latitude, result.longitude);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Não foi possível localizar o endereço $e');
+    }
+  }
+
+  void _onAddressChanged() {
+    _addressDebounce?.cancel();
+    _location = null;
+
+    final street = streetController.text.trim();
+    final city = cityController.text.trim();
+    final number = numberController.text.trim();
+
+    if (street.isEmpty || city.isEmpty || number.isEmpty) {
+      _lastSearchedAddress = null;
+      return;
+    }
+
+    final address = '$street|$number|$city';
+    _addressDebounce = Timer(const Duration(milliseconds: 700), () {
+      if (address == _lastSearchedAddress) return;
+
+      _lastSearchedAddress = address;
+      getLocationByAddress();
+    });
   }
 }

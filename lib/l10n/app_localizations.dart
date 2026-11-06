@@ -406,6 +406,30 @@ abstract class AppLocalizations {
   /// **'Outro'**
   String get costumerCategoryOther;
 
+  /// No description provided for @paymentTypeCreditCard.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cartão de crédito'**
+  String get paymentTypeCreditCard;
+
+  /// No description provided for @paymentTypeCash.
+  ///
+  /// In pt, this message translates to:
+  /// **'Em espécie'**
+  String get paymentTypeCash;
+
+  /// No description provided for @paymentTypeBankTransfer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Transferência bancária (TED/DOC)'**
+  String get paymentTypeBankTransfer;
+
+  /// No description provided for @paymentTypePix.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pix'**
+  String get paymentTypePix;
+
   /// No description provided for @profileTitle.
   ///
   /// In pt, this message translates to:

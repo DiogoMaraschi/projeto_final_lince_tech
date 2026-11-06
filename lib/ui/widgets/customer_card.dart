@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/costumer.dart';
+import '../../entities/customer/costumer.dart';
 
 class CustomerCard extends StatelessWidget {
   CustomerCard({super.key, required this.customer, required this.onTap});

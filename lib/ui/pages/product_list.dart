@@ -56,6 +56,7 @@ class _ProductListPage extends StatelessWidget {
                   },
                 ),
           floatingActionButton: FloatingActionButton(
+            heroTag: null,
             onPressed: () async {
               await Navigator.push(
                 context,

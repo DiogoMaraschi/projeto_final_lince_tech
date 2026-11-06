@@ -194,12 +194,12 @@ class _ProfileDetailsPage extends StatelessWidget {
                                   ),
                                   markers: {
                                     Marker(
-                                      markerId: MarkerId('teste'),
+                                      markerId: MarkerId('profile_marker'),
                                       position: state.location != null
                                           ? state.location!
                                           : state.defaultPosition,
                                       infoWindow: InfoWindow(
-                                        title: 'Local de teste',
+                                        title: 'Local da Loja',
                                       ),
                                     ),
                                   },

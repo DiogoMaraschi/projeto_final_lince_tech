@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/carrier.dart';
-import '../../../entities/costumer.dart';
-import '../../../entities/order_item_draft.dart';
+import '../../../entities/customer/costumer.dart';
+import '../../../entities/order/order_item_draft.dart';
+import '../../../entities/order/payment_type.dart';
+import '../../../entities/profile.dart';
 import '../../../main.dart';
 import '../../app_colors.dart';
 import '../../controllers/carrier_list_controller.dart';
@@ -12,9 +15,11 @@ import '../../controllers/customer_list_controller.dart';
 import '../../controllers/order_details_controller.dart';
 import '../../controllers/product_list_controller.dart';
 import '../../formatters/app_formatters.dart';
-import '../../widgets/order_item_draft_card.dart';
+import 'order_item_draft_card.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
+import 'delivery_card.dart';
+import 'payment_type_modal.dart';
 import 'product_modal.dart';
 
 class OrderDetailsPage extends StatelessWidget {
@@ -28,7 +33,9 @@ class OrderDetailsPage extends StatelessWidget {
           create: (_) => OrderDetailsController(
             getCustomerByIdUsecase: injection.getCustomerByIdUsecase,
             getCarrierByIdUsecase: injection.getCarrierByIdUsecase,
-          ),
+            getDistanceBetweenLatlng: injection.getDistanceBetweenLatlng,
+            getProfileUsecase: injection.getProfileUsecase,
+          )..getProfile(),
         ),
         ChangeNotifierProvider(
           create: (_) => CustomerListController(
@@ -90,9 +97,11 @@ class _OrderDetailsPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Divider(height: 1),
+
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
               children: [
                 Container(
                   height: 44,
@@ -252,15 +261,21 @@ class _OrderDetailsPage extends StatelessWidget {
                           return OrderItemDraftCard(
                             product: itemDraft.product,
                             quantity: itemDraft.quantity,
-                            onDecrement: () => orderController.decrementProduct(
-                              productId,
-                            ),
-                            onIncrement: () => orderController.incrementProduct(
-                              productId,
-                            ),
-                            onRemove: () => orderController.deleteProduct(
-                              productId,
-                            ),
+                            onDecrement: () =>
+                                orderController.decrementProduct(productId),
+                            onIncrement: () =>
+                                orderController.incrementProduct(productId),
+                            onRemove: () =>
+                                orderController.deleteProduct(productId),
+                            onDiscountChanged: (value) {
+                              context
+                                  .read<OrderDetailsController>()
+                                  .setItemDiscount(
+                                    productId: itemDraft.product.id!,
+                                    percent: value,
+                                  );
+                            },
+                            discountPercent: itemDraft.discountPercent,
                           );
                         }).toList(),
                       );
@@ -359,6 +374,46 @@ class _OrderDetailsPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                Selector<OrderDetailsController, (Profile?, Customer?)>(
+                  selector: (_, controller) =>
+                      (controller.profile, controller.selectedCustomer),
+                  builder: (context, data, _) {
+                    final (profile, customer) = data;
+
+                    if (profile == null || customer == null) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return DeliveryCard(
+                      setController: context
+                          .read<OrderDetailsController>()
+                          .setController,
+                      storeLocation: LatLng(
+                        profile.latitude,
+                        profile.longitude,
+                      ),
+                      customerLocation: LatLng(
+                        customer.latitude,
+                        customer.longitude,
+                      ),
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 15),
+
+                Container(
+                  height: 44,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Forma de Pagamento',
+                      style: TextStyle(fontSize: 18, fontWeight: .w700),
+                    ),
+                  ),
+                ),
+
                 Material(
                   color: colors.surfaceContainer,
                   shape: RoundedRectangleBorder(
@@ -366,12 +421,268 @@ class _OrderDetailsPage extends StatelessWidget {
                     side: BorderSide(color: Colors.white12),
                   ),
                   child: InkWell(
+                    onTap: () => showPaymentTypeModal(context),
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
+                      padding: const EdgeInsets.all(14),
+                      child: Row(
                         children: [
-                          //TODO COLOCAR MAPS E ENDERECO
+                          Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE6ECF8),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(
+                              Icons.payment_outlined,
+                              color: colors.primary,
+                            ),
+                          ),
+                          SizedBox(width: 12),
+
+                          Expanded(
+                            child:
+                                Selector<OrderDetailsController, PaymentType?>(
+                                  selector: (context, controller) {
+                                    return controller.selectedPaymentType;
+                                  },
+                                  builder: (context, paymentType, child) {
+                                    if (paymentType == null) {
+                                      return Text(
+                                        'Selecionar Forma de Pagamento',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: .w700,
+                                        ),
+                                      );
+                                    }
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(paymentType.name),
+                                        Row(
+                                          children: [
+                                            Text('km'),
+                                            Text('- mín.'),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                          ),
+                          Icon(Icons.chevron_right),
                         ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                Container(
+                  height: 44,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Resumo do Pedido',
+                      style: TextStyle(fontSize: 18, fontWeight: .w700),
+                    ),
+                  ),
+                ),
+
+                Material(
+                  color: colors.surfaceContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(16),
+                    side: BorderSide(color: Colors.white12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.all(12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Subtotal dos produtos',
+                              style: TextStyle(
+                                color: Color(0xFFA0AAB8),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              r'R$ 2.425,50',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                color: Color(0xFFA0AAB8),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Descontos',
+                              style: TextStyle(
+                                color: Color(0xFFA0AAB8),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              r'- R$ 107,40',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                color: Color(0xFF829BFF),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Entrega',
+                              style: TextStyle(
+                                color: Color(0xFFA0AAB8),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              r'R$ 80,00',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                color: Color(0xFFA0AAB8),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            r'6 km × R$ 2,40/km · mínimo R$ 80,00',
+                            style: TextStyle(
+                              color: Color(0xFFA0AAB8),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Divider(height: 1),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Total',
+                                style: TextStyle(
+                                  color: Color(0xFFF0F2F5),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            const Flexible(
+                              child: Text(
+                                r'R$ 2.398,10',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  color: Color(0xFFF0F2F5),
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                Container(
+                  height: 44,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Observações de Pagamento',
+                      style: TextStyle(fontSize: 18, fontWeight: .w700),
+                    ),
+                  ),
+                ),
+
+                Material(
+                  color: colors.surfaceContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(16),
+                    side: BorderSide(color: Colors.white12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.all(8),
+                    child: TextFormField(
+                      controller: context
+                          .read<OrderDetailsController>()
+                          .paymentNotesController,
+                      maxLines: null,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: 'Observações do pagamento',
+                        hintText: 'Adicione uma observação',
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                Container(
+                  height: 44,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Observações',
+                      style: TextStyle(fontSize: 18, fontWeight: .w700),
+                    ),
+                  ),
+                ),
+
+                Material(
+                  color: colors.surfaceContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(16),
+                    side: BorderSide(color: Colors.white12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.all(8),
+                    child: TextFormField(
+                      controller: context
+                          .read<OrderDetailsController>()
+                          .notesController,
+                      maxLines: 3,
+                      maxLength: 90,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: 'Observações do pedido',
+                        hintText: 'Adicione uma observação',
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
                       ),
                     ),
                   ),
@@ -379,7 +690,48 @@ class _OrderDetailsPage extends StatelessWidget {
               ],
             ),
           ),
+
+          Divider(height: 1),
         ],
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Material(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Total'),
+                      Text(
+                        'RS 2.546,40',
+                        style: TextStyle(fontSize: 20, fontWeight: .w700),
+                      ),
+                    ],
+                  ),
+                ),
+                FilledButton(
+                  style: FilledButton.styleFrom(
+                    minimumSize: Size(230, 60),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Salvar pedido'),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
