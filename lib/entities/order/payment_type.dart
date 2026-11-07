@@ -44,3 +44,10 @@ enum PaymentType {
     };
   }
 }
+
+class PaymenItem {
+  PaymentType paymentType;
+  int installments;
+
+  PaymenItem({required this.paymentType, required this.installments});
+}

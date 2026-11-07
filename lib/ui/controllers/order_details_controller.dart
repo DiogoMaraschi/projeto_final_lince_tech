@@ -1,6 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:math' as math;
 
 import '../../entities/carrier.dart';
 import '../../entities/customer/costumer.dart';
@@ -34,8 +35,10 @@ class OrderDetailsController with ChangeNotifier {
   Carrier? _selectedCarrier;
   List<OrderItemDraft> _selectedProducts = [];
   int? _deliveryDistance;
-  PaymentType? _selectedPaymentType;
-  int? _installments = 1;
+  double? _deliveryValue;
+  PaymenItem? _selectedPaymentItem;
+
+  double? get deliveryValue => _deliveryValue;
 
   GoogleMapController? _mapController;
 
@@ -50,9 +53,7 @@ class OrderDetailsController with ChangeNotifier {
 
   int? get deliveryDistance => _deliveryDistance;
 
-  PaymentType? get selectedPaymentType => _selectedPaymentType;
-
-  int? get installments => _installments;
+  PaymenItem? get selectedPaymentItem => _selectedPaymentItem;
 
   void setController(GoogleMapController controller) {
     _mapController = controller;
@@ -60,6 +61,11 @@ class OrderDetailsController with ChangeNotifier {
     if (_profile != null && _selectedCustomer != null) {
       changeCameraPosition();
     }
+  }
+
+  void selectPaymentItem(PaymenItem paymentItem) {
+    _selectedPaymentItem = paymentItem;
+    notifyListeners();
   }
 
   Future<void> selectCustomer(int id) async {
@@ -70,6 +76,9 @@ class OrderDetailsController with ChangeNotifier {
 
       await getDistance();
       await changeCameraPosition();
+
+      if (_selectedCustomer != null && _selectedCarrier != null)
+        setDeliveryValue();
     } catch (e) {
       debugPrint('Não foi possível buscar os dados $e');
     } finally {
@@ -82,6 +91,9 @@ class OrderDetailsController with ChangeNotifier {
       final result = await getCarrierByIdUsecase(id);
       _selectedCarrier = result;
       notifyListeners();
+
+      if (_selectedCustomer != null && _selectedCarrier != null)
+        setDeliveryValue();
     } catch (e) {
       debugPrint('Não foi possível buscar os dados');
     }
@@ -200,6 +212,46 @@ class OrderDetailsController with ChangeNotifier {
       );
     }).toList();
 
+    notifyListeners();
+  }
+
+  String getCustomerAddress() {
+    final customer = _selectedCustomer;
+    if (customer == null) return '';
+
+    final street = customer.street;
+    final number = customer.number;
+    final city = customer.city;
+    final state = customer.state;
+    final zipcode = customer.zipCode;
+
+    notifyListeners();
+
+    print('''
+    ${street}, $number
+    $city/$state - CEP $zipcode
+    ''');
+
+    return '''
+    ${street}, $number
+    $city/$state - CEP $zipcode
+    ''';
+  }
+
+  void setDeliveryValue() {
+    late double value;
+    final carrier = _selectedCarrier;
+
+    if (_deliveryDistance != null && carrier != null) {
+      value = (_deliveryDistance! / 1000) * _selectedCarrier!.costPerKm;
+
+      value < carrier.minimumPrice
+          ? _deliveryValue = carrier.minimumPrice
+          : _deliveryValue = value;
+    } else {
+      _deliveryValue = 0;
+    }
+    print('delivery value $_deliveryValue');
     notifyListeners();
   }
 

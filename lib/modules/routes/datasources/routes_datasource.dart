@@ -53,6 +53,8 @@ class RoutesDatasource {
     final data = jsonDecode(response.body) as Map<String, dynamic>;
     final routes = data['routes'] as List<dynamic>?;
 
+    print(response.body);
+
     if (routes == null || routes.isEmpty) {
       throw Exception('Nenhuma rota encontrada');
     }

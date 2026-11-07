@@ -41,10 +41,6 @@ class _ProfilePage extends StatelessWidget {
                 color: colors.primary,
               ),
             ),
-            leading: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios_new),
-            ),
           ),
           body: ListView(
             padding: const EdgeInsets.all(15),

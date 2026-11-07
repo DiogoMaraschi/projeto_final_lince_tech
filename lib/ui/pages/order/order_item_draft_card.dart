@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../entities/product.dart';
+import '../../formatters/app_formatters.dart';
 
 class OrderItemDraftCard extends StatelessWidget {
   const OrderItemDraftCard({
@@ -32,11 +33,7 @@ class OrderItemDraftCard extends StatelessWidget {
     ;
     final discountText = discountPercent == 0
         ? ''
-        : discountPercent
-              .toStringAsFixed(
-                discountPercent == discountPercent.truncateToDouble() ? 0 : 1,
-              )
-              .replaceAll('.', '.');
+        : discountPercent.toStringAsFixed(2);
 
     return Container(
       decoration: BoxDecoration(
@@ -185,7 +182,7 @@ class OrderItemDraftCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      subtotal.toStringAsFixed(2),
+                      AppFormatters.formatMoney(subtotal),
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

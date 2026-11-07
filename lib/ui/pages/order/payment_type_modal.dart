@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/order/payment_type.dart';
-import '../../../entities/product.dart';
 import '../../controllers/order_details_controller.dart';
-import '../../controllers/product_list_controller.dart';
+import '../../formatters/app_formatters.dart';
 
 Future<void> showPaymentTypeModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
@@ -27,10 +26,13 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
     };
   }
 
+  PaymenItem? selectedPaymentItem;
+
   PaymentType? selectedPaymentType;
   int installments = 1;
+  double purchaseValue = 10000;
 
-  final selectedQuantitiesMap = await showModalBottomSheet<Map<int, int>>(
+  await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
@@ -41,119 +43,216 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
         builder: (modalContext, setModalState) {
           return SizedBox(
             height: height * 0.9,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 12, 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Selecionar forma de pagamento',
-                          style: Theme.of(modalContext).textTheme.titleLarge,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () => Navigator.pop(modalContext),
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                Text('A vista'),
-
-                Padding(
-                  padding: const EdgeInsetsGeometry.all(10),
-                  child: Material(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(16),
-                      side: BorderSide(color: Colors.white12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 12, 16),
+                    child: Row(
                       children: [
-                        for (final type in inFullTypes)
-                          Column(
-                            children: [
-                              ListTile(
-                                leading: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: colors.surfaceContainer,
-                                    borderRadius: BorderRadiusGeometry.circular(
-                                      12,
-                                    ),
-                                  ),
-                                  child: Icon(paymentIcon(type)),
-                                ),
-                                title: Text(type.translate(modalContext)),
-                                selected: selectedPaymentType == type,
-                                trailing: Radio<PaymentType>(
-                                  value: type,
-                                  groupValue: selectedPaymentType,
-                                  onChanged: (value) {
-                                    if (value == null) return;
-
-                                    setModalState(() {
-                                      selectedPaymentType = value;
-                                      installments = 1;
-                                    });
-                                  },
-                                ),
-                                onTap: () {
-                                  setModalState(() {
-                                    selectedPaymentType = type;
-                                    installments = 1;
-                                  });
-                                },
-                                selectedTileColor: colors.inversePrimary,
-                              ),
-
-                              if (type != inFullTypes.last) Divider(height: 1),
-                            ],
+                        Expanded(
+                          child: Text(
+                            'Selecionar forma de pagamento',
+                            style: Theme.of(modalContext).textTheme.titleLarge,
                           ),
-
-                        if (selectedPaymentType == PaymentType.creditCard)
-                          DropdownButton<int>(
-                            value: installments,
-                            items: [1, 2, 3, 4, 5, 6].map((number) {
-                              return DropdownMenuItem(
-                                value: number,
-                                child: Text(
-                                  '$number parcela${number == 1 ? '' : 's'}',
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              if (value == null) return;
-                              setModalState(() => installments = value);
-                            },
-                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => Navigator.pop(modalContext),
+                          icon: const Icon(Icons.close),
+                        ),
                       ],
                     ),
                   ),
-                ),
+                  const SizedBox(height: 12),
 
-                if (selectedPaymentType != null)
-                  SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsetsGeometry.fromLTRB(16, 8, 16, 16),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: FilledButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text(
-                            'Concluir',
-                            style: TextStyle(fontSize: 18),
+                  Column(
+                    children: [
+                      Text(
+                        'A vista',
+                        style: TextStyle(fontSize: 22, fontWeight: .w600),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsetsGeometry.all(10),
+                        child: Material(
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(16),
+                            side: BorderSide(color: Colors.white12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              for (final type in inFullTypes)
+                                Column(
+                                  children: [
+                                    ListTile(
+                                      minTileHeight: 70,
+                                      leading: Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: colors.surfaceContainer,
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(12),
+                                        ),
+                                        child: Icon(paymentIcon(type)),
+                                      ),
+                                      title: Text(type.translate(modalContext)),
+                                      selected: selectedPaymentType == type,
+                                      trailing: Radio<PaymentType>(
+                                        value: type,
+                                        groupValue: selectedPaymentType,
+                                        onChanged: (value) {
+                                          if (value == null) return;
+
+                                          setModalState(() {
+                                            selectedPaymentType = value;
+                                            installments = 1;
+                                          });
+                                        },
+                                      ),
+                                      onTap: () {
+                                        setModalState(() {
+                                          selectedPaymentType = type;
+                                          installments = 1;
+                                        });
+                                      },
+                                      selectedTileColor: colors.inversePrimary,
+                                    ),
+
+                                    if (type != inFullTypes.last)
+                                      Divider(height: 1),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      Text(
+                        'Parcelado',
+                        style: TextStyle(fontSize: 22, fontWeight: .w600),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsetsGeometry.all(10),
+                        child: Material(
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(16),
+                            side: BorderSide(color: Colors.white12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: .max,
+                            children: [
+                              for (final type in installmentTypes)
+                                Column(
+                                  children: [
+                                    ListTile(
+                                      minTileHeight: 70,
+                                      leading: Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: colors.surfaceContainer,
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(12),
+                                        ),
+                                        child: Icon(paymentIcon(type)),
+                                      ),
+                                      title: Text(type.translate(modalContext)),
+                                      trailing: IconButton(
+                                        icon: Icon(
+                                          selectedPaymentType == type
+                                              ? Icons.keyboard_arrow_up_outlined
+                                              : Icons
+                                                    .keyboard_arrow_down_outlined,
+                                          size: 34,
+                                        ),
+                                        onPressed: () {
+                                          selectedPaymentType != type
+                                              ? setModalState(
+                                                  () => selectedPaymentType =
+                                                      type,
+                                                )
+                                              : setModalState(
+                                                  () => selectedPaymentType =
+                                                      null,
+                                                );
+                                        },
+                                      ),
+                                      onTap: () {
+                                        selectedPaymentType != type
+                                            ? setModalState(
+                                                () =>
+                                                    selectedPaymentType = type,
+                                              )
+                                            : setModalState(
+                                                () =>
+                                                    selectedPaymentType = null,
+                                              );
+                                      },
+                                      selectedTileColor: colors.inversePrimary,
+                                    ),
+
+                                    if (type != inFullTypes.last)
+                                      Divider(height: 1),
+                                  ],
+                                ),
+
+                              if (installmentTypes.contains(
+                                selectedPaymentType,
+                              ))
+                                ListView.builder(
+                                  itemCount: 10,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, i) {
+                                    final index = i + 1;
+                                    return ListTile(
+                                      selected: installments == index,
+                                      title: Text(
+                                        '${index}x de ${AppFormatters.formatMoney(purchaseValue / index)}',
+                                      ),
+                                      onTap: () => setModalState(
+                                        () => installments = index,
+                                      ),
+                                    );
+                                  },
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (selectedPaymentType != null)
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsetsGeometry.fromLTRB(
+                          16,
+                          8,
+                          16,
+                          16,
+                        ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: FilledButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text(
+                              'Concluir',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -161,15 +260,15 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
     },
   );
 
-  if (!context.mounted ||
-      selectedQuantitiesMap == null ||
-      selectedQuantitiesMap.isEmpty)
+  if (!context.mounted || installments < 1 || selectedPaymentType == null)
     return;
 
-  // final productsCompleteList = productController.products;
-  //
-  // context.read<OrderDetailsController>().selectProducts(
-  //   productsCompleteList: productsCompleteList,
-  //   quantities: selectedQuantitiesMap,
-  // );
+  final paymentItem = PaymenItem(
+    paymentType: selectedPaymentType!,
+    installments: installments,
+  );
+
+  print('parcelas $installments');
+
+  context.read<OrderDetailsController>().selectPaymentItem(paymentItem);
 }

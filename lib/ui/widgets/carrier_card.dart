@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../entities/carrier.dart';
 import '../app_colors.dart';
+import '../formatters/app_formatters.dart';
 
 class CarrierCard extends StatelessWidget {
   const CarrierCard({super.key, required this.carrier, required this._onTap});
@@ -32,7 +33,7 @@ class CarrierCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: .w500),
               ),
               Text(
-                'CNPJ: ${carrier.cnpj}',
+                'CNPJ: ${AppFormatters.formatCnpj(carrier.cnpj)}',
                 style: TextStyle(color: Colors.grey.shade600),
               ),
               Row(
@@ -45,7 +46,7 @@ class CarrierCard extends StatelessWidget {
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                       Text(
-                        'Rs ${carrier.costPerKm}',
+                        AppFormatters.formatMoney(carrier.costPerKm),
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: .w600,
@@ -63,7 +64,7 @@ class CarrierCard extends StatelessWidget {
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                       Text(
-                        'Rs ${carrier.minimumPrice}',
+                        AppFormatters.formatMoney(carrier.minimumPrice),
                         style: TextStyle(fontWeight: .w400, fontSize: 18),
                       ),
                     ],

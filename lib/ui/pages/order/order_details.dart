@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -9,16 +8,15 @@ import '../../../entities/order/order_item_draft.dart';
 import '../../../entities/order/payment_type.dart';
 import '../../../entities/profile.dart';
 import '../../../main.dart';
-import '../../app_colors.dart';
 import '../../controllers/carrier_list_controller.dart';
 import '../../controllers/customer_list_controller.dart';
 import '../../controllers/order_details_controller.dart';
 import '../../controllers/product_list_controller.dart';
 import '../../formatters/app_formatters.dart';
-import 'order_item_draft_card.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
 import 'delivery_card.dart';
+import 'order_item_draft_card.dart';
 import 'payment_type_modal.dart';
 import 'product_modal.dart';
 
@@ -397,6 +395,12 @@ class _OrderDetailsPage extends StatelessWidget {
                         customer.latitude,
                         customer.longitude,
                       ),
+                      deliveryDistance: context
+                          .read<OrderDetailsController>()
+                          .deliveryDistance,
+                      customerAddress: context
+                          .read<OrderDetailsController>()
+                          .getCustomerAddress(),
                     );
                   },
                 ),
@@ -442,12 +446,12 @@ class _OrderDetailsPage extends StatelessWidget {
 
                           Expanded(
                             child:
-                                Selector<OrderDetailsController, PaymentType?>(
+                                Selector<OrderDetailsController, PaymenItem?>(
                                   selector: (context, controller) {
-                                    return controller.selectedPaymentType;
+                                    return controller.selectedPaymentItem;
                                   },
-                                  builder: (context, paymentType, child) {
-                                    if (paymentType == null) {
+                                  builder: (context, paymentItem, child) {
+                                    if (paymentItem == null) {
                                       return Text(
                                         'Selecionar Forma de Pagamento',
                                         style: TextStyle(
@@ -460,11 +464,11 @@ class _OrderDetailsPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(paymentType.name),
+                                        Text(paymentItem.paymentType.name),
                                         Row(
                                           children: [
-                                            Text('km'),
-                                            Text('- mín.'),
+                                            Text(paymentItem.installments.toString()),
+                                            Text('- Parcelas'),
                                           ],
                                         ),
                                       ],
@@ -556,7 +560,11 @@ class _OrderDetailsPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              r'R$ 80,00',
+                              AppFormatters.formatMoney(
+                                context
+                                    .watch<OrderDetailsController>()
+                                    .deliveryValue,
+                              ),
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                 color: Color(0xFFA0AAB8),

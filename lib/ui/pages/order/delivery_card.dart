@@ -7,11 +7,15 @@ class DeliveryCard extends StatelessWidget {
     required this.setController,
     required this.storeLocation,
     required this.customerLocation,
+    required this.customerAddress,
+    required this.deliveryDistance,
   });
 
   final ValueChanged<GoogleMapController> setController;
   final LatLng storeLocation;
   final LatLng customerLocation;
+  final String customerAddress;
+  final int? deliveryDistance;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +40,13 @@ class DeliveryCard extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .stretch,
                     children: [
-                      Text('Rua XV de Novembro, 1450'),
-                      Text('Blumenau/SC · CEP 89010-100'),
+                      Text(customerAddress),
                       const SizedBox(height: 12),
-                      Text('Distância da entrega: 6 km'),
+                      Text(
+                        'Distância da entrega: ${(deliveryDistance! / 1000).toStringAsFixed(2)} km',
+                      ),
                     ],
                   ),
                 ),
