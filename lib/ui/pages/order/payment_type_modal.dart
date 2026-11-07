@@ -10,6 +10,23 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
   final height = MediaQuery.sizeOf(context).height;
 
+  final inFullTypes = PaymentType.values
+      .where((type) => type.group == PaymentGroup.inFull)
+      .toList();
+
+  final installmentTypes = PaymentType.values
+      .where((type) => type.group == PaymentGroup.installment)
+      .toList();
+
+  IconData paymentIcon(PaymentType type) {
+    return switch (type) {
+      PaymentType.pix => Icons.qr_code,
+      PaymentType.cash => Icons.payments_outlined,
+      PaymentType.bankTransfer => Icons.account_balance_outlined,
+      PaymentType.creditCard => Icons.credit_card_outlined,
+    };
+  }
+
   PaymentType? selectedPaymentType;
   int installments = 1;
 
@@ -44,46 +61,82 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Expanded(
-                  child: Column(
-                    children: [
-                      for (final type in PaymentType.values)
-                        ListTile(
-                          title: Text(type.translate(modalContext)),
-                          trailing: Icon(
-                            selectedPaymentType == type
-                                ? Icons.radio_button_checked
-                                : Icons.radio_button_unchecked,
-                          ),
-                          onTap: () {
-                            setModalState(() {
-                              selectedPaymentType = type;
-                              if (type != PaymentType.creditCard) {
-                                installments = 1;
-                              }
-                            });
-                          },
-                        ),
 
-                      if (selectedPaymentType == PaymentType.creditCard)
-                        DropdownButton<int>(
-                          value: installments,
-                          items: [1, 2, 3, 4, 5, 6].map((number) {
-                            return DropdownMenuItem(
-                              value: number,
-                              child: Text(
-                                '$number parcela${number == 1 ? '' : 's'}',
+                Text('A vista'),
+
+                Padding(
+                  padding: const EdgeInsetsGeometry.all(10),
+                  child: Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(16),
+                      side: BorderSide(color: Colors.white12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (final type in inFullTypes)
+                          Column(
+                            children: [
+                              ListTile(
+                                leading: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: colors.surfaceContainer,
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      12,
+                                    ),
+                                  ),
+                                  child: Icon(paymentIcon(type)),
+                                ),
+                                title: Text(type.translate(modalContext)),
+                                selected: selectedPaymentType == type,
+                                trailing: Radio<PaymentType>(
+                                  value: type,
+                                  groupValue: selectedPaymentType,
+                                  onChanged: (value) {
+                                    if (value == null) return;
+
+                                    setModalState(() {
+                                      selectedPaymentType = value;
+                                      installments = 1;
+                                    });
+                                  },
+                                ),
+                                onTap: () {
+                                  setModalState(() {
+                                    selectedPaymentType = type;
+                                    installments = 1;
+                                  });
+                                },
+                                selectedTileColor: colors.inversePrimary,
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            if (value == null) return;
-                            setModalState(() => installments = value);
-                          },
-                        ),
-                    ],
+
+                              if (type != inFullTypes.last) Divider(height: 1),
+                            ],
+                          ),
+
+                        if (selectedPaymentType == PaymentType.creditCard)
+                          DropdownButton<int>(
+                            value: installments,
+                            items: [1, 2, 3, 4, 5, 6].map((number) {
+                              return DropdownMenuItem(
+                                value: number,
+                                child: Text(
+                                  '$number parcela${number == 1 ? '' : 's'}',
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value == null) return;
+                              setModalState(() => installments = value);
+                            },
+                          ),
+                      ],
+                    ),
                   ),
                 ),
+
                 if (selectedPaymentType != null)
                   SafeArea(
                     child: Padding(

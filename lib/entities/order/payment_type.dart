@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 
+enum PaymentGroup { inFull, installment }
+
 enum PaymentType {
-  creditCard,
-  cash,
-  bankTransfer,
-  pix;
+  creditCard(PaymentGroup.installment),
+  cash(PaymentGroup.inFull),
+  bankTransfer(PaymentGroup.inFull),
+  pix(PaymentGroup.inFull);
+
+  const PaymentType(this.group);
+
+  final PaymentGroup group;
 
   String translate(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
