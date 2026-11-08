@@ -55,6 +55,17 @@ class OrderDetailsController with ChangeNotifier {
 
   PaymenItem? get selectedPaymentItem => _selectedPaymentItem;
 
+  double get productsSubtotal =>
+      _selectedProducts.fold(0.0, (sum, item) => sum + item.subtotal);
+
+  double get totalDiscount =>
+      _selectedProducts.fold(0.0, (sum, item) => sum + item.discountAmount);
+
+  double get productsTotal =>
+      _selectedProducts.fold(0.0, (sum, item) => sum + item.total);
+
+  double get orderTotal => productsTotal + (_deliveryValue ?? 0);
+
   void setController(GoogleMapController controller) {
     _mapController = controller;
 
@@ -204,11 +215,8 @@ class OrderDetailsController with ChangeNotifier {
     _selectedProducts = _selectedProducts.map((item) {
       if (item.product.id != productId) return item;
 
-      final discountAmount = item.subtotal * safePercent / 100;
-
       return item.copyWith(
         discountPercent: safePercent,
-        discountAmount: discountAmount,
       );
     }).toList();
 
@@ -262,4 +270,5 @@ class OrderDetailsController with ChangeNotifier {
 
     super.dispose();
   }
+
 }

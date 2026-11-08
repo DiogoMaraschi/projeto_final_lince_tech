@@ -467,7 +467,10 @@ class _OrderDetailsPage extends StatelessWidget {
                                         Text(paymentItem.paymentType.name),
                                         Row(
                                           children: [
-                                            Text(paymentItem.installments.toString()),
+                                            Text(
+                                              paymentItem.installments
+                                                  .toString(),
+                                            ),
                                             Text('- Parcelas'),
                                           ],
                                         ),
@@ -504,115 +507,131 @@ class _OrderDetailsPage extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsetsGeometry.all(12),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Consumer<OrderDetailsController>(
+                      builder: (context, controller, child) {
+                        final distanceText =
+                            controller.deliveryDistance == null ||
+                                controller.selectedCarrier == null
+                            ? 'Distância não calculada'
+                            : '${(controller.deliveryDistance! / 1000).toStringAsFixed(2)} km × '
+                                  '${AppFormatters.formatMoney(controller.selectedCarrier!.costPerKm)}/km · '
+                                  'mínimo ${AppFormatters.formatMoney(controller.selectedCarrier!.minimumPrice)}';
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Subtotal dos produtos',
-                              style: TextStyle(
-                                color: Color(0xFFA0AAB8),
-                                fontSize: 16,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Subtotal dos produtos',
+                                  style: TextStyle(
+                                    color: Color(0xFFA0AAB8),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  AppFormatters.formatMoney(
+                                    controller.productsSubtotal,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    color: Color(0xFFA0AAB8),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              r'R$ 2.425,50',
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                color: Color(0xFFA0AAB8),
-                                fontSize: 16,
-                              ),
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Descontos',
+                                  style: TextStyle(
+                                    color: Color(0xFFA0AAB8),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  AppFormatters.formatMoney(
+                                    controller.totalDiscount,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    color: Color(0xFF829BFF),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Descontos',
-                              style: TextStyle(
-                                color: Color(0xFFA0AAB8),
-                                fontSize: 16,
-                              ),
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Entrega',
+                                  style: TextStyle(
+                                    color: Color(0xFFA0AAB8),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  AppFormatters.formatMoney(
+                                    controller.deliveryValue,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    color: Color(0xFFA0AAB8),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              r'- R$ 107,40',
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                color: Color(0xFF829BFF),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Entrega',
-                              style: TextStyle(
-                                color: Color(0xFFA0AAB8),
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              AppFormatters.formatMoney(
-                                context
-                                    .watch<OrderDetailsController>()
-                                    .deliveryValue,
-                              ),
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                color: Color(0xFFA0AAB8),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            r'6 km × R$ 2,40/km · mínimo R$ 80,00',
-                            style: TextStyle(
-                              color: Color(0xFFA0AAB8),
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Divider(height: 1),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            const Expanded(
+                            const SizedBox(height: 4),
+                            Align(
+                              alignment: Alignment.centerLeft,
                               child: Text(
-                                'Total',
+                                distanceText,
                                 style: TextStyle(
-                                  color: Color(0xFFF0F2F5),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFA0AAB8),
+                                  fontSize: 14,
                                 ),
                               ),
                             ),
-                            const Flexible(
-                              child: Text(
-                                r'R$ 2.398,10',
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  color: Color(0xFFF0F2F5),
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w900,
+                            const SizedBox(height: 16),
+                            const Divider(height: 1),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Text(
+                                    'Total',
+                                    style: TextStyle(
+                                      color: Color(0xFFF0F2F5),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Flexible(
+                                  child: Text(
+                                    AppFormatters.formatMoney(
+                                      controller.orderTotal,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: Color(0xFFF0F2F5),
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -716,7 +735,9 @@ class _OrderDetailsPage extends StatelessWidget {
                     children: [
                       const Text('Total'),
                       Text(
-                        'RS 2.546,40',
+                        AppFormatters.formatMoney(
+                          context.watch<OrderDetailsController>().orderTotal,
+                        ),
                         style: TextStyle(fontSize: 20, fontWeight: .w700),
                       ),
                     ],
