@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
+import '../../entities/route_result.dart';
 import 'datasources/routes_datasource.dart';
 
 abstract class RoutesRepository {
-  Future<int> getDrivingDistanceInMeters(
+  Future<RouteResult> getDrivingRoute(
     double originLatitude,
     double originLongitude,
     double destinationLatitude,
@@ -17,28 +19,29 @@ class RoutesRepositoryImpl implements RoutesRepository {
   RoutesRepositoryImpl({required this.routesDatasource});
 
   @override
-  Future<int> getDrivingDistanceInMeters(
+  Future<RouteResult> getDrivingRoute(
     double originLatitude,
     double originLongitude,
     double destinationLatitude,
     double destinationLongitude,
   ) async {
     try {
-      print('''
-      origin lat $originLatitude,
-      origin long $originLongitude,
-      dest lat $destinationLatitude,
-      dest long $destinationLongitude
-      ''');
-      return await routesDatasource.getDrivingDistanceInMeters(
+      final result = await routesDatasource.getDrivingRoute(
         originLatitude: originLatitude,
         originLongitude: originLongitude,
         destinationLatitude: destinationLatitude,
         destinationLongitude: destinationLongitude,
       );
+
+      final points = PolylinePoints.decodePolyline(
+        result.encodedPolyline,
+      ).map((point) => GeoPoint(point.latitude, point.longitude)).toList();
+
+      return RouteResult(distanceMeters: result.distanceMeters, points: points);
+
     } catch (e) {
       debugPrint('Não foi possível retornar dados $e');
-      return -1;
+      rethrow;
     }
   }
 }

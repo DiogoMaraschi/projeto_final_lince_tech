@@ -6,7 +6,6 @@ import '../../../entities/carrier.dart';
 import '../../../entities/customer/costumer.dart';
 import '../../../entities/order/order_item_draft.dart';
 import '../../../entities/order/payment_type.dart';
-import '../../../entities/profile.dart';
 import '../../../main.dart';
 import '../../controllers/carrier_list_controller.dart';
 import '../../controllers/customer_list_controller.dart';
@@ -31,7 +30,7 @@ class OrderDetailsPage extends StatelessWidget {
           create: (_) => OrderDetailsController(
             getCustomerByIdUsecase: injection.getCustomerByIdUsecase,
             getCarrierByIdUsecase: injection.getCarrierByIdUsecase,
-            getDistanceBetweenLatlng: injection.getDistanceBetweenLatlng,
+            getDrivingRouteUsecase: injection.getDrivingRouteUsecase,
             getProfileUsecase: injection.getProfileUsecase,
           )..getProfile(),
         ),
@@ -373,20 +372,17 @@ class _OrderDetailsPage extends StatelessWidget {
                   ),
                 ),
 
-                Selector<OrderDetailsController, (Profile?, Customer?)>(
-                  selector: (_, controller) =>
-                      (controller.profile, controller.selectedCustomer),
-                  builder: (context, data, _) {
-                    final (profile, customer) = data;
+                Consumer<OrderDetailsController>(
+                  builder: (context, controller, child) {
+                    final profile = controller.profile;
+                    final customer = controller.selectedCustomer;
 
                     if (profile == null || customer == null) {
                       return const SizedBox.shrink();
                     }
 
                     return DeliveryCard(
-                      setController: context
-                          .read<OrderDetailsController>()
-                          .setController,
+                      setController: controller.setController,
                       storeLocation: LatLng(
                         profile.latitude,
                         profile.longitude,
@@ -395,12 +391,9 @@ class _OrderDetailsPage extends StatelessWidget {
                         customer.latitude,
                         customer.longitude,
                       ),
-                      deliveryDistance: context
-                          .read<OrderDetailsController>()
-                          .deliveryDistance,
-                      customerAddress: context
-                          .read<OrderDetailsController>()
-                          .getCustomerAddress(),
+                      deliveryDistance: controller.deliveryDistance,
+                      customerAddress: controller.getCustomerAddress(),
+                      points: controller.geoPoints,
                     );
                   },
                 ),

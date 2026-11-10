@@ -1,18 +1,18 @@
-import '../datasources/routes_datasource.dart';
+import '../../../entities/route_result.dart';
 import '../repository.dart';
 
-class GetDistanceBetweenLatlng {
+class GetDrivingRouteUsecase {
   final RoutesRepository repository;
 
-  GetDistanceBetweenLatlng({required this.repository});
+  GetDrivingRouteUsecase({required this.repository});
 
-  Future<int> call({
+  Future<RouteResult> call({
     required double originLatitude,
     required double originLongitude,
     required double destinationLatitude,
     required double destinationLongitude,
   }) {
-    return repository.getDrivingDistanceInMeters(
+    return repository.getDrivingRoute(
       originLatitude,
       originLongitude,
       destinationLatitude,

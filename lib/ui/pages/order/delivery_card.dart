@@ -9,6 +9,7 @@ class DeliveryCard extends StatelessWidget {
     required this.customerLocation,
     required this.customerAddress,
     required this.deliveryDistance,
+    required this.points,
   });
 
   final ValueChanged<GoogleMapController> setController;
@@ -16,6 +17,7 @@ class DeliveryCard extends StatelessWidget {
   final LatLng customerLocation;
   final String customerAddress;
   final int? deliveryDistance;
+  final List<LatLng> points;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,15 @@ class DeliveryCard extends StatelessWidget {
           SizedBox(
             height: 220,
             child: GoogleMap(
+              polylines: {
+                if (points.length >= 2)
+                Polyline(
+                  polylineId: PolylineId('delivery_route'),
+                  points: points,
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 5,
+                ),
+              },
               onMapCreated: setController,
               initialCameraPosition: CameraPosition(
                 target: LatLng(-26.9194, -49.0661),

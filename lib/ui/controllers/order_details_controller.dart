@@ -9,21 +9,22 @@ import '../../entities/order/order_item_draft.dart';
 import '../../entities/order/payment_type.dart';
 import '../../entities/product.dart';
 import '../../entities/profile.dart';
+import '../../entities/route_result.dart';
 import '../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
 import '../../modules/customer/usecases/get_customer_by_id_usecase.dart';
 import '../../modules/profile/usecases/get_profile_usecase.dart';
-import '../../modules/routes/usecases/get_distance_between_latlng.dart';
+import '../../modules/routes/usecases/get_driving_route_usecase.dart';
 
 class OrderDetailsController with ChangeNotifier {
   final GetCustomerByIdUsecase getCustomerByIdUsecase;
   final GetCarrierByIdUsecase getCarrierByIdUsecase;
-  final GetDistanceBetweenLatlng getDistanceBetweenLatlng;
+  final GetDrivingRouteUsecase getDrivingRouteUsecase;
   final GetProfileUsecase getProfileUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
     required this.getCarrierByIdUsecase,
-    required this.getDistanceBetweenLatlng,
+    required this.getDrivingRouteUsecase,
     required this.getProfileUsecase,
   });
 
@@ -34,7 +35,6 @@ class OrderDetailsController with ChangeNotifier {
   Customer? _selectedCustomer;
   Carrier? _selectedCarrier;
   List<OrderItemDraft> _selectedProducts = [];
-  int? _deliveryDistance;
   double? _deliveryValue;
   PaymenItem? _selectedPaymentItem;
 
@@ -48,10 +48,12 @@ class OrderDetailsController with ChangeNotifier {
 
   Profile? get profile => _profile;
 
+  RouteResult? _routeResult;
+
   List<OrderItemDraft> get selectedProducts =>
       List.unmodifiable(_selectedProducts);
 
-  int? get deliveryDistance => _deliveryDistance;
+  int? get deliveryDistance => _routeResult?.distanceMeters;
 
   PaymenItem? get selectedPaymentItem => _selectedPaymentItem;
 
@@ -65,6 +67,13 @@ class OrderDetailsController with ChangeNotifier {
       _selectedProducts.fold(0.0, (sum, item) => sum + item.total);
 
   double get orderTotal => productsTotal + (_deliveryValue ?? 0);
+
+  List<LatLng> get geoPoints {
+    return _routeResult?.points
+            .map((point) => LatLng(point.latitude, point.longitude))
+            .toList() ??
+        [];
+  }
 
   void setController(GoogleMapController controller) {
     _mapController = controller;
@@ -85,7 +94,7 @@ class OrderDetailsController with ChangeNotifier {
 
       _selectedCustomer = result;
 
-      await getDistance();
+      await getDrivingRoute();
       await changeCameraPosition();
 
       if (_selectedCustomer != null && _selectedCarrier != null)
@@ -156,16 +165,16 @@ class OrderDetailsController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getDistance() async {
+  Future<void> getDrivingRoute() async {
     final profile = _profile;
     final customer = _selectedCustomer;
 
     if (profile == null || customer == null) return;
 
-    _deliveryDistance = null;
+    _routeResult = null;
 
     try {
-      _deliveryDistance = await getDistanceBetweenLatlng(
+      _routeResult = await getDrivingRouteUsecase(
         originLatitude: profile.latitude,
         originLongitude: profile.longitude,
         destinationLatitude: customer.latitude,
@@ -215,9 +224,7 @@ class OrderDetailsController with ChangeNotifier {
     _selectedProducts = _selectedProducts.map((item) {
       if (item.product.id != productId) return item;
 
-      return item.copyWith(
-        discountPercent: safePercent,
-      );
+      return item.copyWith(discountPercent: safePercent);
     }).toList();
 
     notifyListeners();
@@ -233,8 +240,6 @@ class OrderDetailsController with ChangeNotifier {
     final state = customer.state;
     final zipcode = customer.zipCode;
 
-    notifyListeners();
-
     print('''
     ${street}, $number
     $city/$state - CEP $zipcode
@@ -247,19 +252,18 @@ class OrderDetailsController with ChangeNotifier {
   }
 
   void setDeliveryValue() {
-    late double value;
+    final distanceMeters = _routeResult?.distanceMeters;
     final carrier = _selectedCarrier;
 
-    if (_deliveryDistance != null && carrier != null) {
-      value = (_deliveryDistance! / 1000) * _selectedCarrier!.costPerKm;
+    if (distanceMeters == null || carrier == null) {
+      _deliveryValue = null;
+    } else {
+      final value = (distanceMeters / 1000) * carrier.costPerKm;
 
       value < carrier.minimumPrice
           ? _deliveryValue = carrier.minimumPrice
           : _deliveryValue = value;
-    } else {
-      _deliveryValue = 0;
     }
-    print('delivery value $_deliveryValue');
     notifyListeners();
   }
 
@@ -270,5 +274,4 @@ class OrderDetailsController with ChangeNotifier {
 
     super.dispose();
   }
-
 }

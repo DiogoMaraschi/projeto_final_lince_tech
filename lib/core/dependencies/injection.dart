@@ -36,7 +36,7 @@ import '../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../modules/profile/usecases/update_profile_usecase.dart';
 import '../../modules/routes/datasources/routes_datasource.dart';
 import '../../modules/routes/repository.dart';
-import '../../modules/routes/usecases/get_distance_between_latlng.dart';
+import '../../modules/routes/usecases/get_driving_route_usecase.dart';
 import '../database/database_helper.dart';
 import '../storage/preferences_service.dart';
 
@@ -63,7 +63,7 @@ class Injection {
   late final GetProfileUsecase getProfileUsecase;
   late final GetCustomerByIdUsecase getCustomerByIdUsecase;
   late final GetCarrierByIdUsecase getCarrierByIdUsecase;
-  late final GetDistanceBetweenLatlng getDistanceBetweenLatlng;
+  late final GetDrivingRouteUsecase getDrivingRouteUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -152,7 +152,7 @@ class Injection {
     getCarrierByIdUsecase = GetCarrierByIdUsecase(
       repository: carrierRepository,
     );
-    getDistanceBetweenLatlng = GetDistanceBetweenLatlng(
+    getDrivingRouteUsecase = GetDrivingRouteUsecase(
       repository: routeRepository,
     );
   }
