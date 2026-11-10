@@ -70,7 +70,7 @@ class DeliveryCard extends StatelessWidget {
               onMapCreated: setController,
               initialCameraPosition: CameraPosition(
                 target: LatLng(-26.9194, -49.0661),
-                zoom: 14,
+                zoom: 12,
               ),
               markers: {
                 Marker(

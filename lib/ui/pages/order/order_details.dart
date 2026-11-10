@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../entities/carrier.dart';
 import '../../../entities/customer/costumer.dart';
-import '../../../entities/order/order_item_draft.dart';
+import '../../../entities/order/order_item.dart';
 import '../../../entities/order/payment_type.dart';
 import '../../../main.dart';
 import '../../controllers/carrier_list_controller.dart';
@@ -198,7 +198,7 @@ class _OrderDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadiusGeometry.circular(16),
                     side: BorderSide(color: Colors.white12),
                   ),
-                  child: Selector<OrderDetailsController, List<OrderItemDraft>>(
+                  child: Selector<OrderDetailsController, List<OrderItem>>(
                     selector: (context, controller) =>
                         controller.selectedProducts,
                     builder: (context, selectedProducts, child) {

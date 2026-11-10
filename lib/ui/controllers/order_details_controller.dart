@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../entities/carrier.dart';
 import '../../entities/customer/costumer.dart';
-import '../../entities/order/order_item_draft.dart';
+import '../../entities/order/order_item.dart';
 import '../../entities/order/payment_type.dart';
 import '../../entities/product.dart';
 import '../../entities/profile.dart';
@@ -34,7 +34,7 @@ class OrderDetailsController with ChangeNotifier {
   Profile? _profile;
   Customer? _selectedCustomer;
   Carrier? _selectedCarrier;
-  List<OrderItemDraft> _selectedProducts = [];
+  List<OrderItem> _selectedProducts = [];
   double? _deliveryValue;
   PaymenItem? _selectedPaymentItem;
 
@@ -50,7 +50,7 @@ class OrderDetailsController with ChangeNotifier {
 
   RouteResult? _routeResult;
 
-  List<OrderItemDraft> get selectedProducts =>
+  List<OrderItem> get selectedProducts =>
       List.unmodifiable(_selectedProducts);
 
   int? get deliveryDistance => _routeResult?.distanceMeters;
@@ -127,7 +127,7 @@ class OrderDetailsController with ChangeNotifier {
         .where((p) => p.id != null && quantities.containsKey(p.id))
         .map((p) {
           final id = p.id!;
-          return OrderItemDraft(
+          return OrderItem(
             product: p,
             quantity: quantities[id]!,
             unitPrice: p.salePrice,
@@ -214,7 +214,7 @@ class OrderDetailsController with ChangeNotifier {
     );
 
     await _mapController?.animateCamera(
-      CameraUpdate.newLatLngBounds(bounds, 60),
+      CameraUpdate.newLatLngBounds(bounds, 50),
     );
   }
 
@@ -239,11 +239,6 @@ class OrderDetailsController with ChangeNotifier {
     final city = customer.city;
     final state = customer.state;
     final zipcode = customer.zipCode;
-
-    print('''
-    ${street}, $number
-    $city/$state - CEP $zipcode
-    ''');
 
     return '''
     ${street}, $number

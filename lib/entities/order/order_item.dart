@@ -1,12 +1,16 @@
 import '../product.dart';
 
-class OrderItemDraft {
+class OrderItem {
+  final int? id;
+  final int? order_id;
   final Product product;
   final int quantity;
   final double unitPrice;
   final double discountPercent;
 
-  const OrderItemDraft({
+  const OrderItem({
+    this.id,
+    this.order_id,
     required this.product,
     required this.quantity,
     required this.unitPrice,
@@ -19,11 +23,13 @@ class OrderItemDraft {
   double get subtotal => unitPrice * quantity;
   double get total => subtotal - discountAmount;
 
-  OrderItemDraft copyWith({
+  OrderItem copyWith({
+    int? id,
     int? quantity,
     double? discountPercent,
   }) {
-    return OrderItemDraft(
+    return OrderItem(
+      id: id ?? this.id,
       product: product,
       quantity: quantity ?? this.quantity,
       unitPrice: unitPrice,

@@ -115,6 +115,7 @@ class DatabaseHelper {
         installments INTEGER NOT NULL,
         freight REAL NOT NULL DEFAULT 0,
         payment_notes TEXT,
+        general_notes TEXT,
         created_at TEXT NOT NULL,
         deleted_at TEXT,
 
