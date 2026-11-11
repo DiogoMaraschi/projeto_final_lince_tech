@@ -32,6 +32,9 @@ class OrderDetailsPage extends StatelessWidget {
             getCarrierByIdUsecase: injection.getCarrierByIdUsecase,
             getDrivingRouteUsecase: injection.getDrivingRouteUsecase,
             getProfileUsecase: injection.getProfileUsecase,
+            calculatePaymentTotalUsecase:
+                injection.calculatePaymentTotalUsecase,
+            getInstallmentsUsecase: injection.getInstallmentsUsecase,
           )..getProfile(),
         ),
         ChangeNotifierProvider(
@@ -418,7 +421,13 @@ class _OrderDetailsPage extends StatelessWidget {
                     side: BorderSide(color: Colors.white12),
                   ),
                   child: InkWell(
-                    onTap: () => showPaymentTypeModal(context),
+                    onTap: () =>
+                        context
+                            .read<OrderDetailsController>()
+                            .selectedProducts
+                            .isEmpty
+                        ? null
+                        : showPaymentTypeModal(context),
                     child: Padding(
                       padding: const EdgeInsets.all(14),
                       child: Row(

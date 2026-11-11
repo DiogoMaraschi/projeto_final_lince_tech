@@ -12,6 +12,8 @@ import '../../entities/profile.dart';
 import '../../entities/route_result.dart';
 import '../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
 import '../../modules/customer/usecases/get_customer_by_id_usecase.dart';
+import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
+import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../modules/routes/usecases/get_driving_route_usecase.dart';
 
@@ -20,12 +22,16 @@ class OrderDetailsController with ChangeNotifier {
   final GetCarrierByIdUsecase getCarrierByIdUsecase;
   final GetDrivingRouteUsecase getDrivingRouteUsecase;
   final GetProfileUsecase getProfileUsecase;
+  final CalculatePaymentTotalUsecase calculatePaymentTotalUsecase;
+  final GetInstallmentsUsecase getInstallmentsUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
     required this.getCarrierByIdUsecase,
     required this.getDrivingRouteUsecase,
     required this.getProfileUsecase,
+    required this.calculatePaymentTotalUsecase,
+    required this.getInstallmentsUsecase,
   });
 
   final notesController = TextEditingController();
@@ -66,14 +72,30 @@ class OrderDetailsController with ChangeNotifier {
   double get productsTotal =>
       _selectedProducts.fold(0.0, (sum, item) => sum + item.total);
 
-  double get orderTotal => productsTotal + (_deliveryValue ?? 0);
+  double get _orderBaseTotal => productsTotal + (_deliveryValue ?? 0);
 
+  int maxInstallmentsFor(PaymentType type) =>
+      getInstallmentsUsecase(type, orderTotal);
+
+  double paymentTotalFor(PaymentType type, int installments) =>
+      calculatePaymentTotalUsecase(
+        PaymenItem(paymentType: type, installments: installments),
+        orderTotal,
+      );
+
+  double get orderTotal {
+    final paymentItem = _selectedPaymentItem;
+    if (paymentItem == null) return _orderBaseTotal;
+
+    return calculatePaymentTotalUsecase(paymentItem, _orderBaseTotal);
+  }
   List<LatLng> get geoPoints {
     return _routeResult?.points
             .map((point) => LatLng(point.latitude, point.longitude))
             .toList() ??
         [];
   }
+
 
   void setController(GoogleMapController controller) {
     _mapController = controller;

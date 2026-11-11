@@ -5,7 +5,9 @@ import '../../../entities/order/payment_type.dart';
 import '../../controllers/order_details_controller.dart';
 import '../../formatters/app_formatters.dart';
 
-Future<void> showPaymentTypeModal(BuildContext context) async {
+Future<void> showPaymentTypeModal(
+  BuildContext context,
+) async {
   final colors = Theme.of(context).colorScheme;
   final height = MediaQuery.sizeOf(context).height;
 
@@ -26,11 +28,10 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
     };
   }
 
-  PaymenItem? selectedPaymentItem;
-
   PaymentType? selectedPaymentType;
   int installments = 1;
-  double purchaseValue = 10000;
+
+  final orderController = context.read<OrderDetailsController>();
 
   await showModalBottomSheet<void>(
     context: context,
@@ -208,15 +209,22 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
                                 selectedPaymentType,
                               ))
                                 ListView.builder(
-                                  itemCount: 10,
+                                  itemCount: orderController.maxInstallmentsFor(
+                                    selectedPaymentType!,
+                                  ),
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, i) {
                                     final index = i + 1;
+                                    final total = orderController
+                                        .paymentTotalFor(
+                                          selectedPaymentType!,
+                                          index,
+                                        );
                                     return ListTile(
                                       selected: installments == index,
                                       title: Text(
-                                        '${index}x de ${AppFormatters.formatMoney(purchaseValue / index)}',
+                                        '${index}x de ${AppFormatters.formatMoney(total / index)}',
                                       ),
                                       onTap: () => setModalState(
                                         () => installments = index,
