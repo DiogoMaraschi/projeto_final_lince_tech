@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../entities/carrier.dart';
 import '../../entities/customer/costumer.dart';
+import '../../entities/order/order.dart';
 import '../../entities/order/order_item.dart';
 import '../../entities/order/payment_type.dart';
 import '../../entities/product.dart';
@@ -13,6 +14,7 @@ import '../../entities/route_result.dart';
 import '../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
 import '../../modules/customer/usecases/get_customer_by_id_usecase.dart';
 import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
+import '../../modules/order/usecases/create_order_usecase.dart';
 import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../modules/routes/usecases/get_driving_route_usecase.dart';
@@ -24,6 +26,7 @@ class OrderDetailsController with ChangeNotifier {
   final GetProfileUsecase getProfileUsecase;
   final CalculatePaymentTotalUsecase calculatePaymentTotalUsecase;
   final GetInstallmentsUsecase getInstallmentsUsecase;
+  final CreateOrderUsecase createOrderUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
@@ -32,6 +35,7 @@ class OrderDetailsController with ChangeNotifier {
     required this.getProfileUsecase,
     required this.calculatePaymentTotalUsecase,
     required this.getInstallmentsUsecase,
+    required this.createOrderUsecase,
   });
 
   final notesController = TextEditingController();
@@ -56,8 +60,7 @@ class OrderDetailsController with ChangeNotifier {
 
   RouteResult? _routeResult;
 
-  List<OrderItem> get selectedProducts =>
-      List.unmodifiable(_selectedProducts);
+  List<OrderItem> get selectedProducts => List.unmodifiable(_selectedProducts);
 
   int? get deliveryDistance => _routeResult?.distanceMeters;
 
@@ -89,13 +92,13 @@ class OrderDetailsController with ChangeNotifier {
 
     return calculatePaymentTotalUsecase(paymentItem, _orderBaseTotal);
   }
+
   List<LatLng> get geoPoints {
     return _routeResult?.points
-            .map((point) => LatLng(point.latitude, point.longitude))
-            .toList() ??
+        .map((point) => LatLng(point.latitude, point.longitude))
+        .toList() ??
         [];
   }
-
 
   void setController(GoogleMapController controller) {
     _mapController = controller;
@@ -148,13 +151,13 @@ class OrderDetailsController with ChangeNotifier {
     _selectedProducts = productsCompleteList
         .where((p) => p.id != null && quantities.containsKey(p.id))
         .map((p) {
-          final id = p.id!;
-          return OrderItem(
-            product: p,
-            quantity: quantities[id]!,
-            unitPrice: p.salePrice,
-          );
-        })
+      final id = p.id!;
+      return OrderItem(
+        product: p,
+        quantity: quantities[id]!,
+        unitPrice: p.salePrice,
+      );
+    })
         .toList();
 
     notifyListeners();
@@ -282,6 +285,38 @@ class OrderDetailsController with ChangeNotifier {
           : _deliveryValue = value;
     }
     notifyListeners();
+  }
+
+  bool verifyEntities() {
+    if (_selectedCustomer == null ||
+        _selectedProducts.isEmpty ||
+        _selectedCarrier == null ||
+        _selectedPaymentItem == null) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> saveOrder() async {
+    final carrier = _selectedCarrier;
+    final customer = _selectedCustomer;
+    final paymentItem = _selectedPaymentItem;
+    final products = _selectedProducts;
+
+    final order = Order(customerId: customer!.id!,
+        carrierId: carrier!.id!,
+        paymentItem: paymentItem!,
+        freight: _deliveryValue ?? 0,
+        createdAt: DateTime.now(),
+        items: products);
+
+    try {
+      await createOrderUsecase(order);
+      return true;
+    } catch (e) {
+      debugPrint('Erro $e');
+      return false;
+    }
   }
 
   @override

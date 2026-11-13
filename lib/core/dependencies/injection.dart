@@ -15,7 +15,9 @@ import '../../modules/cnpj/repository.dart';
 import '../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../modules/customer/usecases/update_customer_usecase.dart';
 import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
+import '../../modules/order/repository.dart';
 import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
+import '../../modules/order/usecases/create_order_usecase.dart';
 import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/product/repository.dart';
 import '../../modules/address/usecases/get_address_by_zipcode.dart';
@@ -68,6 +70,7 @@ class Injection {
   late final GetDrivingRouteUsecase getDrivingRouteUsecase;
   late final CalculatePaymentTotalUsecase calculatePaymentTotalUsecase;
   late final GetInstallmentsUsecase getInstallmentsUsecase;
+  late final CreateOrderUsecase createOrderUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -108,6 +111,7 @@ class Injection {
     final routeRepository = RoutesRepositoryImpl(
       routesDatasource: routesDatasource,
     );
+    final orderRepository = OrderRepositoryImpl(databaseHelper: database);
 
     //USECASES
     createProductUsecase = CreateProductUsecase(repository: productRepository);
@@ -161,5 +165,6 @@ class Injection {
     );
     getInstallmentsUsecase = GetInstallmentsUsecase();
     calculatePaymentTotalUsecase = CalculatePaymentTotalUsecase();
+    createOrderUsecase = CreateOrderUsecase(repository: orderRepository);
   }
 }

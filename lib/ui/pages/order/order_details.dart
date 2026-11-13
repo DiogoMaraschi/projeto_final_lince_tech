@@ -35,6 +35,7 @@ class OrderDetailsPage extends StatelessWidget {
             calculatePaymentTotalUsecase:
                 injection.calculatePaymentTotalUsecase,
             getInstallmentsUsecase: injection.getInstallmentsUsecase,
+            createOrderUsecase: injection.createOrderUsecase,
           )..getProfile(),
         ),
         ChangeNotifierProvider(
@@ -756,7 +757,26 @@ class _OrderDetailsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<OrderDetailsController>().verifyEntities()
+                        ? null
+                        : showDialog<void>(
+                            context: context,
+                            builder: (dialogContext) {
+                              return AlertDialog(
+                                title: const Text('Aviso'),
+                                content: const Text('Preencha todos os campos'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(dialogContext),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                  },
                   child: const Text('Salvar pedido'),
                 ),
               ],
