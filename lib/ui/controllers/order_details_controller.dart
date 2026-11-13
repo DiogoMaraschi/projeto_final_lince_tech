@@ -38,7 +38,7 @@ class OrderDetailsController with ChangeNotifier {
     required this.createOrderUsecase,
   });
 
-  final notesController = TextEditingController();
+  final generalNotesController = TextEditingController();
   final paymentNotesController = TextEditingController();
 
   Profile? _profile;
@@ -302,12 +302,16 @@ class OrderDetailsController with ChangeNotifier {
     final customer = _selectedCustomer;
     final paymentItem = _selectedPaymentItem;
     final products = _selectedProducts;
+    final paymentNotes = paymentNotesController.text;
+    final generalNotes = generalNotesController.text;
 
     final order = Order(customerId: customer!.id!,
         carrierId: carrier!.id!,
         paymentItem: paymentItem!,
         freight: _deliveryValue ?? 0,
-        createdAt: DateTime.now(),
+        paymentNotes: paymentNotes,
+        generalNotes: generalNotes,
+        createdAt: DateTime.now().toString(),
         items: products);
 
     try {
@@ -321,7 +325,7 @@ class OrderDetailsController with ChangeNotifier {
 
   @override
   void dispose() {
-    notesController.dispose();
+    generalNotesController.dispose();
     paymentNotesController.dispose();
 
     super.dispose();

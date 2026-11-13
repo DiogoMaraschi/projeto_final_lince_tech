@@ -13,10 +13,10 @@ class OrderItemModel extends OrderItem {
 
   factory OrderItemModel.fromMap(Map<String, dynamic> map) {
     return OrderItemModel(
-      id: map['id'] as int?,
+      id: map['id'] as int?, // TODO usar alias
       order_id: map['order_id'] as int,
       product: ProductModel(
-        id: map['id'] as int?,
+        id: map['id'] as int?, //TODO usar alias
         name: map['name'] as String,
         barcode: map['barcode'] as String,
         description: map['description'] as String?,

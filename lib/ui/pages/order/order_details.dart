@@ -702,7 +702,7 @@ class _OrderDetailsPage extends StatelessWidget {
                     child: TextFormField(
                       controller: context
                           .read<OrderDetailsController>()
-                          .notesController,
+                          .generalNotesController,
                       maxLines: 3,
                       maxLength: 90,
                       textCapitalization: TextCapitalization.sentences,
@@ -757,9 +757,11 @@ class _OrderDetailsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     context.read<OrderDetailsController>().verifyEntities()
-                        ? null
+                        ? await context
+                              .read<OrderDetailsController>()
+                              .saveOrder()
                         : showDialog<void>(
                             context: context,
                             builder: (dialogContext) {

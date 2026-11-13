@@ -35,7 +35,7 @@ class OrderModel extends Order {
       freight: (orderMap['freight'] as num).toDouble(),
       paymentNotes: orderMap['payment_notes'] as String?,
       generalNotes: orderMap['general_notes'] as String?,
-      createdAt: DateTime.parse(orderMap['created_at'] as String),
+      createdAt: orderMap['created_at'] as String,
       deletedAt: orderMap['deleted_at'] as String?,
       items: items,
     );
@@ -60,7 +60,8 @@ class OrderModel extends Order {
       'id': id,
       'customer_id': customerId,
       'carrier_id': carrierId,
-      'payment_item': paymentItem,
+      'payment_method': paymentItem.paymentType.databaseValue,
+      'installments': paymentItem.installments,
       'freight': freight,
       'payment_notes': paymentNotes,
       'general_notes': generalNotes,

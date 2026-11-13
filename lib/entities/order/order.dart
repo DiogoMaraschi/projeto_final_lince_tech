@@ -9,7 +9,7 @@ class Order {
   final double freight;
   final String? paymentNotes;
   final String? generalNotes;
-  final DateTime createdAt;
+  final String createdAt;
   final List<OrderItem> items;
 
   Order({
