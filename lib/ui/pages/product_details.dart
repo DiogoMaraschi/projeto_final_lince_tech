@@ -7,7 +7,7 @@ import '../../entities/product.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
-import '../controllers/product_controller.dart';
+import '../controllers/product/product_controller.dart';
 import '../formatters/app_formatters.dart';
 import '../validators/not_empty_validator.dart';
 import '../validators/positive_money_validator.dart';

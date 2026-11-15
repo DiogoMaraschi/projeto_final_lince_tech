@@ -7,7 +7,7 @@ import '../../entities/customer/establishment_type.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
-import '../controllers/customer_controller.dart';
+import '../controllers/customer/customer_controller.dart';
 import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';

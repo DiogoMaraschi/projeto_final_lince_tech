@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../entities/customer/costumer.dart';
-import '../../modules/customer/usecases/get_all_customers_usecase.dart';
+import '../../../entities/customer/costumer.dart';
+import '../../../modules/customer/usecases/get_all_customers_usecase.dart';
+
 
 class CustomerListController with ChangeNotifier{
   final GetAllCustomersUsecase _getAllCustomersUsecase;

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../entities/carrier.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../controllers/carrier_controller.dart';
+import '../controllers/carrier/carrier_controller.dart';
 import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';

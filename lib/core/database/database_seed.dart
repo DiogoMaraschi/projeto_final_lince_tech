@@ -6,17 +6,146 @@ class DatabaseSeed {
   static Future<void> insertInitialData(DatabaseExecutor db) async {
     await db.insert('profile', _profile);
 
+    final customerIds = <int>[];
     for (final customer in _customers) {
-      await db.insert('customers', customer);
+      customerIds.add(await db.insert('customers', customer));
     }
 
+    final carrierIds = <int>[];
     for (final carrier in _carriers) {
-      await db.insert('carriers', carrier);
+      carrierIds.add(await db.insert('carriers', carrier));
     }
 
+    final productIds = <int>[];
     for (final product in _products) {
-      await db.insert('products', product);
+      productIds.add(await db.insert('products', product));
     }
+
+    await _insertMockOrders(
+      db,
+      customerIds: customerIds,
+      carrierIds: carrierIds,
+      productIds: productIds,
+    );
+  }
+
+  static Future<void> _insertMockOrders(
+    DatabaseExecutor db, {
+    required List<int> customerIds,
+    required List<int> carrierIds,
+    required List<int> productIds,
+  }) async {
+    final now = DateTime.now();
+
+    await _insertMockOrder(
+      db,
+      customerId: customerIds[0],
+      carrierId: carrierIds[0],
+      paymentMethod: 'pix',
+      installments: 1,
+      freight: 15.00,
+      createdAt: now.subtract(const Duration(days: 2)),
+      items: [
+        _mockOrderItem(
+          productId: productIds[0],
+          quantity: 2,
+          unitPrice: 89.90,
+        ),
+        _mockOrderItem(
+          productId: productIds[1],
+          quantity: 1,
+          unitPrice: 59.90,
+        ),
+      ],
+    );
+
+    await _insertMockOrder(
+      db,
+      customerId: customerIds[1],
+      carrierId: carrierIds[1],
+      paymentMethod: 'credit_card',
+      installments: 3,
+      freight: 18.00,
+      createdAt: now.subtract(const Duration(days: 1)),
+      items: [
+        _mockOrderItem(
+          productId: productIds[2],
+          quantity: 3,
+          unitPrice: 74.50,
+          discountPercent: 10,
+        ),
+        _mockOrderItem(
+          productId: productIds[1],
+          quantity: 5,
+          unitPrice: 59.90,
+        ),
+      ],
+    );
+
+    await _insertMockOrder(
+      db,
+      customerId: customerIds[2],
+      carrierId: carrierIds[2],
+      paymentMethod: 'cash',
+      installments: 1,
+      freight: 35.00,
+      createdAt: now,
+      items: [
+        _mockOrderItem(
+          productId: productIds[0],
+          quantity: 10,
+          unitPrice: 89.90,
+          discountPercent: 5,
+        ),
+      ],
+    );
+  }
+
+  static Future<void> _insertMockOrder(
+    DatabaseExecutor db, {
+    required int customerId,
+    required int carrierId,
+    required String paymentMethod,
+    required int installments,
+    required double freight,
+    required DateTime createdAt,
+    required List<Map<String, Object?>> items,
+  }) async {
+    final orderId = await db.insert('orders', {
+      'customer_id': customerId,
+      'carrier_id': carrierId,
+      'payment_method': paymentMethod,
+      'installments': installments,
+      'freight': freight,
+      'payment_notes': 'Pedido fictício para demonstração.',
+      'general_notes': 'Dados de exemplo do seed.',
+      'created_at': createdAt.toIso8601String(),
+    });
+
+    for (final item in items) {
+      await db.insert('order_items', {
+        'order_id': orderId,
+        ...item,
+      });
+    }
+  }
+
+  static Map<String, Object?> _mockOrderItem({
+    required int productId,
+    required int quantity,
+    required double unitPrice,
+    double discountPercent = 0,
+  }) {
+    final discountAmount =
+        unitPrice * quantity * discountPercent / 100;
+
+    return {
+      'product_id': productId,
+      'quantity': quantity,
+      'unit_price': unitPrice,
+      'discount_amount': discountAmount,
+      'discount_percent': discountPercent,
+    };
   }
 
   static const Map<String, Object?> _profile = {

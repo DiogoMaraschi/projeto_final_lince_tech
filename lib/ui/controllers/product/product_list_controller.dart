@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/product.dart';
-import '../../modules/product/usecases/get_all_products_usecase.dart';
+import '../../../entities/product.dart';
+import '../../../modules/product/usecases/get_all_products_usecase.dart';
+
 
 class ProductListController with ChangeNotifier {
   final GetAllProductsUsecase _getProductsUsecase;

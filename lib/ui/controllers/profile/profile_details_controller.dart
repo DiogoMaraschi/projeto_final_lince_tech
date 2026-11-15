@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../entities/profile.dart';
-import '../../modules/address/usecases/get_address_by_zipcode.dart';
-import '../../modules/address/usecases/get_location_by_address_usecase.dart';
-import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
-import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
-import '../../modules/profile/usecases/create_profile_usecase.dart';
-import '../../modules/profile/usecases/get_profile_usecase.dart';
-import '../../modules/profile/usecases/update_profile_usecase.dart';
-import '../formatters/app_formatters.dart';
+import '../../../entities/profile.dart';
+import '../../../modules/address/usecases/get_address_by_zipcode.dart';
+import '../../../modules/address/usecases/get_location_by_address_usecase.dart';
+import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
+import '../../../modules/profile/usecases/create_profile_usecase.dart';
+import '../../../modules/profile/usecases/get_profile_usecase.dart';
+import '../../../modules/profile/usecases/update_profile_usecase.dart';
+import '../../formatters/app_formatters.dart';
 
 class ProfileDetailsController with ChangeNotifier {
   Profile? _profileReceived;

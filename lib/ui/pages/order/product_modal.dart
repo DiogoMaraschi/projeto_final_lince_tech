@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../entities/product.dart';
-import '../../controllers/order_details_controller.dart';
-import '../../controllers/product_list_controller.dart';
+import '../../controllers/order/order_details_controller.dart';
+import '../../controllers/product/product_list_controller.dart';
 
 Future<void> showProductModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;

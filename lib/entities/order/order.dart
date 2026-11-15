@@ -5,7 +5,7 @@ class Order {
   final int? id;
   final int customerId;
   final int carrierId;
-  final PaymenItem paymentItem;
+  final PaymentItem paymentItem;
   final double freight;
   final String? paymentNotes;
   final String? generalNotes;

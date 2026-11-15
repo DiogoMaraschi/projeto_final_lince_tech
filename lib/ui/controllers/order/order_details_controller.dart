@@ -3,21 +3,21 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../entities/carrier.dart';
-import '../../entities/customer/costumer.dart';
-import '../../entities/order/order.dart';
-import '../../entities/order/order_item.dart';
-import '../../entities/order/payment_type.dart';
-import '../../entities/product.dart';
-import '../../entities/profile.dart';
-import '../../entities/route_result.dart';
-import '../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
-import '../../modules/customer/usecases/get_customer_by_id_usecase.dart';
-import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
-import '../../modules/order/usecases/create_order_usecase.dart';
-import '../../modules/order/usecases/get_installments_usecase.dart';
-import '../../modules/profile/usecases/get_profile_usecase.dart';
-import '../../modules/routes/usecases/get_driving_route_usecase.dart';
+import '../../../entities/carrier.dart';
+import '../../../entities/customer/costumer.dart';
+import '../../../entities/order/order.dart';
+import '../../../entities/order/order_item.dart';
+import '../../../entities/order/payment_type.dart';
+import '../../../entities/product.dart';
+import '../../../entities/profile.dart';
+import '../../../entities/route_result.dart';
+import '../../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
+import '../../../modules/customer/usecases/get_customer_by_id_usecase.dart';
+import '../../../modules/order/usecases/calculate_payment_total_usecase.dart';
+import '../../../modules/order/usecases/create_order_usecase.dart';
+import '../../../modules/order/usecases/get_installments_usecase.dart';
+import '../../../modules/profile/usecases/get_profile_usecase.dart';
+import '../../../modules/routes/usecases/get_driving_route_usecase.dart';
 
 class OrderDetailsController with ChangeNotifier {
   final GetCustomerByIdUsecase getCustomerByIdUsecase;
@@ -46,7 +46,7 @@ class OrderDetailsController with ChangeNotifier {
   Carrier? _selectedCarrier;
   List<OrderItem> _selectedProducts = [];
   double? _deliveryValue;
-  PaymenItem? _selectedPaymentItem;
+  PaymentItem? _selectedPaymentItem;
 
   double? get deliveryValue => _deliveryValue;
 
@@ -64,7 +64,7 @@ class OrderDetailsController with ChangeNotifier {
 
   int? get deliveryDistance => _routeResult?.distanceMeters;
 
-  PaymenItem? get selectedPaymentItem => _selectedPaymentItem;
+  PaymentItem? get selectedPaymentItem => _selectedPaymentItem;
 
   double get productsSubtotal =>
       _selectedProducts.fold(0.0, (sum, item) => sum + item.subtotal);
@@ -82,7 +82,7 @@ class OrderDetailsController with ChangeNotifier {
 
   double paymentTotalFor(PaymentType type, int installments) =>
       calculatePaymentTotalUsecase(
-        PaymenItem(paymentType: type, installments: installments),
+        PaymentItem(paymentType: type, installments: installments),
         orderTotal,
       );
 
@@ -108,7 +108,7 @@ class OrderDetailsController with ChangeNotifier {
     }
   }
 
-  void selectPaymentItem(PaymenItem paymentItem) {
+  void selectPaymentItem(PaymentItem paymentItem) {
     _selectedPaymentItem = paymentItem;
     notifyListeners();
   }

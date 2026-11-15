@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/carrier.dart';
-import '../../modules/carrier/usecases/create_carrier_usecase.dart';
-import '../../modules/carrier/usecases/delete_carrier_usecase.dart';
-import '../../modules/carrier/usecases/update_carrier_usecase.dart';
-import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
-import '../formatters/app_formatters.dart';
+import '../../../entities/carrier.dart';
+import '../../../modules/carrier/usecases/create_carrier_usecase.dart';
+import '../../../modules/carrier/usecases/delete_carrier_usecase.dart';
+import '../../../modules/carrier/usecases/update_carrier_usecase.dart';
+import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../../formatters/app_formatters.dart';
 
 class CarrierController with ChangeNotifier {
   final Carrier? _carrierReceived;

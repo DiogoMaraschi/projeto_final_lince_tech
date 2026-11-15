@@ -7,10 +7,10 @@ import '../../../entities/customer/costumer.dart';
 import '../../../entities/order/order_item.dart';
 import '../../../entities/order/payment_type.dart';
 import '../../../main.dart';
-import '../../controllers/carrier_list_controller.dart';
-import '../../controllers/customer_list_controller.dart';
-import '../../controllers/order_details_controller.dart';
-import '../../controllers/product_list_controller.dart';
+import '../../controllers/carrier/carrier_list_controller.dart';
+import '../../controllers/customer/customer_list_controller.dart';
+import '../../controllers/order/order_details_controller.dart';
+import '../../controllers/product/product_list_controller.dart';
 import '../../formatters/app_formatters.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
@@ -449,7 +449,7 @@ class _OrderDetailsPage extends StatelessWidget {
 
                           Expanded(
                             child:
-                                Selector<OrderDetailsController, PaymenItem?>(
+                                Selector<OrderDetailsController, PaymentItem?>(
                                   selector: (context, controller) {
                                     return controller.selectedPaymentItem;
                                   },

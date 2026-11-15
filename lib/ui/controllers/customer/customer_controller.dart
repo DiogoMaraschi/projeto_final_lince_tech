@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../core/dependencies/injection.dart';
-import '../../entities/customer/costumer.dart';
-import '../../entities/customer/establishment_type.dart';
-import '../../modules/address/usecases/get_address_by_zipcode.dart';
-import '../../modules/address/usecases/get_location_by_address_usecase.dart';
-import '../../modules/cnpj/usecases/get_cnpj_usecase.dart';
-import '../../modules/customer/usecases/create_customer_usecase.dart';
-import '../../modules/customer/usecases/delete_customer_usecase.dart';
-import '../../modules/customer/usecases/get_all_customers_usecase.dart';
-import '../../l10n/app_localizations.dart';
-import '../../modules/customer/usecases/update_customer_usecase.dart';
-import '../formatters/app_formatters.dart';
+import '../../../core/dependencies/injection.dart';
+import '../../../entities/customer/costumer.dart';
+import '../../../entities/customer/establishment_type.dart';
+import '../../../modules/address/usecases/get_address_by_zipcode.dart';
+import '../../../modules/address/usecases/get_location_by_address_usecase.dart';
+import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../../../modules/customer/usecases/create_customer_usecase.dart';
+import '../../../modules/customer/usecases/delete_customer_usecase.dart';
+import '../../../modules/customer/usecases/get_all_customers_usecase.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../modules/customer/usecases/update_customer_usecase.dart';
+import '../../formatters/app_formatters.dart';
 
 class CustomerController with ChangeNotifier {
   final Customer? _customerReceived;

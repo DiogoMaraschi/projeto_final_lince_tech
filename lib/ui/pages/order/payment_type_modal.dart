@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/order/payment_type.dart';
-import '../../controllers/order_details_controller.dart';
+import '../../controllers/order/order_details_controller.dart';
 import '../../formatters/app_formatters.dart';
 
 Future<void> showPaymentTypeModal(
@@ -271,7 +271,7 @@ Future<void> showPaymentTypeModal(
   if (!context.mounted || installments < 1 || selectedPaymentType == null)
     return;
 
-  final paymentItem = PaymenItem(
+  final paymentItem = PaymentItem(
     paymentType: selectedPaymentType!,
     installments: installments,
   );

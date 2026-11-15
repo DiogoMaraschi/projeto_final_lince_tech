@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
-import '../controllers/profile_details_controller.dart';
+import '../controllers/profile/profile_details_controller.dart';
 import '../formatters/app_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/not_empty_validator.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/carrier.dart';
-import '../../modules/carrier/usecases/get_all_carriers_usecase.dart';
+import '../../../entities/carrier.dart';
+import '../../../modules/carrier/usecases/get_all_carriers_usecase.dart';
 
 class CarrierListController with ChangeNotifier {
   final GetAllCarriersUsecase _getAllCarriersUsecase;

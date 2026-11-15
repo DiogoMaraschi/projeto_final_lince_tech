@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../controllers/profile_controller.dart';
+import '../controllers/profile/profile_controller.dart';
 import '../formatters/app_formatters.dart';
 import 'profile_details.dart';
 

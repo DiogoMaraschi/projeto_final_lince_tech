@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../entities/order/order.dart';
 import '../../../../entities/order/order_item.dart';
 import '../../../../entities/order/payment_type.dart';
 import '../../../../entities/product.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../main.dart';
+import '../../../controllers/order/order_list_controller.dart';
 import '../order_details.dart';
 import 'order_list_card.dart';
 
@@ -12,64 +16,62 @@ class OrderListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 100,),
-        OrderListCard(
-          order: Order(
-            id: 42,
-            customerId: 1,
-            carrierId: 1,
-            paymentItem: PaymenItem(
-              paymentType: PaymentType.creditCard,
-              installments: 3,
-            ),
-            freight: 120,
-            createdAt: DateTime.now().toIso8601String(),
-            items: [
-              OrderItem(
-                id: 1,
-                order_id: 42,
-                product: Product(
-                  id: 1,
-                  name: 'Colchonete 100 cm',
-                  barcode: '7891234567890',
-                  brand: 'Vigor',
-                  salePrice: 48.90,
+    return ChangeNotifierProvider(
+      create: (_) => OrderListController(
+        getAllOrderSummariesUsecase: injection.getAllOrderSummariesUsecase,
+      )..getAllOrderSummary(),
+      child: const _OrderListPage(),
+    );
+  }
+}
+
+class _OrderListPage extends StatelessWidget {
+  const _OrderListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<OrderListController>(
+      builder: (context, controller, child) {
+        final l10n = AppLocalizations.of(context);
+
+        return Scaffold(
+          appBar: AppBar(title: Text('Pedidos')),
+          body: controller.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : controller.orderSummary.isEmpty
+              ? Center(child: Text('Nenhum pedido foi encontrado'))
+              : ListView.builder(
+                  padding: const EdgeInsetsGeometry.all(16),
+                  itemCount: controller.orderSummary.length,
+                  itemBuilder: (context, index) {
+                    final orderSummary = controller.orderSummary[index];
+                    return OrderListCard(
+                      orderSummary: orderSummary,
+                      onTap: () {},
+                    );
+                  },
                 ),
-                quantity: 2,
-                unitPrice: 48.90,
-              ),
-              OrderItem(
-                id: 2,
-                order_id: 42,
-                product: Product(
-                  id: 2,
-                  name: 'Tapete para exercício',
-                  barcode: '7899876543210',
-                  brand: 'Lince',
-                  salePrice: 35.50,
-                ),
-                quantity: 1,
-                unitPrice: 35.50,
-                discountPercent: 10,
-              ),
-            ],
-          ),
-          customerName: 'Mercado Santa Tereza',
-          orderTotal: 259.74,
-          onTap: () => debugPrint('Pedido 42 selecionado'),
-        ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => OrderDetailsPage()),
+          floatingActionButton: FloatingActionButton(
+            heroTag: null,
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrderDetailsPage()),
+              );
+
+              if (!context.mounted) return;
+
+              controller.getAllOrderSummary();
+            },
+            backgroundColor: const Color(0xFF4F46E5),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
             ),
-            child: Text('Details'),
+            child: const Icon(Icons.add, size: 28),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

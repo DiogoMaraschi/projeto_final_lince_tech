@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../entities/product.dart';
-import '../../modules/imagePicker/usecases/capture_image_usecase.dart';
-import '../../modules/product/usecases/create_product_usecase.dart';
-import '../../modules/product/usecases/delete_product_usecase.dart';
-import '../../modules/product/usecases/update_product_usecase.dart';
-import '../formatters/app_formatters.dart';
+import '../../../entities/product.dart';
+import '../../../modules/imagePicker/usecases/capture_image_usecase.dart';
+import '../../../modules/product/usecases/create_product_usecase.dart';
+import '../../../modules/product/usecases/delete_product_usecase.dart';
+import '../../../modules/product/usecases/update_product_usecase.dart';
+import '../../formatters/app_formatters.dart';
 
 class ProductController with ChangeNotifier {
   Product? _productReceived;

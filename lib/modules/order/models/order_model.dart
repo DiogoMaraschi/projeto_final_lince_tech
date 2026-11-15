@@ -26,7 +26,7 @@ class OrderModel extends Order {
       id: orderMap['id'] as int?,
       customerId: orderMap['customer_id'] as int,
       carrierId: orderMap['carrier_id'] as int,
-      paymentItem: PaymenItem(
+      paymentItem: PaymentItem(
         paymentType: PaymentType.fromDatabaseValue(
           orderMap['payment_method'] as String,
         ),

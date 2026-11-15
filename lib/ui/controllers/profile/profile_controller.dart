@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../core/storage/preferences_service.dart';
-import '../../entities/profile.dart';
-import '../../modules/profile/usecases/get_profile_usecase.dart';
+import '../../../core/storage/preferences_service.dart';
+import '../../../entities/profile.dart';
+import '../../../modules/profile/usecases/get_profile_usecase.dart';
 
 class ProfileController with ChangeNotifier {
   Profile? _profile;

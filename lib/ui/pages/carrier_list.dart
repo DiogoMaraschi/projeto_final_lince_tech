@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../controllers/carrier_list_controller.dart';
+import '../controllers/carrier/carrier_list_controller.dart';
 import '../widgets/carrier_card.dart';
 import 'carrier_details.dart';
 

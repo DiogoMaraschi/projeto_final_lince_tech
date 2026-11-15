@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/carrier_list_controller.dart';
-import '../../controllers/order_details_controller.dart';
+import '../../controllers/carrier/carrier_list_controller.dart';
+import '../../controllers/order/order_details_controller.dart';
 import '../../formatters/app_formatters.dart';
 
 Future<void> showCarrierModal(BuildContext context) async {

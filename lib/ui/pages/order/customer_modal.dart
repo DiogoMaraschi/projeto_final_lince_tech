@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/customer_list_controller.dart';
-import '../../controllers/order_details_controller.dart';
+import '../../controllers/customer/customer_list_controller.dart';
+import '../../controllers/order/order_details_controller.dart';
 
 
 Future<void> showCustomerModal(BuildContext context) async {

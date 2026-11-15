@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../controllers/product_list_controller.dart';
+import '../controllers/product/product_list_controller.dart';
 import '../widgets/product_card.dart';
 import 'product_details.dart';
 

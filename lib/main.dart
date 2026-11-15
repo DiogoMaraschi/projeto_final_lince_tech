@@ -3,7 +3,7 @@ import 'package:projeto_final_lince_tech/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/dependencies/injection.dart';
 import 'ui/app_colors.dart';
-import 'ui/controllers/profile_controller.dart';
+import 'ui/controllers/profile/profile_controller.dart';
 import 'ui/pages/carrier_details.dart';
 import 'ui/pages/carrier_list.dart';
 import 'ui/pages/costumer_list.dart';
