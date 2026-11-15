@@ -178,8 +178,8 @@ class DatabaseSeed {
       'zip_code': '89110000',
       'street': 'Rua de Demonstração',
       'number': '100',
-      'latitude': -26.931,
-      'longitude': -48.958,
+      'latitude': -26.923,
+      'longitude': -48.955,
     },
     {
       'name': 'Escola Caminhos (demo)',

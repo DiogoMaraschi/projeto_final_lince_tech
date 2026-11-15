@@ -16,10 +16,12 @@ import '../../../modules/customer/usecases/get_customer_by_id_usecase.dart';
 import '../../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../../modules/order/usecases/create_order_usecase.dart';
 import '../../../modules/order/usecases/get_installments_usecase.dart';
+import '../../../modules/order/usecases/get_order_for_editing_usecase.dart';
 import '../../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../../modules/routes/usecases/get_driving_route_usecase.dart';
 
 class OrderDetailsController with ChangeNotifier {
+  final int? _orderId;
   final GetCustomerByIdUsecase getCustomerByIdUsecase;
   final GetCarrierByIdUsecase getCarrierByIdUsecase;
   final GetDrivingRouteUsecase getDrivingRouteUsecase;
@@ -27,6 +29,7 @@ class OrderDetailsController with ChangeNotifier {
   final CalculatePaymentTotalUsecase calculatePaymentTotalUsecase;
   final GetInstallmentsUsecase getInstallmentsUsecase;
   final CreateOrderUsecase createOrderUsecase;
+  final GetOrderForEditingUsecase getOrderForEditingUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
@@ -36,7 +39,13 @@ class OrderDetailsController with ChangeNotifier {
     required this.calculatePaymentTotalUsecase,
     required this.getInstallmentsUsecase,
     required this.createOrderUsecase,
-  });
+    required this.getOrderForEditingUsecase,
+    int? orderId,
+  }) : _orderId = orderId {
+    if(orderId != null) {
+      _inicializeForEditing(orderId);
+    }
+  }
 
   final generalNotesController = TextEditingController();
   final paymentNotesController = TextEditingController();
@@ -76,6 +85,12 @@ class OrderDetailsController with ChangeNotifier {
       _selectedProducts.fold(0.0, (sum, item) => sum + item.total);
 
   double get _orderBaseTotal => productsTotal + (_deliveryValue ?? 0);
+
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
 
   int maxInstallmentsFor(PaymentType type) =>
       getInstallmentsUsecase(type, orderTotal);
@@ -320,6 +335,44 @@ class OrderDetailsController with ChangeNotifier {
     } catch (e) {
       debugPrint('Erro $e');
       return false;
+    }
+  }
+
+
+
+  void _inicializeForEditing(int orderId) async{
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      _profile = await getProfileUsecase();
+
+      if (orderId != null) {
+        final data = await getOrderForEditingUsecase(orderId);
+
+        if (data == null) {
+          throw StateError('Pedido não encontrado.');
+        }
+
+        final order = data.order;
+
+        _selectedCustomer = data.customer;
+        _selectedCarrier = data.carrier;
+        _selectedProducts = order.items;
+        _selectedPaymentItem = order.paymentItem;
+        _deliveryValue = order.freight;
+
+        paymentNotesController.text = order.paymentNotes ?? '';
+        generalNotesController.text = order.generalNotes ?? '';
+
+        await getDrivingRoute();
+      }
+    } catch (e) {
+      _errorMessage = 'Não foi possível carregar o pedido.';
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 

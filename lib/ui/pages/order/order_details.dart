@@ -15,12 +15,14 @@ import '../../formatters/app_formatters.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
 import 'delivery_card.dart';
-import 'order_item_draft_card.dart';
+import 'order_item_card.dart';
 import 'payment_type_modal.dart';
 import 'product_modal.dart';
 
 class OrderDetailsPage extends StatelessWidget {
-  const OrderDetailsPage({super.key});
+  const OrderDetailsPage({super.key, this.orderId});
+
+  final int? orderId;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,8 @@ class OrderDetailsPage extends StatelessWidget {
                 injection.calculatePaymentTotalUsecase,
             getInstallmentsUsecase: injection.getInstallmentsUsecase,
             createOrderUsecase: injection.createOrderUsecase,
+            getOrderForEditingUsecase: injection.getOrderForEditingUsecase,
+            orderId: orderId,
           )..getProfile(),
         ),
         ChangeNotifierProvider(
@@ -259,7 +263,7 @@ class _OrderDetailsPage extends StatelessWidget {
                       return Column(
                         children: selectedProducts.map((itemDraft) {
                           final productId = itemDraft.product.id!;
-                          return OrderItemDraftCard(
+                          return OrderItemCard(
                             product: itemDraft.product,
                             quantity: itemDraft.quantity,
                             onDecrement: () =>
@@ -758,26 +762,51 @@ class _OrderDetailsPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    context.read<OrderDetailsController>().verifyEntities()
-                        ? await context
-                              .read<OrderDetailsController>()
-                              .saveOrder()
-                        : showDialog<void>(
-                            context: context,
-                            builder: (dialogContext) {
-                              return AlertDialog(
-                                title: const Text('Aviso'),
-                                content: const Text('Preencha todos os campos'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(dialogContext),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
+                    final controller = context.read<OrderDetailsController>();
+
+                    if (!controller.verifyEntities()) {
+                      await showDialog<void>(
+                        context: context,
+                        builder: (dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Aviso'),
+                            content: const Text('Preencha todos os campos'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(dialogContext),
+                                child: const Text('OK'),
+                              ),
+                            ],
                           );
+                        },
+                      );
+                      return;
+                    }
+
+                    final saved = await controller.saveOrder();
+                    if (!context.mounted) return;
+
+                    if (saved) {
+                      Navigator.of(context).pop(true);
+                    } else {
+                      await showDialog<void>(
+                        context: context,
+                        builder: (dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Erro'),
+                            content: const Text(
+                              'Não foi possível salvar o pedido.',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(dialogContext),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                   child: const Text('Salvar pedido'),
                 ),

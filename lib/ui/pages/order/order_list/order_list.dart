@@ -47,7 +47,15 @@ class _OrderListPage extends StatelessWidget {
                     final orderSummary = controller.orderSummary[index];
                     return OrderListCard(
                       orderSummary: orderSummary,
-                      onTap: () {},
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                OrderDetailsPage(orderId: orderSummary.id),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

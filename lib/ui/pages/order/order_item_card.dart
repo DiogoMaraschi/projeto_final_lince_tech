@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../entities/product.dart';
 import '../../formatters/app_formatters.dart';
 
-class OrderItemDraftCard extends StatelessWidget {
-  const OrderItemDraftCard({
+class OrderItemCard extends StatelessWidget {
+  const OrderItemCard({
     super.key,
     required this.product,
     required this.quantity,

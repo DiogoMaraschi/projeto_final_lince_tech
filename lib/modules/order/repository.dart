@@ -1,7 +1,10 @@
 import '../../core/database/database_helper.dart';
 import '../../entities/order/order.dart';
+import '../../entities/order/order_edit_data.dart';
 import '../../entities/order/order_item.dart';
 import '../../entities/order/order_summary.dart';
+import '../carrier/models/carrier_model.dart';
+import '../customer/models/customer_model.dart';
 import '../product/models/product_model.dart';
 import 'models/order_item_model.dart';
 import 'models/order_model.dart';
@@ -9,8 +12,10 @@ import 'models/order_summary_model.dart';
 
 abstract class OrderRepository {
   Future<int> insert(Order order);
-  Future<List<Order>> getAllOrders();
+
   Future<List<OrderSummary>> getAllOrderSummaries();
+
+  Future<OrderEditData?> getOrderForEditing(int orderId);
 }
 
 class OrderRepositoryImpl implements OrderRepository {
@@ -37,71 +42,6 @@ class OrderRepositoryImpl implements OrderRepository {
 
       return orderId;
     });
-  }
-
-  @override
-  Future<List<Order>> getAllOrders() async {
-    final conn = await databaseHelper.database;
-
-    final orderMaps = await conn.query(
-      'orders',
-      where: 'deleted_at IS NULL',
-      orderBy: 'created_at DESC, id DESC',
-    );
-
-    final orders = <Order>[];
-
-    for (final orderMap in orderMaps) {
-      final orderId = orderMap['id'] as int;
-
-      final itemMaps = await conn.rawQuery(
-        '''
-      SELECT
-        oi.id AS item_id,
-        oi.order_id AS item_order_id,
-        oi.quantity AS item_quantity,
-        oi.unit_price AS item_unit_price,
-        oi.discount_percent AS item_discount_percent,
-        p.id AS product_id,
-        p.name AS product_name,
-        p.barcode AS product_barcode,
-        p.description AS product_description,
-        p.brand AS product_brand,
-        p.image_path AS product_image_path,
-        p.sale_price AS product_sale_price
-      FROM order_items oi
-      JOIN products p ON p.id = oi.product_id
-      WHERE oi.order_id = ?
-      ORDER BY oi.id ASC
-      ''',
-        [orderId],
-      );
-
-      final items = itemMaps.map((map) {
-        final product = ProductModel(
-          id: map['product_id'] as int,
-          name: map['product_name'] as String,
-          barcode: map['product_barcode'] as String,
-          description: map['product_description'] as String?,
-          brand: map['product_brand'] as String,
-          imagePath: map['product_image_path'] as String?,
-          salePrice: (map['product_sale_price'] as num).toDouble(),
-        );
-
-        return OrderItemModel(
-          id: map['item_id'] as int,
-          order_id: map['item_order_id'] as int,
-          product: product,
-          quantity: map['item_quantity'] as int,
-          unitPrice: (map['item_unit_price'] as num).toDouble(),
-          discountPercent: (map['item_discount_percent'] as num).toDouble(),
-        );
-      }).toList();
-
-      orders.add(OrderModel.fromMap(orderMap: orderMap, items: items));
-    }
-
-    return orders;
   }
 
   @override
@@ -137,5 +77,90 @@ class OrderRepositoryImpl implements OrderRepository {
     return rows
         .map<OrderSummary>((row) => OrderSummaryModel.fromMap(row))
         .toList();
+  }
+
+  @override
+  Future<OrderEditData?> getOrderForEditing(int orderId) async {
+    final conn = await databaseHelper.database;
+
+    final result = await conn.query(
+      tableName,
+      where: 'id = ? AND deleted_at IS NULL',
+      whereArgs: [orderId],
+    );
+
+    if (result.isEmpty) return null;
+
+    final orderMap = result.first;
+    final customerId = orderMap['customer_id'] as int;
+    final carrierId = orderMap['carrier_id'] as int;
+
+    final customerMaps = await conn.query(
+      'customers',
+      where: 'id = ?',
+      whereArgs: [customerId],
+    );
+
+    final carrierMaps = await conn.query(
+      'carriers',
+      where: 'id = ?',
+      whereArgs: [carrierId],
+    );
+
+    if (carrierMaps.isEmpty || customerMaps.isEmpty) {
+      throw StateError(
+        'O pedido referencia um cliente ou transportadora inexistente',
+      );
+    }
+
+    final itemMaps = await conn.rawQuery(
+      '''
+    SELECT
+      oi.id AS item_id,
+      oi.order_id AS item_order_id,
+      oi.quantity AS item_quantity,
+      oi.unit_price AS item_unit_price,
+      oi.discount_percent AS item_discount_percent,
+      p.id AS product_id,
+      p.name AS product_name,
+      p.barcode AS product_barcode,
+      p.description AS product_description,
+      p.brand AS product_brand,
+      p.image_path AS product_image_path,
+      p.sale_price AS product_sale_price
+    FROM order_items oi
+    JOIN products p ON p.id = oi.product_id
+    WHERE oi.order_id = ?
+    ORDER BY oi.id ASC
+    ''',
+      [orderId],
+    );
+
+    final items = itemMaps.map((map) {
+      final product = ProductModel(
+        id: map['product_id'] as int,
+        name: map['product_name'] as String,
+        barcode: map['product_barcode'] as String,
+        description: map['product_description'] as String?,
+        brand: map['product_brand'] as String,
+        imagePath: map['product_image_path'] as String?,
+        salePrice: (map['product_sale_price'] as num).toDouble(),
+      );
+
+      return OrderItemModel(
+        id: map['item_id'] as int,
+        order_id: map['item_order_id'] as int,
+        product: product,
+        quantity: map['item_quantity'] as int,
+        unitPrice: (map['item_unit_price'] as num).toDouble(),
+        discountPercent: (map['item_discount_percent'] as num).toDouble(),
+      );
+    }).toList();
+
+    final order = OrderModel.fromMap(orderMap: orderMap, items: items);
+    final customer = CustomerModel.fromMap(customerMaps.first);
+    final carrier = CarrierModel.fromMap(carrierMaps.first);
+
+    return OrderEditData(order: order, customer: customer, carrier: carrier);
   }
 }
