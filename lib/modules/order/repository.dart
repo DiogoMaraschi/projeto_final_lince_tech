@@ -18,6 +18,8 @@ abstract class OrderRepository {
   Future<OrderEditData?> getOrderForEditing(int orderId);
 
   Future<int> update(Order order);
+
+  Future<int> softDelete(int orderId);
 }
 
 class OrderRepositoryImpl implements OrderRepository {
@@ -205,5 +207,18 @@ class OrderRepositoryImpl implements OrderRepository {
 
       return updatedRows;
     });
+  }
+
+  @override
+  Future<int> softDelete(int orderId) async{
+    final conn = await databaseHelper.database;
+
+    return conn.update(
+      'orders',
+      {'deleted_at': DateTime.now().toIso8601String()},
+      where: 'id = ? AND deleted_at IS NULL',
+      whereArgs: [orderId],
+    );
+
   }
 }

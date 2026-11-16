@@ -6,12 +6,14 @@ import '../../../entities/carrier.dart';
 import '../../../entities/customer/costumer.dart';
 import '../../../entities/order/order_item.dart';
 import '../../../entities/order/payment_type.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../main.dart';
 import '../../controllers/carrier/carrier_list_controller.dart';
 import '../../controllers/customer/customer_list_controller.dart';
 import '../../controllers/order/order_details_controller.dart';
 import '../../controllers/product/product_list_controller.dart';
 import '../../formatters/app_formatters.dart';
+import '../../widgets/delete_button.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
 import 'delivery_card.dart';
@@ -40,6 +42,7 @@ class OrderDetailsPage extends StatelessWidget {
             createOrderUsecase: injection.createOrderUsecase,
             getOrderForEditingUsecase: injection.getOrderForEditingUsecase,
             updateOrderUsecase: injection.updateOrderUsecase,
+            deleteOrderUsecase: injection.deleteOrderUsecase,
             orderId: orderId,
           )..getProfile(),
         ),
@@ -70,6 +73,8 @@ class _OrderDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -737,6 +742,7 @@ class _OrderDetailsPage extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
+                  flex: 2,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -751,67 +757,110 @@ class _OrderDetailsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                FilledButton(
-                  style: FilledButton.styleFrom(
-                    minimumSize: Size(230, 60),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () async {
-                    final controller = context.read<OrderDetailsController>();
-
-                    if (!controller.verifyEntities()) {
-                      await showDialog<void>(
-                        context: context,
-                        builder: (dialogContext) {
-                          return AlertDialog(
-                            title: const Text('Aviso'),
-                            content: const Text('Preencha todos os campos'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(dialogContext),
-                                child: const Text('OK'),
+                Expanded(
+                  flex: 3,
+                  child: Consumer<OrderDetailsController>(
+                    builder: (context, controller, child) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: FilledButton(
+                              style: FilledButton.styleFrom(
+                                minimumSize: Size(0, 60),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 8,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                      return;
-                    }
+                              onPressed: () async {
+                                if (!controller.verifyEntities()) {
+                                  await showDialog<void>(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Aviso'),
+                                        content: const Text(
+                                          'Preencha todos os campos',
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(dialogContext),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  return;
+                                }
 
-                    final saved = await controller.saveOrder();
-                    if (!context.mounted) return;
+                                final saved = await controller.saveOrder();
+                                if (!context.mounted) return;
 
-                    if (saved) {
-                      Navigator.of(context).pop(true);
-                    } else {
-                      await showDialog<void>(
-                        context: context,
-                        builder: (dialogContext) {
-                          return AlertDialog(
-                            title: const Text('Erro'),
-                            content: const Text(
-                              'Não foi possível salvar o pedido.',
+                                if (saved) {
+                                  Navigator.of(context).pop(true);
+                                } else {
+                                  await showDialog<void>(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Erro'),
+                                        content: const Text(
+                                          'Não foi possível salvar o pedido.',
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(dialogContext),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: controller.isEditing
+                                  ? Text('Editar pedido')
+                                  : Text('Salvar pedido'),
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(dialogContext),
-                                child: const Text('OK'),
+                          ),
+                          const SizedBox(width: 8),
+                          if (context
+                              .read<OrderDetailsController>()
+                              .isEditing) ...[
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                style: OutlinedButton.styleFrom(
+                                  minimumSize: const Size(0, 60),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                ),
+                                icon: const Icon(Icons.delete_outline),
+                                label: const Text('Deletar'),
+                                onPressed: () async {
+                                  final success = await controller
+                                      .deleteOrder();
+
+                                  if (!context.mounted) return;
+
+                                  if (success) {
+                                    Navigator.pop(context);
+                                  }
+                                },
                               ),
-                            ],
-                          );
-                        },
+                            ),
+                          ],
+                        ],
                       );
-                    }
-                  },
-                  child: context.read<OrderDetailsController>().isEditing
-                      ? Text('Editar pedido')
-                      : Text('Salvar pedido'),
+                    },
+                  ),
                 ),
               ],
             ),

@@ -15,6 +15,7 @@ import '../../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
 import '../../../modules/customer/usecases/get_customer_by_id_usecase.dart';
 import '../../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../../modules/order/usecases/create_order_usecase.dart';
+import '../../../modules/order/usecases/delete_order_usecase.dart';
 import '../../../modules/order/usecases/get_installments_usecase.dart';
 import '../../../modules/order/usecases/get_order_for_editing_usecase.dart';
 import '../../../modules/order/usecases/update_order_usecase.dart';
@@ -32,6 +33,7 @@ class OrderDetailsController with ChangeNotifier {
   final CreateOrderUsecase createOrderUsecase;
   final GetOrderForEditingUsecase getOrderForEditingUsecase;
   final UpdateOrderUsecase updateOrderUsecase;
+  final DeleteOrderUsecase deleteOrderUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
@@ -43,6 +45,7 @@ class OrderDetailsController with ChangeNotifier {
     required this.createOrderUsecase,
     required this.getOrderForEditingUsecase,
     required this.updateOrderUsecase,
+    required this.deleteOrderUsecase,
     int? orderId,
   }) : _orderId = orderId {
     if(orderId != null) {
@@ -391,6 +394,19 @@ class OrderDetailsController with ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  Future<bool> deleteOrder() async {
+    if (_orderId == null) {
+      return false;
+    }
+
+    try {
+      final affectedRows = await deleteOrderUsecase(_orderId);
+      return affectedRows > 0;
+    } catch (e) {
+      return false;
     }
   }
 

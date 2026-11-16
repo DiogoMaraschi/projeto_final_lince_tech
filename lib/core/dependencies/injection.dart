@@ -18,6 +18,7 @@ import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 import '../../modules/order/repository.dart';
 import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../modules/order/usecases/create_order_usecase.dart';
+import '../../modules/order/usecases/delete_order_usecase.dart';
 import '../../modules/order/usecases/get_all_order_summaries_usecase.dart';
 import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/order/usecases/get_order_for_editing_usecase.dart';
@@ -77,6 +78,7 @@ class Injection {
   late final GetAllOrderSummariesUsecase getAllOrderSummariesUsecase;
   late final GetOrderForEditingUsecase getOrderForEditingUsecase;
   late final UpdateOrderUsecase updateOrderUsecase;
+  late final DeleteOrderUsecase deleteOrderUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -179,5 +181,6 @@ class Injection {
       repository: orderRepository,
     );
     updateOrderUsecase = UpdateOrderUsecase(repository: orderRepository);
+    deleteOrderUsecase = DeleteOrderUsecase(repository: orderRepository);
   }
 }
