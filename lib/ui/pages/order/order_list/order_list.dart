@@ -51,10 +51,15 @@ class _OrderListPage extends StatelessWidget {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                OrderDetailsPage(orderId: orderSummary.id),
+                            builder: (context) {
+                              print('id na lista ${orderSummary.id}');
+                              return OrderDetailsPage(orderId: orderSummary.id);
+                            },
                           ),
                         );
+                        if(!context.mounted) return;
+
+                        await controller.getAllOrderSummary();
                       },
                     );
                   },

@@ -39,6 +39,7 @@ class OrderDetailsPage extends StatelessWidget {
             getInstallmentsUsecase: injection.getInstallmentsUsecase,
             createOrderUsecase: injection.createOrderUsecase,
             getOrderForEditingUsecase: injection.getOrderForEditingUsecase,
+            updateOrderUsecase: injection.updateOrderUsecase,
             orderId: orderId,
           )..getProfile(),
         ),
@@ -808,7 +809,9 @@ class _OrderDetailsPage extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Salvar pedido'),
+                  child: context.read<OrderDetailsController>().isEditing
+                      ? Text('Editar pedido')
+                      : Text('Salvar pedido'),
                 ),
               ],
             ),

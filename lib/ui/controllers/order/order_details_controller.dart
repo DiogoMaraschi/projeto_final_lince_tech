@@ -17,6 +17,7 @@ import '../../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../../modules/order/usecases/create_order_usecase.dart';
 import '../../../modules/order/usecases/get_installments_usecase.dart';
 import '../../../modules/order/usecases/get_order_for_editing_usecase.dart';
+import '../../../modules/order/usecases/update_order_usecase.dart';
 import '../../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../../modules/routes/usecases/get_driving_route_usecase.dart';
 
@@ -30,6 +31,7 @@ class OrderDetailsController with ChangeNotifier {
   final GetInstallmentsUsecase getInstallmentsUsecase;
   final CreateOrderUsecase createOrderUsecase;
   final GetOrderForEditingUsecase getOrderForEditingUsecase;
+  final UpdateOrderUsecase updateOrderUsecase;
 
   OrderDetailsController({
     required this.getCustomerByIdUsecase,
@@ -40,9 +42,11 @@ class OrderDetailsController with ChangeNotifier {
     required this.getInstallmentsUsecase,
     required this.createOrderUsecase,
     required this.getOrderForEditingUsecase,
+    required this.updateOrderUsecase,
     int? orderId,
   }) : _orderId = orderId {
     if(orderId != null) {
+      print('id no controller ${orderId}');
       _inicializeForEditing(orderId);
     }
   }
@@ -56,6 +60,7 @@ class OrderDetailsController with ChangeNotifier {
   List<OrderItem> _selectedProducts = [];
   double? _deliveryValue;
   PaymentItem? _selectedPaymentItem;
+  String? _createdAt;
 
   double? get deliveryValue => _deliveryValue;
 
@@ -91,6 +96,8 @@ class OrderDetailsController with ChangeNotifier {
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
+
+  bool get isEditing => _orderId != null;
 
   int maxInstallmentsFor(PaymentType type) =>
       getInstallmentsUsecase(type, orderTotal);
@@ -320,17 +327,26 @@ class OrderDetailsController with ChangeNotifier {
     final paymentNotes = paymentNotesController.text;
     final generalNotes = generalNotesController.text;
 
-    final order = Order(customerId: customer!.id!,
+
+    final order = Order(
+        id: _orderId,
+        customerId: customer!.id!,
         carrierId: carrier!.id!,
         paymentItem: paymentItem!,
         freight: _deliveryValue ?? 0,
         paymentNotes: paymentNotes,
         generalNotes: generalNotes,
-        createdAt: DateTime.now().toString(),
+        createdAt: _createdAt ?? DateTime.now().toString(),
         items: products);
 
     try {
-      await createOrderUsecase(order);
+      if(isEditing) {
+        await updateOrderUsecase(order);
+        print('editado');
+      } else {
+        await createOrderUsecase(order);
+        print('salvo');
+      }
       return true;
     } catch (e) {
       debugPrint('Erro $e');
@@ -349,19 +365,21 @@ class OrderDetailsController with ChangeNotifier {
       _profile = await getProfileUsecase();
 
       if (orderId != null) {
-        final data = await getOrderForEditingUsecase(orderId);
+        final result = await getOrderForEditingUsecase(orderId);
 
-        if (data == null) {
+        if (result == null) {
           throw StateError('Pedido não encontrado.');
         }
 
-        final order = data.order;
+        final order = result.order;
 
-        _selectedCustomer = data.customer;
-        _selectedCarrier = data.carrier;
+        _selectedCustomer = result.customer;
+        _selectedCarrier = result.carrier;
         _selectedProducts = order.items;
         _selectedPaymentItem = order.paymentItem;
         _deliveryValue = order.freight;
+        _createdAt = order.createdAt;
+
 
         paymentNotesController.text = order.paymentNotes ?? '';
         generalNotesController.text = order.generalNotes ?? '';

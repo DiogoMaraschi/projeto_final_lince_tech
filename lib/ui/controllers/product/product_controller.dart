@@ -63,10 +63,8 @@ class ProductController with ChangeNotifier {
     try {
       if (isEditing) {
         await _updateProductUsecase(productEdited);
-        print('editado');
       } else {
         await _createProductUsecase(productEdited);
-        print('criado');
       }
       return true;
     } catch (e) {

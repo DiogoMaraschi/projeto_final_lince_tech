@@ -16,6 +16,8 @@ abstract class OrderRepository {
   Future<List<OrderSummary>> getAllOrderSummaries();
 
   Future<OrderEditData?> getOrderForEditing(int orderId);
+
+  Future<int> update(Order order);
 }
 
 class OrderRepositoryImpl implements OrderRepository {
@@ -162,5 +164,46 @@ class OrderRepositoryImpl implements OrderRepository {
     final carrier = CarrierModel.fromMap(carrierMaps.first);
 
     return OrderEditData(order: order, customer: customer, carrier: carrier);
+  }
+
+  @override
+  Future<int> update(Order order) async {
+    final orderId = order.id;
+
+    if (orderId == null) {
+      throw ArgumentError('Não é possível atualizar um pedido sem ID.');
+    }
+
+    final orderModel = OrderModel.fromEntity(order);
+
+    final conn = await databaseHelper.database;
+
+    return conn.transaction((txn) async {
+      final updatedRows = await txn.update(
+        'orders',
+        orderModel.toMap(),
+        where: 'id = ? AND deleted_at IS NULL',
+        whereArgs: [orderId],
+      );
+
+      if (updatedRows == 0) return 0;
+
+      await txn.delete(
+        'order_items',
+        where: 'order_id = ?',
+        whereArgs: [orderId],
+      );
+
+      for (final item in order.items) {
+        final itemModel = OrderItemModel.fromEntity(item);
+
+        await txn.insert(
+          'order_items',
+          itemModel.toMap(orderId),
+        );
+      }
+
+      return updatedRows;
+    });
   }
 }

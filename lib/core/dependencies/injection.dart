@@ -21,6 +21,7 @@ import '../../modules/order/usecases/create_order_usecase.dart';
 import '../../modules/order/usecases/get_all_order_summaries_usecase.dart';
 import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/order/usecases/get_order_for_editing_usecase.dart';
+import '../../modules/order/usecases/update_order_usecase.dart';
 import '../../modules/product/repository.dart';
 import '../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../modules/address/repository.dart';
@@ -75,6 +76,7 @@ class Injection {
   late final CreateOrderUsecase createOrderUsecase;
   late final GetAllOrderSummariesUsecase getAllOrderSummariesUsecase;
   late final GetOrderForEditingUsecase getOrderForEditingUsecase;
+  late final UpdateOrderUsecase updateOrderUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -176,5 +178,6 @@ class Injection {
     getOrderForEditingUsecase = GetOrderForEditingUsecase(
       repository: orderRepository,
     );
+    updateOrderUsecase = UpdateOrderUsecase(repository: orderRepository);
   }
 }
