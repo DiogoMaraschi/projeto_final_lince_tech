@@ -103,7 +103,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In pt, this message translates to:
-  /// **'Gestão de Produtos'**
+  /// **'Gestão Comercial'**
   String get appName;
 
   /// No description provided for @commonSave.
@@ -277,7 +277,7 @@ abstract class AppLocalizations {
   /// No description provided for @carrierCostPerKm.
   ///
   /// In pt, this message translates to:
-  /// **'Custo Por Km'**
+  /// **'Custo por km'**
   String get carrierCostPerKm;
 
   /// No description provided for @carrierHintCostPerKm.
@@ -289,7 +289,7 @@ abstract class AppLocalizations {
   /// No description provided for @carrierMinimumPrice.
   ///
   /// In pt, this message translates to:
-  /// **'Preço Mínimo'**
+  /// **'Preço mínimo'**
   String get carrierMinimumPrice;
 
   /// No description provided for @carrierHintMinimumPrice.
@@ -561,6 +561,612 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'O cliente não será exibido na lista, mas seus dados serão mantidos.'**
   String get customerDeleteConfirmationMessage;
+
+  /// No description provided for @navCustomers.
+  ///
+  /// In pt, this message translates to:
+  /// **'Clientes'**
+  String get navCustomers;
+
+  /// No description provided for @navCarriers.
+  ///
+  /// In pt, this message translates to:
+  /// **'Transportadoras'**
+  String get navCarriers;
+
+  /// No description provided for @navProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Produtos'**
+  String get navProducts;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In pt, this message translates to:
+  /// **'Perfil'**
+  String get navProfile;
+
+  /// No description provided for @customerName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome do cliente'**
+  String get customerName;
+
+  /// No description provided for @customerHintName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex.: Academia Central'**
+  String get customerHintName;
+
+  /// No description provided for @customerLegalName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Razão social'**
+  String get customerLegalName;
+
+  /// No description provided for @customerHintLegalName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex.: Academia Central Ltda.'**
+  String get customerHintLegalName;
+
+  /// No description provided for @establishmentType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tipo de estabelecimento'**
+  String get establishmentType;
+
+  /// No description provided for @productPrice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preço'**
+  String get productPrice;
+
+  /// No description provided for @productHintPrice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ex.: 49,90'**
+  String get productHintPrice;
+
+  /// No description provided for @orderListTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pedidos'**
+  String get orderListTitle;
+
+  /// No description provided for @orderListEmpty.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum pedido foi encontrado'**
+  String get orderListEmpty;
+
+  /// No description provided for @orderSelectProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar produtos'**
+  String get orderSelectProducts;
+
+  /// No description provided for @orderSearchProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Buscar por nome ou EAN'**
+  String get orderSearchProducts;
+
+  /// No description provided for @orderProductsLoadError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro ao carregar produtos'**
+  String get orderProductsLoadError;
+
+  /// No description provided for @orderNoProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum produto cadastrado'**
+  String get orderNoProducts;
+
+  /// No description provided for @orderPrice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preço: {price}'**
+  String orderPrice(String price);
+
+  /// No description provided for @commonAdd.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar'**
+  String get commonAdd;
+
+  /// No description provided for @orderAddProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar ao pedido - {count} produtos'**
+  String orderAddProducts(String count);
+
+  /// No description provided for @orderSelectCustomer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar cliente'**
+  String get orderSelectCustomer;
+
+  /// No description provided for @orderSearchCustomer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Buscar por nome ou CNPJ'**
+  String get orderSearchCustomer;
+
+  /// No description provided for @orderCustomersLoadError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro ao carregar clientes'**
+  String get orderCustomersLoadError;
+
+  /// No description provided for @orderNoCustomers.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum cliente cadastrado'**
+  String get orderNoCustomers;
+
+  /// No description provided for @orderSelectCarrier.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar transportadora'**
+  String get orderSelectCarrier;
+
+  /// No description provided for @orderSearchCarrier.
+  ///
+  /// In pt, this message translates to:
+  /// **'Buscar por nome ou CNPJ'**
+  String get orderSearchCarrier;
+
+  /// No description provided for @orderCarriersLoadError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro ao carregar transportadoras'**
+  String get orderCarriersLoadError;
+
+  /// No description provided for @orderNoCarriers.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhuma transportadora cadastrada'**
+  String get orderNoCarriers;
+
+  /// No description provided for @orderSelectPayment.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar forma de pagamento'**
+  String get orderSelectPayment;
+
+  /// No description provided for @paymentInFull.
+  ///
+  /// In pt, this message translates to:
+  /// **'À vista'**
+  String get paymentInFull;
+
+  /// No description provided for @paymentInstallments.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parcelado'**
+  String get paymentInstallments;
+
+  /// No description provided for @commonFinish.
+  ///
+  /// In pt, this message translates to:
+  /// **'Concluir'**
+  String get commonFinish;
+
+  /// No description provided for @orderTitleNew.
+  ///
+  /// In pt, this message translates to:
+  /// **'Novo pedido'**
+  String get orderTitleNew;
+
+  /// No description provided for @orderCustomer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cliente'**
+  String get orderCustomer;
+
+  /// No description provided for @orderSelectCustomerUpper.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar cliente'**
+  String get orderSelectCustomerUpper;
+
+  /// No description provided for @orderProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Produtos'**
+  String get orderProducts;
+
+  /// No description provided for @orderAddProduct.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar produto'**
+  String get orderAddProduct;
+
+  /// No description provided for @orderAddProductUpper.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar produto'**
+  String get orderAddProductUpper;
+
+  /// No description provided for @orderNoProductsHint.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicione os itens que o cliente solicitou'**
+  String get orderNoProductsHint;
+
+  /// No description provided for @orderCarrier.
+  ///
+  /// In pt, this message translates to:
+  /// **'Transportadora'**
+  String get orderCarrier;
+
+  /// No description provided for @orderSelectCarrierUpper.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar transportadora'**
+  String get orderSelectCarrierUpper;
+
+  /// No description provided for @orderDeliveryAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço de entrega'**
+  String get orderDeliveryAddress;
+
+  /// No description provided for @orderPaymentType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Forma de pagamento'**
+  String get orderPaymentType;
+
+  /// No description provided for @orderSelectPaymentUpper.
+  ///
+  /// In pt, this message translates to:
+  /// **'Selecionar forma de pagamento'**
+  String get orderSelectPaymentUpper;
+
+  /// No description provided for @orderInstallments.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parcelas'**
+  String get orderInstallments;
+
+  /// No description provided for @orderSummary.
+  ///
+  /// In pt, this message translates to:
+  /// **'Resumo do pedido'**
+  String get orderSummary;
+
+  /// No description provided for @orderDistanceNotCalculated.
+  ///
+  /// In pt, this message translates to:
+  /// **'Distância não calculada'**
+  String get orderDistanceNotCalculated;
+
+  /// No description provided for @orderSubtotalProducts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Subtotal dos produtos'**
+  String get orderSubtotalProducts;
+
+  /// No description provided for @orderDiscounts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descontos'**
+  String get orderDiscounts;
+
+  /// No description provided for @orderDelivery.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entrega'**
+  String get orderDelivery;
+
+  /// No description provided for @orderTotal.
+  ///
+  /// In pt, this message translates to:
+  /// **'Total'**
+  String get orderTotal;
+
+  /// No description provided for @orderPaymentNotesTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Observações do pagamento'**
+  String get orderPaymentNotesTitle;
+
+  /// No description provided for @orderNotesTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Observações'**
+  String get orderNotesTitle;
+
+  /// No description provided for @orderPaymentNotesLabel.
+  ///
+  /// In pt, this message translates to:
+  /// **'Observações do pagamento'**
+  String get orderPaymentNotesLabel;
+
+  /// No description provided for @orderNotesLabel.
+  ///
+  /// In pt, this message translates to:
+  /// **'Observações do pedido'**
+  String get orderNotesLabel;
+
+  /// No description provided for @orderNotesHint.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicione uma observação'**
+  String get orderNotesHint;
+
+  /// No description provided for @commonWarning.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aviso'**
+  String get commonWarning;
+
+  /// No description provided for @commonFillRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preencha todos os campos'**
+  String get commonFillRequired;
+
+  /// No description provided for @commonError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro'**
+  String get commonError;
+
+  /// No description provided for @orderSaveError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar o pedido.'**
+  String get orderSaveError;
+
+  /// No description provided for @orderEdit.
+  ///
+  /// In pt, this message translates to:
+  /// **'Editar pedido'**
+  String get orderEdit;
+
+  /// No description provided for @orderSave.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar pedido'**
+  String get orderSave;
+
+  /// No description provided for @orderDelete.
+  ///
+  /// In pt, this message translates to:
+  /// **'Excluir'**
+  String get orderDelete;
+
+  /// No description provided for @profileStoreLocation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Localização da loja'**
+  String get profileStoreLocation;
+
+  /// No description provided for @profileSaveError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar o perfil.'**
+  String get profileSaveError;
+
+  /// No description provided for @storeLocation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Localização da loja'**
+  String get storeLocation;
+
+  /// No description provided for @customerLocation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Localização do cliente'**
+  String get customerLocation;
+
+  /// No description provided for @deliveryDistance.
+  ///
+  /// In pt, this message translates to:
+  /// **'Distância da entrega: {distance} km'**
+  String deliveryDistance(String distance);
+
+  /// No description provided for @productCountSingular.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count} produto'**
+  String productCountSingular(String count);
+
+  /// No description provided for @productCountPlural.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count} produtos'**
+  String productCountPlural(String count);
+
+  /// No description provided for @customerTypeGym.
+  ///
+  /// In pt, this message translates to:
+  /// **'Academia'**
+  String get customerTypeGym;
+
+  /// No description provided for @customerTypeSchool.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escola'**
+  String get customerTypeSchool;
+
+  /// No description provided for @customerTypeOther.
+  ///
+  /// In pt, this message translates to:
+  /// **'Outro'**
+  String get customerTypeOther;
+
+  /// No description provided for @commonContact.
+  ///
+  /// In pt, this message translates to:
+  /// **'Contato: {value}'**
+  String commonContact(String value);
+
+  /// No description provided for @productDiscount.
+  ///
+  /// In pt, this message translates to:
+  /// **'Desc.'**
+  String get productDiscount;
+
+  /// No description provided for @productSubtotal.
+  ///
+  /// In pt, this message translates to:
+  /// **'Subtotal'**
+  String get productSubtotal;
+
+  /// No description provided for @commonSearch.
+  ///
+  /// In pt, this message translates to:
+  /// **'Buscar'**
+  String get commonSearch;
+
+  /// No description provided for @commonCnpj.
+  ///
+  /// In pt, this message translates to:
+  /// **'CNPJ'**
+  String get commonCnpj;
+
+  /// No description provided for @commonStore.
+  ///
+  /// In pt, this message translates to:
+  /// **'Local da loja'**
+  String get commonStore;
+
+  /// No description provided for @paymentInstallmentUnit.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count}x de {value}'**
+  String paymentInstallmentUnit(String count, String value);
+
+  /// No description provided for @navHome.
+  ///
+  /// In pt, this message translates to:
+  /// **'Início'**
+  String get navHome;
+
+  /// No description provided for @navOrders.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pedidos'**
+  String get navOrders;
+
+  /// No description provided for @navRecords.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cadastros'**
+  String get navRecords;
+
+  /// No description provided for @navStore.
+  ///
+  /// In pt, this message translates to:
+  /// **'Minha loja'**
+  String get navStore;
+
+  /// No description provided for @orderSingleTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pedido'**
+  String get orderSingleTitle;
+
+  /// No description provided for @orderNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pedido #{id}'**
+  String orderNumber(String id);
+
+  /// No description provided for @orderProductsCountSingular.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count} produto'**
+  String orderProductsCountSingular(String count);
+
+  /// No description provided for @orderProductsCountPlural.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count} produtos'**
+  String orderProductsCountPlural(String count);
+
+  /// No description provided for @commonRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'Campo obrigatório'**
+  String get commonRequired;
+
+  /// No description provided for @cnpjDigitsInvalid.
+  ///
+  /// In pt, this message translates to:
+  /// **'CNPJ deve possuir 14 dígitos'**
+  String get cnpjDigitsInvalid;
+
+  /// No description provided for @cnpjInvalid.
+  ///
+  /// In pt, this message translates to:
+  /// **'CNPJ inválido'**
+  String get cnpjInvalid;
+
+  /// No description provided for @phoneRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'Telefone é obrigatório'**
+  String get phoneRequired;
+
+  /// No description provided for @phoneInvalid.
+  ///
+  /// In pt, this message translates to:
+  /// **'Telefone inválido'**
+  String get phoneInvalid;
+
+  /// No description provided for @emailRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail é obrigatório'**
+  String get emailRequired;
+
+  /// No description provided for @emailInvalid.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail inválido'**
+  String get emailInvalid;
+
+  /// No description provided for @cepRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'CEP é obrigatório'**
+  String get cepRequired;
+
+  /// No description provided for @cepInvalid.
+  ///
+  /// In pt, this message translates to:
+  /// **'CEP inválido'**
+  String get cepInvalid;
+
+  /// No description provided for @moneyMustBePositive.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informe um valor maior que zero'**
+  String get moneyMustBePositive;
+
+  /// No description provided for @carrierMinimumShort.
+  ///
+  /// In pt, this message translates to:
+  /// **'mín.'**
+  String get carrierMinimumShort;
+
+  /// No description provided for @orderDeliveryCalculation.
+  ///
+  /// In pt, this message translates to:
+  /// **'{distance} km × {rate}/km · mínimo {minimum}'**
+  String orderDeliveryCalculation(String distance, String rate, String minimum);
+
+  /// No description provided for @productEAN.
+  ///
+  /// In pt, this message translates to:
+  /// **'EAN: {value}'**
+  String productEAN(String value);
 }
 
 class _AppLocalizationsDelegate

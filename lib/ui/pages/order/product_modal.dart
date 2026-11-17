@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/order/order_details_controller.dart';
@@ -20,6 +21,7 @@ Future<void> showProductModal(BuildContext context) async {
     backgroundColor: colors.surface,
     showDragHandle: true,
     builder: (modalContext) {
+      final l10n = AppLocalizations.of(modalContext)!;
       return StatefulBuilder(
         builder: (modalContext, setModalState) {
           return SizedBox(
@@ -32,7 +34,7 @@ Future<void> showProductModal(BuildContext context) async {
                     children: [
                       Expanded(
                         child: Text(
-                          'Selecionar produtos',
+                          l10n.orderSelectProducts,
                           style: Theme.of(modalContext).textTheme.titleLarge,
                         ),
                       ),
@@ -47,7 +49,7 @@ Future<void> showProductModal(BuildContext context) async {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Buscar por nome ou EAN',
+                      hintText: l10n.orderSearchProducts,
                       prefixIcon: const Icon(Icons.search),
                       filled: true,
                       fillColor: colors.surfaceContainer,
@@ -68,17 +70,13 @@ Future<void> showProductModal(BuildContext context) async {
                       }
 
                       if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Erro ao carregar produtos'),
-                        );
+                        return Center(child: Text(l10n.orderProductsLoadError));
                       }
 
                       final productsInModal = productController.products;
 
                       if (productsInModal.isEmpty) {
-                        return const Center(
-                          child: Text('Nenhum produto cadastrado'),
-                        );
+                        return Center(child: Text(l10n.orderNoProducts));
                       }
 
                       return ListView.builder(
@@ -99,7 +97,9 @@ Future<void> showProductModal(BuildContext context) async {
                               child: Icon(Icons.storefront_outlined),
                             ),
                             title: Text(product.name),
-                            subtitle: Text('Preço: ${product.salePrice}'),
+                            subtitle: Text(
+                              l10n.orderPrice(product.salePrice.toString()),
+                            ),
                             trailing: quantity < 1
                                 ? ElevatedButton(
                                     onPressed: () {
@@ -109,7 +109,7 @@ Future<void> showProductModal(BuildContext context) async {
                                                 quantity + 1,
                                       );
                                     },
-                                    child: Text('Adicionar'),
+                                    child: Text(l10n.commonAdd),
                                   )
                                 : Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -160,7 +160,9 @@ Future<void> showProductModal(BuildContext context) async {
                           onPressed: () =>
                               Navigator.pop(context, selectedQuantitiesInModal),
                           child: Text(
-                            'Concluir• ${selectedQuantitiesInModal.length}',
+                            l10n.orderAddProducts(
+                              selectedQuantitiesInModal.length.toString(),
+                            ),
                             style: TextStyle(fontSize: 18),
                           ),
                         ),

@@ -35,11 +35,15 @@ class _OrderListPage extends StatelessWidget {
         final l10n = AppLocalizations.of(context);
 
         return Scaffold(
-          appBar: AppBar(title: Text('Pedidos')),
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context)!.orderListTitle),
+          ),
           body: controller.isLoading
               ? Center(child: CircularProgressIndicator())
               : controller.orderSummary.isEmpty
-              ? Center(child: Text('Nenhum pedido foi encontrado'))
+              ? Center(
+                  child: Text(AppLocalizations.of(context)!.orderListEmpty),
+                )
               : ListView.builder(
                   padding: const EdgeInsetsGeometry.all(16),
                   itemCount: controller.orderSummary.length,
@@ -57,7 +61,7 @@ class _OrderListPage extends StatelessWidget {
                             },
                           ),
                         );
-                        if(!context.mounted) return;
+                        if (!context.mounted) return;
 
                         await controller.getAllOrderSummary();
                       },

@@ -133,7 +133,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                 controller: state.cnpjController,
                                 hintText: l10n.commomHintCnpj,
                                 keyboardType: TextInputType.number,
-                                validator: validateCnpj,
+                                validator: (value) => validateCnpj(value, l10n),
                                 inputFormatters: [cnpjFormatter],
                                 suffixIcon: IconButton(
                                   onPressed: state.searchCnpj,
@@ -147,7 +147,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                 label: l10n.storeCompanyName,
                                 controller: state.nameController,
                                 hintText: l10n.storeHintCompanyName,
-                                validator: isNotEmpty,
+                                validator: (value) => isNotEmpty(value, l10n),
                               ),
 
                               const SizedBox(height: 16),
@@ -156,7 +156,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                 label: l10n.carrierLegalName,
                                 controller: state.legalNameController,
                                 hintText: l10n.carrierHintLegalName,
-                                validator: isNotEmpty,
+                                validator: (value) => isNotEmpty(value, l10n),
                               ),
 
                               const SizedBox(height: 6),
@@ -199,7 +199,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                           ? state.location!
                                           : state.defaultPosition,
                                       infoWindow: InfoWindow(
-                                        title: 'Local da Loja',
+                                        title: l10n.profileStoreLocation,
                                       ),
                                     ),
                                   },
@@ -225,9 +225,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                 Navigator.pop(context, true);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Não foi possível salvar o perfil.'),
-                  ),
+                  SnackBar(content: Text(l10n.profileSaveError)),
                 );
               }
             },

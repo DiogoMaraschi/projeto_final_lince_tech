@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/carrier/carrier_list_controller.dart';
@@ -20,6 +21,7 @@ Future<void> showCarrierModal(BuildContext context) async {
     backgroundColor: colors.surface,
     showDragHandle: true,
     builder: (modalContext) {
+      final l10n = AppLocalizations.of(modalContext)!;
       return SizedBox(
         height: height * 0.9,
         child: Column(
@@ -30,7 +32,7 @@ Future<void> showCarrierModal(BuildContext context) async {
                 children: [
                   Expanded(
                     child: Text(
-                      'Selecionar transportadora',
+                      l10n.orderSelectCarrier,
                       style: Theme.of(modalContext).textTheme.titleLarge,
                     ),
                   ),
@@ -46,7 +48,7 @@ Future<void> showCarrierModal(BuildContext context) async {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Buscar por nome ou CNPJ',
+                  hintText: l10n.orderSearchCarrier,
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: colors.surfaceContainer,
@@ -69,17 +71,13 @@ Future<void> showCarrierModal(BuildContext context) async {
                   }
 
                   if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('Erro ao carregar clientes'),
-                    );
+                    return Center(child: Text(l10n.orderCarriersLoadError));
                   }
 
                   final carriers = carrierController.carriers;
 
                   if (carriers.isEmpty) {
-                    return const Center(
-                      child: Text('Nenhuma transportadora cadastrada'),
-                    );
+                    return Center(child: Text(l10n.orderNoCarriers));
                   }
 
                   return ListView.builder(
@@ -99,7 +97,7 @@ Future<void> showCarrierModal(BuildContext context) async {
                               '${AppFormatters.formatMoney(carrier.costPerKm)}/km',
                             ),
                             Text(
-                              '- mín. ${AppFormatters.formatMoney(carrier.minimumPrice)}',
+                              '${l10n.carrierMinimumShort} ${AppFormatters.formatMoney(carrier.minimumPrice)}',
                             ),
                           ],
                         ),

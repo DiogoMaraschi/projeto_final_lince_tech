@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../entities/order/order_summary.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../formatters/app_formatters.dart';
 
 class OrderListCard extends StatelessWidget {
@@ -23,6 +24,7 @@ class OrderListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -54,7 +56,7 @@ class OrderListCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Pedido #${orderSummary.id ?? '—'}',
+                        l10n.orderNumber((orderSummary.id ?? '—').toString()),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -87,9 +89,7 @@ class OrderListCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 7),
                 Text(
-                  '${orderSummary.productsCount} '
-                  '${orderSummary.productsCount == 1 ? 'produto' : 'produtos'}'
-                  ' · $formattedDate',
+                  '${orderSummary.productsCount == 1 ? l10n.orderProductsCountSingular(orderSummary.productsCount.toString()) : l10n.orderProductsCountPlural(orderSummary.productsCount.toString())} · $formattedDate',
                   style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF71717A),

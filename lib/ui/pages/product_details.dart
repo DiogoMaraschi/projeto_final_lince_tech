@@ -46,14 +46,14 @@ class _ProductDetailsState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Consumer<ProductController>(
       builder: (context, state, child) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              l10n!.productTitle,
+              l10n.productTitle,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -129,7 +129,7 @@ class _ProductDetailsState extends StatelessWidget {
                           label: l10n.productName,
                           controller: state.nameController,
                           hintText: l10n.productHintName,
-                          validator: isNotEmpty,
+                          validator: (value) => isNotEmpty(value, l10n),
                           textCapitalization: TextCapitalization.words,
                         ),
 
@@ -141,7 +141,7 @@ class _ProductDetailsState extends StatelessWidget {
                           controller: state.barcodeController,
                           hintText: l10n.productHintBarcode,
                           keyboardType: TextInputType.number,
-                          validator: isNotEmpty,
+                          validator: (value) => isNotEmpty(value, l10n),
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(14),
@@ -170,21 +170,22 @@ class _ProductDetailsState extends StatelessWidget {
                           label: l10n.productBrand,
                           controller: state.brandController,
                           hintText: l10n.productHintBrand,
-                          validator: isNotEmpty,
+                          validator: (value) => isNotEmpty(value, l10n),
                           textCapitalization: TextCapitalization.words,
                         ),
 
                         const SizedBox(height: 16),
 
                         LabeledTextFormField(
-                          label: 'Preço',
+                          label: l10n.productPrice,
                           controller: state.salePriceController,
-                          hintText: 'hint',
+                          hintText: l10n.productHintPrice,
                           keyboardType: const TextInputType.numberWithOptions(
                             decimal: true,
                           ),
-                          validator: validatePositiveMoney,
-                        inputFormatters: [AppFormatters.money()],
+                          validator: (value) =>
+                              validatePositiveMoney(value, l10n),
+                          inputFormatters: [AppFormatters.money()],
                         ),
                       ],
                     ),

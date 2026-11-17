@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/order/payment_type.dart';
 import '../../controllers/order/order_details_controller.dart';
 import '../../formatters/app_formatters.dart';
 
-Future<void> showPaymentTypeModal(
-  BuildContext context,
-) async {
+Future<void> showPaymentTypeModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
   final height = MediaQuery.sizeOf(context).height;
 
@@ -40,6 +39,7 @@ Future<void> showPaymentTypeModal(
     backgroundColor: colors.surface,
     showDragHandle: true,
     builder: (modalContext) {
+      final l10n = AppLocalizations.of(modalContext)!;
       return StatefulBuilder(
         builder: (modalContext, setModalState) {
           return SizedBox(
@@ -53,7 +53,7 @@ Future<void> showPaymentTypeModal(
                       children: [
                         Expanded(
                           child: Text(
-                            'Selecionar forma de pagamento',
+                            l10n.orderSelectPayment,
                             style: Theme.of(modalContext).textTheme.titleLarge,
                           ),
                         ),
@@ -69,7 +69,7 @@ Future<void> showPaymentTypeModal(
                   Column(
                     children: [
                       Text(
-                        'A vista',
+                        l10n.paymentInFull,
                         style: TextStyle(fontSize: 22, fontWeight: .w600),
                       ),
 
@@ -134,7 +134,7 @@ Future<void> showPaymentTypeModal(
                       const SizedBox(height: 12),
 
                       Text(
-                        'Parcelado',
+                        l10n.paymentInstallments,
                         style: TextStyle(fontSize: 22, fontWeight: .w600),
                       ),
 
@@ -224,7 +224,12 @@ Future<void> showPaymentTypeModal(
                                     return ListTile(
                                       selected: installments == index,
                                       title: Text(
-                                        '${index}x de ${AppFormatters.formatMoney(total / index)}',
+                                        l10n.paymentInstallmentUnit(
+                                          index.toString(),
+                                          AppFormatters.formatMoney(
+                                            total / index,
+                                          ),
+                                        ),
                                       ),
                                       onTap: () => setModalState(
                                         () => installments = index,
@@ -252,7 +257,7 @@ Future<void> showPaymentTypeModal(
                           child: FilledButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
-                              'Concluir',
+                              l10n.commonFinish,
                               style: TextStyle(fontSize: 18),
                             ),
                           ),

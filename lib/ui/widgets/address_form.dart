@@ -47,7 +47,7 @@ class AddressForm extends StatelessWidget {
 
         // ADRESS
         Text(
-          'Address',
+          l10n.addressTitle,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class AddressForm extends StatelessWidget {
           controller: zipcodeController,
           hintText: l10n.addressHintCep,
           keyboardType: TextInputType.number,
-          validator: validateCep,
+          validator: (value) => validateCep(value, l10n),
           inputFormatters: [zipcodeFormatter],
           suffixIcon: IconButton(
             onPressed: () {
@@ -89,7 +89,7 @@ class AddressForm extends StatelessWidget {
                     label: l10n.addressState,
                     controller: stateController,
                     hintText: l10n.addressHintState,
-                    validator: isNotEmpty,
+                    validator: (value) => isNotEmpty(value, l10n),
                   ),
                 ],
               ),
@@ -106,7 +106,7 @@ class AddressForm extends StatelessWidget {
                     label: l10n.addressCity,
                     controller: cityController,
                     hintText: l10n.addressHintCity,
-                    validator: isNotEmpty,
+                    validator: (value) => isNotEmpty(value, l10n),
                   ),
                 ],
               ),
@@ -121,7 +121,7 @@ class AddressForm extends StatelessWidget {
           label: l10n.addressStreet,
           controller: streetController,
           hintText: l10n.addressHintStreet,
-          validator: isNotEmpty,
+          validator: (value) => isNotEmpty(value, l10n),
         ),
 
         const SizedBox(height: 16),
@@ -138,7 +138,7 @@ class AddressForm extends StatelessWidget {
                     controller: numberController,
                     hintText: l10n.addressHintNumber,
                     keyboardType: TextInputType.number,
-                    validator: isNotEmpty,
+                    validator: (value) => isNotEmpty(value, l10n),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ],

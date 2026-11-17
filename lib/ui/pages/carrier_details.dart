@@ -78,7 +78,7 @@ class _CarrierDetailPage extends StatelessWidget {
                                 controller: state.cnpjController,
                                 hintText: l10n.commomHintCnpj,
                                 keyboardType: TextInputType.number,
-                                validator: validateCnpj,
+                                validator: (value) => validateCnpj(value, l10n),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly,
                                 ],
@@ -95,7 +95,7 @@ class _CarrierDetailPage extends StatelessWidget {
                                 label: l10n.carrierName,
                                 controller: state.nameController,
                                 hintText: l10n.carrierHintName,
-                                validator: isNotEmpty,
+                                validator: (value) => isNotEmpty(value, l10n),
                               ),
 
                               const SizedBox(height: 16),
@@ -105,7 +105,7 @@ class _CarrierDetailPage extends StatelessWidget {
                                 label: l10n.carrierLegalName,
                                 controller: state.legalNameController,
                                 hintText: l10n.carrierHintLegalName,
-                                validator: isNotEmpty,
+                                validator: (value) => isNotEmpty(value, l10n),
                               ),
 
                               const SizedBox(height: 16),
@@ -115,7 +115,8 @@ class _CarrierDetailPage extends StatelessWidget {
                                 controller: state.emailController,
                                 hintText: l10n.commomHintEmail,
                                 keyboardType: TextInputType.emailAddress,
-                                validator: validateEmail,
+                                validator: (value) =>
+                                    validateEmail(value, l10n),
                               ),
 
                               const SizedBox(height: 16),
@@ -126,7 +127,8 @@ class _CarrierDetailPage extends StatelessWidget {
                                 controller: state.phoneController,
                                 hintText: l10n.commomHintPhone,
                                 keyboardType: TextInputType.phone,
-                                validator: validatePhone,
+                                validator: (value) =>
+                                    validatePhone(value, l10n),
                               ),
 
                               const SizedBox(height: 16),
@@ -146,7 +148,11 @@ class _CarrierDetailPage extends StatelessWidget {
                                               const TextInputType.numberWithOptions(
                                                 decimal: true,
                                               ),
-                                          validator: validatePositiveMoney,
+                                          validator: (value) =>
+                                              validatePositiveMoney(
+                                                value,
+                                                l10n,
+                                              ),
                                           inputFormatters: [
                                             AppFormatters.money(),
                                           ],
@@ -170,7 +176,11 @@ class _CarrierDetailPage extends StatelessWidget {
                                               const TextInputType.numberWithOptions(
                                                 decimal: true,
                                               ),
-                                          validator: validatePositiveMoney,
+                                          validator: (value) =>
+                                              validatePositiveMoney(
+                                                value,
+                                                l10n,
+                                              ),
                                           inputFormatters: [
                                             AppFormatters.money(),
                                           ],

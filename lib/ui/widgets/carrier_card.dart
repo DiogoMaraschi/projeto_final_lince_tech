@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../entities/carrier.dart';
+import '../../l10n/app_localizations.dart';
 import '../app_colors.dart';
 import '../formatters/app_formatters.dart';
 
@@ -12,6 +13,7 @@ class CarrierCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       height: 130,
       margin: const EdgeInsets.only(bottom: 12),
@@ -42,7 +44,7 @@ class CarrierCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Custo por KM',
+                        l10n.carrierCostPerKm,
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                       Text(
@@ -60,7 +62,7 @@ class CarrierCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'PREÇO MINIMO',
+                        l10n.carrierMinimumPrice,
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                       Text(

@@ -1,5 +1,5 @@
 {
-  "appName": "Gestão de Produtos",
+  "appName": "Gestão Comercial",
   "commonSave": "Salvar",
   "commonCancel": "Cancelar",
   "commonDelete": "Excluir",
@@ -28,9 +28,9 @@
   "carrierHintName": "Ex: Transportadora Boa Vista",
   "carrierLegalName": "Razão Social",
   "carrierHintLegalName": "Ex: Transportadora Boa Vista LTDA",
-  "carrierCostPerKm": "Custo Por Km",
+  "carrierCostPerKm": "Custo por km",
   "carrierHintCostPerKm": "Ex: 7.20",
-  "carrierMinimumPrice": "Preço Mínimo",
+  "carrierMinimumPrice": "Preço mínimo",
   "carrierHintMinimumPrice": "Ex: 2.30",
   "addressTitle": "Endereço",
   "addressCep": "CEP",
@@ -75,5 +75,202 @@
   "carrierDeleteConfirmationTitle": "Excluir transportadora?",
   "carrierDeleteConfirmationMessage": "A transportadora não será exibida na lista, mas seus dados serão mantidos.",
   "customerDeleteConfirmationTitle": "Excluir cliente?",
-  "customerDeleteConfirmationMessage": "O cliente não será exibido na lista, mas seus dados serão mantidos."
+  "customerDeleteConfirmationMessage": "O cliente não será exibido na lista, mas seus dados serão mantidos.",
+  "navCustomers": "Clientes",
+  "navCarriers": "Transportadoras",
+  "navProducts": "Produtos",
+  "navProfile": "Perfil",
+  "customerName": "Nome do cliente",
+  "customerHintName": "Ex.: Academia Central",
+  "customerLegalName": "Razão social",
+  "customerHintLegalName": "Ex.: Academia Central Ltda.",
+  "establishmentType": "Tipo de estabelecimento",
+  "productPrice": "Preço",
+  "productHintPrice": "Ex.: 49,90",
+  "orderListTitle": "Pedidos",
+  "orderListEmpty": "Nenhum pedido foi encontrado",
+  "orderSelectProducts": "Selecionar produtos",
+  "orderSearchProducts": "Buscar por nome ou EAN",
+  "orderProductsLoadError": "Erro ao carregar produtos",
+  "orderNoProducts": "Nenhum produto cadastrado",
+  "orderPrice": "Preço: {price}",
+  "commonAdd": "Adicionar",
+  "orderAddProducts": "Adicionar ao pedido - {count} produtos",
+  "orderSelectCustomer": "Selecionar cliente",
+  "orderSearchCustomer": "Buscar por nome ou CNPJ",
+  "orderCustomersLoadError": "Erro ao carregar clientes",
+  "orderNoCustomers": "Nenhum cliente cadastrado",
+  "orderSelectCarrier": "Selecionar transportadora",
+  "orderSearchCarrier": "Buscar por nome ou CNPJ",
+  "orderCarriersLoadError": "Erro ao carregar transportadoras",
+  "orderNoCarriers": "Nenhuma transportadora cadastrada",
+  "orderSelectPayment": "Selecionar forma de pagamento",
+  "paymentInFull": "À vista",
+  "paymentInstallments": "Parcelado",
+  "commonFinish": "Concluir",
+  "orderTitleNew": "Novo pedido",
+  "orderCustomer": "Cliente",
+  "orderSelectCustomerUpper": "Selecionar cliente",
+  "orderProducts": "Produtos",
+  "orderAddProduct": "Adicionar produto",
+  "orderAddProductUpper": "Adicionar produto",
+  "orderNoProductsHint": "Adicione os itens que o cliente solicitou",
+  "orderCarrier": "Transportadora",
+  "orderSelectCarrierUpper": "Selecionar transportadora",
+  "orderDeliveryAddress": "Endereço de entrega",
+  "orderPaymentType": "Forma de pagamento",
+  "orderSelectPaymentUpper": "Selecionar forma de pagamento",
+  "orderInstallments": "Parcelas",
+  "orderSummary": "Resumo do pedido",
+  "orderDistanceNotCalculated": "Distância não calculada",
+  "orderSubtotalProducts": "Subtotal dos produtos",
+  "orderDiscounts": "Descontos",
+  "orderDelivery": "Entrega",
+  "orderTotal": "Total",
+  "orderPaymentNotesTitle": "Observações do pagamento",
+  "orderNotesTitle": "Observações",
+  "orderPaymentNotesLabel": "Observações do pagamento",
+  "orderNotesLabel": "Observações do pedido",
+  "orderNotesHint": "Adicione uma observação",
+  "commonWarning": "Aviso",
+  "commonFillRequired": "Preencha todos os campos",
+  "commonError": "Erro",
+  "orderSaveError": "Não foi possível salvar o pedido.",
+  "orderEdit": "Editar pedido",
+  "orderSave": "Salvar pedido",
+  "orderDelete": "Excluir",
+  "profileStoreLocation": "Localização da loja",
+  "profileSaveError": "Não foi possível salvar o perfil.",
+  "storeLocation": "Localização da loja",
+  "customerLocation": "Localização do cliente",
+  "deliveryDistance": "Distância da entrega: {distance} km",
+  "productCountSingular": "{count} produto",
+  "productCountPlural": "{count} produtos",
+  "customerTypeGym": "Academia",
+  "customerTypeSchool": "Escola",
+  "customerTypeOther": "Outro",
+  "commonContact": "Contato: {value}",
+  "productDiscount": "Desc.",
+  "productSubtotal": "Subtotal",
+  "commonSearch": "Buscar",
+  "commonCnpj": "CNPJ",
+  "commonStore": "Local da loja",
+  "paymentInstallmentUnit": "{count}x de {value}",
+  "@orderPrice": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderAddProducts": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@deliveryDistance": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@commonContact": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "@paymentInstallmentUnit": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "navHome": "Início",
+  "navOrders": "Pedidos",
+  "navRecords": "Cadastros",
+  "navStore": "Minha loja",
+  "orderSingleTitle": "Pedido",
+  "orderNumber": "Pedido #{id}",
+  "orderProductsCountSingular": "{count} produto",
+  "orderProductsCountPlural": "{count} produtos",
+  "@orderNumber": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commonRequired": "Campo obrigatório",
+  "cnpjDigitsInvalid": "CNPJ deve possuir 14 dígitos",
+  "cnpjInvalid": "CNPJ inválido",
+  "phoneRequired": "Telefone é obrigatório",
+  "phoneInvalid": "Telefone inválido",
+  "emailRequired": "E-mail é obrigatório",
+  "emailInvalid": "E-mail inválido",
+  "cepRequired": "CEP é obrigatório",
+  "cepInvalid": "CEP inválido",
+  "moneyMustBePositive": "Informe um valor maior que zero",
+  "carrierMinimumShort": "mín.",
+  "orderDeliveryCalculation": "{distance} km × {rate}/km · mínimo {minimum}",
+  "@carrierMinimumShort": {
+    "placeholders": {}
+  },
+  "@orderDeliveryCalculation": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      }
+    }
+  },
+  "productEAN": "EAN: {value}",
+  "@productEAN": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

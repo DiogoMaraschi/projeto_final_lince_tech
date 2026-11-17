@@ -86,7 +86,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                           controller: state.cnpjController,
                           hintText: l10n.commomCnpj,
                           keyboardType: TextInputType.number,
-                          validator: validateCnpj,
+                          validator: (value) => validateCnpj(value, l10n),
                           inputFormatters: [cnpjFormatter],
                           suffixIcon: IconButton(
                             onPressed: state.searchCnpj,
@@ -96,22 +96,22 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-                        CommomLabel(text: l10n.carrierName),
+                        CommomLabel(text: l10n.customerName),
                         const SizedBox(height: 6),
                         CommomTextFormField(
                           controller: state.nameController,
-                          hintText: l10n.carrierHintName,
-                          validator: isNotEmpty,
+                          hintText: l10n.customerHintName,
+                          validator: (value) => isNotEmpty(value, l10n),
                         ),
 
                         const SizedBox(height: 16),
 
-                        CommomLabel(text: l10n.carrierLegalName),
+                        CommomLabel(text: l10n.customerLegalName),
                         const SizedBox(height: 6),
                         CommomTextFormField(
                           controller: state.legalNameController,
-                          hintText: l10n.carrierHintLegalName,
-                          validator: isNotEmpty,
+                          hintText: l10n.customerHintLegalName,
+                          validator: (value) => isNotEmpty(value, l10n),
                         ),
 
                         const SizedBox(height: 16),
@@ -123,7 +123,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                           controller: state.emailController,
                           hintText: l10n.commomHintEmail,
                           keyboardType: TextInputType.emailAddress,
-                          validator: validateEmail,
+                          validator: (value) => validateEmail(value, l10n),
                         ),
 
                         const SizedBox(height: 16),
@@ -135,14 +135,14 @@ class _CostumerDetailsPage extends StatelessWidget {
                           controller: state.phoneController,
                           hintText: l10n.commomHintPhone,
                           keyboardType: TextInputType.phone,
-                          validator: validatePhone,
+                          validator: (value) => validatePhone(value, l10n),
                           inputFormatters: [phoneFormatter],
                         ),
 
                         const SizedBox(height: 16),
 
                         CommomLabel(
-                          text: 'Tipo de Estabelecimento',
+                          text: l10n.establishmentType,
                           isPrimary: true,
                         ),
 
@@ -183,7 +183,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                                   child: Text(value.translate(context)),
                                 ),
                             ],
-                            validator: isNotSelected,
+                            validator: (value) => isNotSelected(value, l10n),
                             onChanged: state.setEstablishmentType,
                           ),
                         ),

@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appName => 'Gestão de Produtos';
+  String get appName => 'Gestão Comercial';
 
   @override
   String get commonSave => 'Salvar';
@@ -96,13 +96,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get carrierHintLegalName => 'Ex: Transportadora Boa Vista LTDA';
 
   @override
-  String get carrierCostPerKm => 'Custo Por Km';
+  String get carrierCostPerKm => 'Custo por km';
 
   @override
   String get carrierHintCostPerKm => 'Ex: 7.20';
 
   @override
-  String get carrierMinimumPrice => 'Preço Mínimo';
+  String get carrierMinimumPrice => 'Preço mínimo';
 
   @override
   String get carrierHintMinimumPrice => 'Ex: 2.30';
@@ -241,4 +241,335 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get customerDeleteConfirmationMessage =>
       'O cliente não será exibido na lista, mas seus dados serão mantidos.';
+
+  @override
+  String get navCustomers => 'Clientes';
+
+  @override
+  String get navCarriers => 'Transportadoras';
+
+  @override
+  String get navProducts => 'Produtos';
+
+  @override
+  String get navProfile => 'Perfil';
+
+  @override
+  String get customerName => 'Nome do cliente';
+
+  @override
+  String get customerHintName => 'Ex.: Academia Central';
+
+  @override
+  String get customerLegalName => 'Razão social';
+
+  @override
+  String get customerHintLegalName => 'Ex.: Academia Central Ltda.';
+
+  @override
+  String get establishmentType => 'Tipo de estabelecimento';
+
+  @override
+  String get productPrice => 'Preço';
+
+  @override
+  String get productHintPrice => 'Ex.: 49,90';
+
+  @override
+  String get orderListTitle => 'Pedidos';
+
+  @override
+  String get orderListEmpty => 'Nenhum pedido foi encontrado';
+
+  @override
+  String get orderSelectProducts => 'Selecionar produtos';
+
+  @override
+  String get orderSearchProducts => 'Buscar por nome ou EAN';
+
+  @override
+  String get orderProductsLoadError => 'Erro ao carregar produtos';
+
+  @override
+  String get orderNoProducts => 'Nenhum produto cadastrado';
+
+  @override
+  String orderPrice(String price) {
+    return 'Preço: $price';
+  }
+
+  @override
+  String get commonAdd => 'Adicionar';
+
+  @override
+  String orderAddProducts(String count) {
+    return 'Adicionar ao pedido - $count produtos';
+  }
+
+  @override
+  String get orderSelectCustomer => 'Selecionar cliente';
+
+  @override
+  String get orderSearchCustomer => 'Buscar por nome ou CNPJ';
+
+  @override
+  String get orderCustomersLoadError => 'Erro ao carregar clientes';
+
+  @override
+  String get orderNoCustomers => 'Nenhum cliente cadastrado';
+
+  @override
+  String get orderSelectCarrier => 'Selecionar transportadora';
+
+  @override
+  String get orderSearchCarrier => 'Buscar por nome ou CNPJ';
+
+  @override
+  String get orderCarriersLoadError => 'Erro ao carregar transportadoras';
+
+  @override
+  String get orderNoCarriers => 'Nenhuma transportadora cadastrada';
+
+  @override
+  String get orderSelectPayment => 'Selecionar forma de pagamento';
+
+  @override
+  String get paymentInFull => 'À vista';
+
+  @override
+  String get paymentInstallments => 'Parcelado';
+
+  @override
+  String get commonFinish => 'Concluir';
+
+  @override
+  String get orderTitleNew => 'Novo pedido';
+
+  @override
+  String get orderCustomer => 'Cliente';
+
+  @override
+  String get orderSelectCustomerUpper => 'Selecionar cliente';
+
+  @override
+  String get orderProducts => 'Produtos';
+
+  @override
+  String get orderAddProduct => 'Adicionar produto';
+
+  @override
+  String get orderAddProductUpper => 'Adicionar produto';
+
+  @override
+  String get orderNoProductsHint => 'Adicione os itens que o cliente solicitou';
+
+  @override
+  String get orderCarrier => 'Transportadora';
+
+  @override
+  String get orderSelectCarrierUpper => 'Selecionar transportadora';
+
+  @override
+  String get orderDeliveryAddress => 'Endereço de entrega';
+
+  @override
+  String get orderPaymentType => 'Forma de pagamento';
+
+  @override
+  String get orderSelectPaymentUpper => 'Selecionar forma de pagamento';
+
+  @override
+  String get orderInstallments => 'Parcelas';
+
+  @override
+  String get orderSummary => 'Resumo do pedido';
+
+  @override
+  String get orderDistanceNotCalculated => 'Distância não calculada';
+
+  @override
+  String get orderSubtotalProducts => 'Subtotal dos produtos';
+
+  @override
+  String get orderDiscounts => 'Descontos';
+
+  @override
+  String get orderDelivery => 'Entrega';
+
+  @override
+  String get orderTotal => 'Total';
+
+  @override
+  String get orderPaymentNotesTitle => 'Observações do pagamento';
+
+  @override
+  String get orderNotesTitle => 'Observações';
+
+  @override
+  String get orderPaymentNotesLabel => 'Observações do pagamento';
+
+  @override
+  String get orderNotesLabel => 'Observações do pedido';
+
+  @override
+  String get orderNotesHint => 'Adicione uma observação';
+
+  @override
+  String get commonWarning => 'Aviso';
+
+  @override
+  String get commonFillRequired => 'Preencha todos os campos';
+
+  @override
+  String get commonError => 'Erro';
+
+  @override
+  String get orderSaveError => 'Não foi possível salvar o pedido.';
+
+  @override
+  String get orderEdit => 'Editar pedido';
+
+  @override
+  String get orderSave => 'Salvar pedido';
+
+  @override
+  String get orderDelete => 'Excluir';
+
+  @override
+  String get profileStoreLocation => 'Localização da loja';
+
+  @override
+  String get profileSaveError => 'Não foi possível salvar o perfil.';
+
+  @override
+  String get storeLocation => 'Localização da loja';
+
+  @override
+  String get customerLocation => 'Localização do cliente';
+
+  @override
+  String deliveryDistance(String distance) {
+    return 'Distância da entrega: $distance km';
+  }
+
+  @override
+  String productCountSingular(String count) {
+    return '$count produto';
+  }
+
+  @override
+  String productCountPlural(String count) {
+    return '$count produtos';
+  }
+
+  @override
+  String get customerTypeGym => 'Academia';
+
+  @override
+  String get customerTypeSchool => 'Escola';
+
+  @override
+  String get customerTypeOther => 'Outro';
+
+  @override
+  String commonContact(String value) {
+    return 'Contato: $value';
+  }
+
+  @override
+  String get productDiscount => 'Desc.';
+
+  @override
+  String get productSubtotal => 'Subtotal';
+
+  @override
+  String get commonSearch => 'Buscar';
+
+  @override
+  String get commonCnpj => 'CNPJ';
+
+  @override
+  String get commonStore => 'Local da loja';
+
+  @override
+  String paymentInstallmentUnit(String count, String value) {
+    return '${count}x de $value';
+  }
+
+  @override
+  String get navHome => 'Início';
+
+  @override
+  String get navOrders => 'Pedidos';
+
+  @override
+  String get navRecords => 'Cadastros';
+
+  @override
+  String get navStore => 'Minha loja';
+
+  @override
+  String get orderSingleTitle => 'Pedido';
+
+  @override
+  String orderNumber(String id) {
+    return 'Pedido #$id';
+  }
+
+  @override
+  String orderProductsCountSingular(String count) {
+    return '$count produto';
+  }
+
+  @override
+  String orderProductsCountPlural(String count) {
+    return '$count produtos';
+  }
+
+  @override
+  String get commonRequired => 'Campo obrigatório';
+
+  @override
+  String get cnpjDigitsInvalid => 'CNPJ deve possuir 14 dígitos';
+
+  @override
+  String get cnpjInvalid => 'CNPJ inválido';
+
+  @override
+  String get phoneRequired => 'Telefone é obrigatório';
+
+  @override
+  String get phoneInvalid => 'Telefone inválido';
+
+  @override
+  String get emailRequired => 'E-mail é obrigatório';
+
+  @override
+  String get emailInvalid => 'E-mail inválido';
+
+  @override
+  String get cepRequired => 'CEP é obrigatório';
+
+  @override
+  String get cepInvalid => 'CEP inválido';
+
+  @override
+  String get moneyMustBePositive => 'Informe um valor maior que zero';
+
+  @override
+  String get carrierMinimumShort => 'mín.';
+
+  @override
+  String orderDeliveryCalculation(
+    String distance,
+    String rate,
+    String minimum,
+  ) {
+    return '$distance km × $rate/km · mínimo $minimum';
+  }
+
+  @override
+  String productEAN(String value) {
+    return 'EAN: $value';
+  }
 }

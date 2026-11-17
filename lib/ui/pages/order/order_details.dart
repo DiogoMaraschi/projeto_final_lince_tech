@@ -81,7 +81,9 @@ class _OrderDetailsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Novo Pedido',
+              context.watch<OrderDetailsController>().isEditing
+                  ? l10n.orderEdit
+                  : l10n.orderTitleNew,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -119,7 +121,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Cliente',
+                      l10n.orderCustomer,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -159,7 +161,7 @@ class _OrderDetailsPage extends StatelessWidget {
                               builder: (context, customer, child) {
                                 if (customer == null) {
                                   return Text(
-                                    'Selecionar Cliente',
+                                    l10n.orderSelectCustomerUpper,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: .w700,
@@ -192,11 +194,11 @@ class _OrderDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Produtos',
+                        l10n.orderProducts,
                         style: TextStyle(fontSize: 18, fontWeight: .w700),
                       ),
                       Text(
-                        '+ Adicionar produto',
+                        '+ ${l10n.orderAddProduct}',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: .w700,
@@ -229,14 +231,14 @@ class _OrderDetailsPage extends StatelessWidget {
                                 const Icon(Icons.storage_outlined),
                                 const SizedBox(height: 5),
                                 Text(
-                                  'Nenhum produto cadastrado',
+                                  l10n.orderNoProducts,
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: .w900,
                                   ),
                                 ),
                                 Text(
-                                  'Adicione os itens que o cliente solicitou',
+                                  l10n.orderNoProductsHint,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: .w200,
@@ -257,7 +259,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
-                                    '+ Adicionar Produto',
+                                    '+ ${l10n.orderAddProductUpper}',
                                     style: TextStyle(fontWeight: .w600),
                                   ),
                                 ),
@@ -301,7 +303,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Transportadora',
+                      l10n.orderCarrier,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -341,7 +343,7 @@ class _OrderDetailsPage extends StatelessWidget {
                               builder: (context, carrier, child) {
                                 if (carrier == null) {
                                   return Text(
-                                    'Selecionar Transportadora',
+                                    l10n.orderSelectCarrierUpper,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: .w700,
@@ -358,7 +360,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                           '${AppFormatters.formatMoney(carrier.costPerKm)}/km',
                                         ),
                                         Text(
-                                          '- mín. ${AppFormatters.formatMoney(carrier.minimumPrice)}',
+                                          '${l10n.carrierMinimumShort} ${AppFormatters.formatMoney(carrier.minimumPrice)}',
                                         ),
                                       ],
                                     ),
@@ -380,7 +382,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Endereço de entrega',
+                      l10n.orderDeliveryAddress,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -419,7 +421,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Forma de Pagamento',
+                      l10n.orderPaymentType,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -466,7 +468,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   builder: (context, paymentItem, child) {
                                     if (paymentItem == null) {
                                       return Text(
-                                        'Selecionar Forma de Pagamento',
+                                        l10n.orderSelectPaymentUpper,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: .w700,
@@ -484,7 +486,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                               paymentItem.installments
                                                   .toString(),
                                             ),
-                                            Text('- Parcelas'),
+                                            Text(l10n.orderInstallments),
                                           ],
                                         ),
                                       ],
@@ -506,7 +508,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Resumo do Pedido',
+                      l10n.orderSummary,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -525,10 +527,17 @@ class _OrderDetailsPage extends StatelessWidget {
                         final distanceText =
                             controller.deliveryDistance == null ||
                                 controller.selectedCarrier == null
-                            ? 'Distância não calculada'
-                            : '${(controller.deliveryDistance! / 1000).toStringAsFixed(2)} km × '
-                                  '${AppFormatters.formatMoney(controller.selectedCarrier!.costPerKm)}/km · '
-                                  'mínimo ${AppFormatters.formatMoney(controller.selectedCarrier!.minimumPrice)}';
+                            ? l10n.orderDistanceNotCalculated
+                            : l10n.orderDeliveryCalculation(
+                                (controller.deliveryDistance! / 1000)
+                                    .toStringAsFixed(2),
+                                AppFormatters.formatMoney(
+                                  controller.selectedCarrier!.costPerKm,
+                                ),
+                                AppFormatters.formatMoney(
+                                  controller.selectedCarrier!.minimumPrice,
+                                ),
+                              );
 
                         return Column(
                           mainAxisSize: MainAxisSize.min,
@@ -537,7 +546,7 @@ class _OrderDetailsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Subtotal dos produtos',
+                                  l10n.orderSubtotalProducts,
                                   style: TextStyle(
                                     color: Color(0xFFA0AAB8),
                                     fontSize: 16,
@@ -560,7 +569,7 @@ class _OrderDetailsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Descontos',
+                                  l10n.orderDiscounts,
                                   style: TextStyle(
                                     color: Color(0xFFA0AAB8),
                                     fontSize: 16,
@@ -583,7 +592,7 @@ class _OrderDetailsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Entrega',
+                                  l10n.orderDelivery,
                                   style: TextStyle(
                                     color: Color(0xFFA0AAB8),
                                     fontSize: 16,
@@ -617,9 +626,9 @@ class _OrderDetailsPage extends StatelessWidget {
                             const SizedBox(height: 12),
                             Row(
                               children: [
-                                const Expanded(
+                                Expanded(
                                   child: Text(
-                                    'Total',
+                                    l10n.orderTotal,
                                     style: TextStyle(
                                       color: Color(0xFFF0F2F5),
                                       fontSize: 20,
@@ -656,7 +665,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Observações de Pagamento',
+                      l10n.orderPaymentNotesTitle,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -676,9 +685,9 @@ class _OrderDetailsPage extends StatelessWidget {
                           .paymentNotesController,
                       maxLines: null,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        labelText: 'Observações do pagamento',
-                        hintText: 'Adicione uma observação',
+                      decoration: InputDecoration(
+                        labelText: l10n.orderPaymentNotesLabel,
+                        hintText: l10n.orderNotesHint,
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -695,7 +704,7 @@ class _OrderDetailsPage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Observações',
+                      l10n.orderNotesTitle,
                       style: TextStyle(fontSize: 18, fontWeight: .w700),
                     ),
                   ),
@@ -716,9 +725,9 @@ class _OrderDetailsPage extends StatelessWidget {
                       maxLines: 3,
                       maxLength: 90,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        labelText: 'Observações do pedido',
-                        hintText: 'Adicione uma observação',
+                      decoration: InputDecoration(
+                        labelText: l10n.orderNotesLabel,
+                        hintText: l10n.orderNotesHint,
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -747,7 +756,7 @@ class _OrderDetailsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Total'),
+                      Text(l10n.orderTotal),
                       Text(
                         AppFormatters.formatMoney(
                           context.watch<OrderDetailsController>().orderTotal,
@@ -781,15 +790,13 @@ class _OrderDetailsPage extends StatelessWidget {
                                     context: context,
                                     builder: (dialogContext) {
                                       return AlertDialog(
-                                        title: const Text('Aviso'),
-                                        content: const Text(
-                                          'Preencha todos os campos',
-                                        ),
+                                        title: Text(l10n.commonWarning),
+                                        content: Text(l10n.commonFillRequired),
                                         actions: [
                                           TextButton(
                                             onPressed: () =>
                                                 Navigator.pop(dialogContext),
-                                            child: const Text('OK'),
+                                            child: Text('OK'),
                                           ),
                                         ],
                                       );
@@ -808,15 +815,13 @@ class _OrderDetailsPage extends StatelessWidget {
                                     context: context,
                                     builder: (dialogContext) {
                                       return AlertDialog(
-                                        title: const Text('Erro'),
-                                        content: const Text(
-                                          'Não foi possível salvar o pedido.',
-                                        ),
+                                        title: Text(l10n.commonError),
+                                        content: Text(l10n.orderSaveError),
                                         actions: [
                                           TextButton(
                                             onPressed: () =>
                                                 Navigator.pop(dialogContext),
-                                            child: const Text('OK'),
+                                            child: Text('OK'),
                                           ),
                                         ],
                                       );
@@ -825,8 +830,8 @@ class _OrderDetailsPage extends StatelessWidget {
                                 }
                               },
                               child: controller.isEditing
-                                  ? Text('Editar pedido')
-                                  : Text('Salvar pedido'),
+                                  ? Text(l10n.orderEdit)
+                                  : Text(l10n.orderSave),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -843,7 +848,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                                 icon: const Icon(Icons.delete_outline),
-                                label: const Text('Deletar'),
+                                label: Text(l10n.orderDelete),
                                 onPressed: () async {
                                   final success = await controller
                                       .deleteOrder();

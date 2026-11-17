@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 
 import 'carrier_list.dart';
 import 'costumer_list.dart';
@@ -27,43 +28,40 @@ class _MainNavigationPage extends State<MainNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _selectedIndex, children: _pages),
 
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex, onDestinationSelected: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-        destinations: const [
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        destinations: [
           NavigationDestination(
             icon: Icon(Icons.home),
             selectedIcon: Icon(Icons.home_outlined),
-            label: 'Inicio',
+            label: l10n.navHome,
           ),
           NavigationDestination(
             icon: Icon(Icons.receipt),
             selectedIcon: Icon(Icons.receipt_outlined),
-            label: 'Pedidos',
+            label: l10n.navOrders,
           ),
           NavigationDestination(
             icon: Icon(Icons.inventory_2),
             selectedIcon: Icon(Icons.inventory_2_outlined),
-            label: 'Cadastros',
+            label: l10n.navRecords,
           ),
           NavigationDestination(
             icon: Icon(Icons.storefront),
             selectedIcon: Icon(Icons.storefront_outlined),
-            label: 'Minha Loja',
+            label: l10n.navStore,
           ),
-        ]
-        ,),
+        ],
+      ),
     );
   }
-
-
 }

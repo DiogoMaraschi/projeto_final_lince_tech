@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/customer/customer_list_controller.dart';
 import '../../controllers/order/order_details_controller.dart';
-
 
 Future<void> showCustomerModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
@@ -20,6 +20,7 @@ Future<void> showCustomerModal(BuildContext context) async {
     backgroundColor: colors.surface,
     showDragHandle: true,
     builder: (modalContext) {
+      final l10n = AppLocalizations.of(modalContext)!;
       return SizedBox(
         height: height * 0.9,
         child: Column(
@@ -30,7 +31,7 @@ Future<void> showCustomerModal(BuildContext context) async {
                 children: [
                   Expanded(
                     child: Text(
-                      'Selecionar cliente',
+                      l10n.orderSelectCustomer,
                       style: Theme.of(modalContext).textTheme.titleLarge,
                     ),
                   ),
@@ -46,7 +47,7 @@ Future<void> showCustomerModal(BuildContext context) async {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Buscar por nome ou CNPJ',
+                  hintText: l10n.orderSearchCustomer,
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: colors.surfaceContainer,
@@ -69,17 +70,13 @@ Future<void> showCustomerModal(BuildContext context) async {
                   }
 
                   if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('Erro ao carregar clientes'),
-                    );
+                    return Center(child: Text(l10n.orderCustomersLoadError));
                   }
 
                   final customers = customerController.customers;
 
                   if (customers.isEmpty) {
-                    return const Center(
-                      child: Text('Nenhum cliente cadastrado'),
-                    );
+                    return Center(child: Text(l10n.orderNoCustomers));
                   }
 
                   return ListView.builder(

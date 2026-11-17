@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     final settings = context.watch<ProfileController>();
 
     return MaterialApp(
-      title: 'Gestão de Produtos',
+      title: AppLocalizations.of(context)!.appName,
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
 
       themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
 
-      home:  MainNavigationPage(),
+      home: MainNavigationPage(),
     );
   }
 }
@@ -75,28 +75,28 @@ class _initialPage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (_) => CustomerListPage()),
             ),
-            child: Text('Clientes'),
+            child: Text(AppLocalizations.of(context)!.navCustomers),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => CarrierListPage()),
             ),
-            child: Text('Transportadoras'),
+            child: Text(AppLocalizations.of(context)!.navCarriers),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => ProductListPage()),
             ),
-            child: Text('Produtos'),
+            child: Text(AppLocalizations.of(context)!.navProducts),
           ),
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => ProfilePage()),
             ),
-            child: Text('Perfil'),
+            child: Text(AppLocalizations.of(context)!.navProfile),
           ),
         ],
       ),

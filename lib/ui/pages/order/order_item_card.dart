@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../entities/product.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../formatters/app_formatters.dart';
 
 class OrderItemCard extends StatelessWidget {
@@ -26,6 +27,7 @@ class OrderItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final subtotal =
         product.salePrice *
         quantity *
@@ -146,7 +148,7 @@ class OrderItemCard extends StatelessWidget {
                           double.tryParse(v.replaceAll(',', '.')) ?? 0,
                         ),
                         decoration: InputDecoration(
-                          labelText: 'Desc.',
+                          labelText: l10n.productDiscount,
                           hintText: '0',
                           suffixText: '%',
                           contentPadding: const EdgeInsets.symmetric(
@@ -175,7 +177,7 @@ class OrderItemCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      'Subtotal',
+                      l10n.productSubtotal,
                       style: TextStyle(
                         color: colors.onSurfaceVariant,
                         fontSize: 16,

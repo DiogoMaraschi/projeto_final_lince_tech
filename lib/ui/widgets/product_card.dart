@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../entities/product.dart';
+import '../../l10n/app_localizations.dart';
 import '../formatters/app_formatters.dart';
 
 class ProductCard extends StatelessWidget {
@@ -13,6 +14,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       height: 145,
       margin: const EdgeInsets.only(bottom: 12),
@@ -78,7 +80,7 @@ class ProductCard extends StatelessWidget {
 
                 //BARCODE
                 Text(
-                  'EAN: ${_product.barcode}',
+                  l10n.productEAN(_product.barcode),
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

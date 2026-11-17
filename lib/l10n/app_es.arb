@@ -1,5 +1,5 @@
 {
-  "appName": "Gestión de Productos",
+  "appName": "Gestión Comercial",
   "commonSave": "Guardar",
   "commonCancel": "Cancelar",
   "commonDelete": "Eliminar",
@@ -75,5 +75,202 @@
   "carrierDeleteConfirmationTitle": "¿Eliminar transportista?",
   "carrierDeleteConfirmationMessage": "El transportista se ocultará de la lista, pero sus datos se conservarán.",
   "customerDeleteConfirmationTitle": "¿Eliminar cliente?",
-  "customerDeleteConfirmationMessage": "El cliente se ocultará de la lista, pero sus datos se conservarán."
+  "customerDeleteConfirmationMessage": "El cliente se ocultará de la lista, pero sus datos se conservarán.",
+  "navCustomers": "Clientes",
+  "navCarriers": "Transportistas",
+  "navProducts": "Productos",
+  "navProfile": "Perfil",
+  "customerName": "Nombre del cliente",
+  "customerHintName": "Ej.: Gimnasio Central",
+  "customerLegalName": "Razón social",
+  "customerHintLegalName": "Ej.: Gimnasio Central S. A.",
+  "establishmentType": "Tipo de establecimiento",
+  "productPrice": "Precio",
+  "productHintPrice": "Ej.: 49,90",
+  "orderListTitle": "Pedidos",
+  "orderListEmpty": "No se encontraron pedidos",
+  "orderSelectProducts": "Seleccionar productos",
+  "orderSearchProducts": "Buscar por nombre o EAN",
+  "orderProductsLoadError": "No se pudieron cargar los productos",
+  "orderNoProducts": "No hay productos registrados",
+  "orderPrice": "Precio: {price}",
+  "commonAdd": "Agregar",
+  "orderAddProducts": "Agregar al pedido - {count} productos",
+  "orderSelectCustomer": "Seleccionar cliente",
+  "orderSearchCustomer": "Buscar por nombre o CNPJ",
+  "orderCustomersLoadError": "No se pudieron cargar los clientes",
+  "orderNoCustomers": "No hay clientes registrados",
+  "orderSelectCarrier": "Seleccionar transportista",
+  "orderSearchCarrier": "Buscar por nombre o CNPJ",
+  "orderCarriersLoadError": "No se pudieron cargar los transportistas",
+  "orderNoCarriers": "No hay transportistas registrados",
+  "orderSelectPayment": "Seleccionar forma de pago",
+  "paymentInFull": "Al contado",
+  "paymentInstallments": "A plazos",
+  "commonFinish": "Finalizar",
+  "orderTitleNew": "Nuevo pedido",
+  "orderCustomer": "Cliente",
+  "orderSelectCustomerUpper": "Seleccionar cliente",
+  "orderProducts": "Productos",
+  "orderAddProduct": "Agregar producto",
+  "orderAddProductUpper": "Agregar producto",
+  "orderNoProductsHint": "Agrega los artículos solicitados por el cliente",
+  "orderCarrier": "Transportista",
+  "orderSelectCarrierUpper": "Seleccionar transportista",
+  "orderDeliveryAddress": "Dirección de entrega",
+  "orderPaymentType": "Forma de pago",
+  "orderSelectPaymentUpper": "Seleccionar forma de pago",
+  "orderInstallments": "Cuotas",
+  "orderSummary": "Resumen del pedido",
+  "orderDistanceNotCalculated": "Distancia no calculada",
+  "orderSubtotalProducts": "Subtotal de productos",
+  "orderDiscounts": "Descuentos",
+  "orderDelivery": "Entrega",
+  "orderTotal": "Total",
+  "orderPaymentNotesTitle": "Observaciones del pago",
+  "orderNotesTitle": "Observaciones",
+  "orderPaymentNotesLabel": "Observaciones del pago",
+  "orderNotesLabel": "Observaciones del pedido",
+  "orderNotesHint": "Agrega una observación",
+  "commonWarning": "Aviso",
+  "commonFillRequired": "Completa todos los campos obligatorios",
+  "commonError": "Error",
+  "orderSaveError": "No se pudo guardar el pedido.",
+  "orderEdit": "Editar pedido",
+  "orderSave": "Guardar pedido",
+  "orderDelete": "Eliminar",
+  "profileStoreLocation": "Ubicación de la tienda",
+  "profileSaveError": "No se pudo guardar el perfil.",
+  "storeLocation": "Ubicación de la tienda",
+  "customerLocation": "Ubicación del cliente",
+  "deliveryDistance": "Distancia de entrega: {distance} km",
+  "productCountSingular": "{count} producto",
+  "productCountPlural": "{count} productos",
+  "customerTypeGym": "Gimnasio",
+  "customerTypeSchool": "Escuela",
+  "customerTypeOther": "Otro",
+  "commonContact": "Contacto: {value}",
+  "productDiscount": "Desc.",
+  "productSubtotal": "Subtotal",
+  "commonSearch": "Buscar",
+  "commonCnpj": "CNPJ",
+  "commonStore": "Ubicación de la tienda",
+  "paymentInstallmentUnit": "{count}x de {value}",
+  "@orderPrice": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderAddProducts": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@deliveryDistance": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@commonContact": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "@paymentInstallmentUnit": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "navHome": "Inicio",
+  "navOrders": "Pedidos",
+  "navRecords": "Registros",
+  "navStore": "Mi tienda",
+  "orderSingleTitle": "Pedido",
+  "orderNumber": "Pedido n.º {id}",
+  "orderProductsCountSingular": "{count} producto",
+  "orderProductsCountPlural": "{count} productos",
+  "@orderNumber": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commonRequired": "Este campo es obligatorio",
+  "cnpjDigitsInvalid": "El CNPJ debe tener 14 dígitos",
+  "cnpjInvalid": "CNPJ no válido",
+  "phoneRequired": "El teléfono es obligatorio",
+  "phoneInvalid": "Teléfono no válido",
+  "emailRequired": "El correo electrónico es obligatorio",
+  "emailInvalid": "Correo electrónico no válido",
+  "cepRequired": "El código postal es obligatorio",
+  "cepInvalid": "Código postal no válido",
+  "moneyMustBePositive": "Ingresa un valor mayor que cero",
+  "carrierMinimumShort": "mín.",
+  "orderDeliveryCalculation": "{distance} km × {rate}/km · mínimo {minimum}",
+  "@carrierMinimumShort": {
+    "placeholders": {}
+  },
+  "@orderDeliveryCalculation": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      }
+    }
+  },
+  "productEAN": "EAN: {value}",
+  "@productEAN": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

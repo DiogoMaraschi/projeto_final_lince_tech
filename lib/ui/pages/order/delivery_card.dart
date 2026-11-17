@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DeliveryCard extends StatelessWidget {
@@ -47,7 +48,9 @@ class DeliveryCard extends StatelessWidget {
                       Text(customerAddress),
                       const SizedBox(height: 12),
                       Text(
-                        'Distância da entrega: ${(deliveryDistance! / 1000).toStringAsFixed(2)} km',
+                        AppLocalizations.of(context)!.deliveryDistance(
+                          ((deliveryDistance! / 1000).toStringAsFixed(2)),
+                        ),
                       ),
                     ],
                   ),
@@ -60,12 +63,12 @@ class DeliveryCard extends StatelessWidget {
             child: GoogleMap(
               polylines: {
                 if (points.length >= 2)
-                Polyline(
-                  polylineId: PolylineId('delivery_route'),
-                  points: points,
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 5,
-                ),
+                  Polyline(
+                    polylineId: PolylineId('delivery_route'),
+                    points: points,
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 5,
+                  ),
               },
               onMapCreated: setController,
               initialCameraPosition: CameraPosition(
@@ -76,12 +79,16 @@ class DeliveryCard extends StatelessWidget {
                 Marker(
                   markerId: MarkerId('store_marker'),
                   position: storeLocation,
-                  infoWindow: InfoWindow(title: 'Local da Loja'),
+                  infoWindow: InfoWindow(
+                    title: AppLocalizations.of(context)!.storeLocation,
+                  ),
                 ),
                 Marker(
                   markerId: MarkerId('customer_marker'),
                   position: customerLocation,
-                  infoWindow: InfoWindow(title: 'Local da Cliente'),
+                  infoWindow: InfoWindow(
+                    title: AppLocalizations.of(context)!.customerLocation,
+                  ),
                 ),
               },
             ),

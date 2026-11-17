@@ -1,7 +1,8 @@
+import '../../l10n/app_localizations.dart';
 import 'not_empty_validator.dart';
 
-String? validateCnpj(String? value) {
-  final requiredError = isNotEmpty(value);
+String? validateCnpj(String? value, AppLocalizations l10n) {
+  final requiredError = isNotEmpty(value, l10n);
 
   if (requiredError != null) {
     return requiredError;
@@ -10,11 +11,11 @@ String? validateCnpj(String? value) {
   final cnpj = value!.replaceAll(RegExp(r'\D'), '');
 
   if (cnpj.length != 14) {
-    return 'CNPJ deve possuir 14 dígitos';
+    return l10n.cnpjDigitsInvalid;
   }
 
   if (RegExp(r'^(\d)\1*$').hasMatch(cnpj)) {
-    return 'CNPJ inválido';
+    return l10n.cnpjInvalid;
   }
 
   int calculateDigit(String value) {
@@ -36,13 +37,13 @@ String? validateCnpj(String? value) {
   final firstDigit = calculateDigit(cnpj.substring(0, 12));
 
   if (firstDigit != int.parse(cnpj[12])) {
-    return 'CNPJ inválido';
+    return l10n.cnpjInvalid;
   }
 
   final secondDigit = calculateDigit(cnpj.substring(0, 13));
 
   if (secondDigit != int.parse(cnpj[13])) {
-    return 'CNPJ inválido';
+    return l10n.cnpjInvalid;
   }
 
   return null;

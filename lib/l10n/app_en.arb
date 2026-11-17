@@ -1,5 +1,5 @@
 {
-  "appName": "Product Management",
+  "appName": "Business Management",
   "commonSave": "Save",
   "commonCancel": "Cancel",
   "commonDelete": "Delete",
@@ -28,9 +28,9 @@
   "carrierHintName": "Ex: Boa Vista Transport",
   "carrierLegalName": "Legal Name",
   "carrierHintLegalName": "Ex: Boa Vista Transport Ltd.",
-  "carrierCostPerKm": "Cost Per Km",
+  "carrierCostPerKm": "Cost per km",
   "carrierHintCostPerKm": "Ex: 7.20",
-  "carrierMinimumPrice": "Minimum Price",
+  "carrierMinimumPrice": "Minimum price",
   "carrierHintMinimumPrice": "Ex: 2.30",
   "addressTitle": "Address",
   "addressCep": "ZIP Code",
@@ -75,5 +75,202 @@
   "carrierDeleteConfirmationTitle": "Delete carrier?",
   "carrierDeleteConfirmationMessage": "The carrier will be hidden from the list, but its data will be kept.",
   "customerDeleteConfirmationTitle": "Delete customer?",
-  "customerDeleteConfirmationMessage": "The customer will be hidden from the list, but their data will be kept."
+  "customerDeleteConfirmationMessage": "The customer will be hidden from the list, but their data will be kept.",
+  "navCustomers": "Customers",
+  "navCarriers": "Carriers",
+  "navProducts": "Products",
+  "navProfile": "Profile",
+  "customerName": "Customer name",
+  "customerHintName": "E.g.: Central Gym",
+  "customerLegalName": "Legal name",
+  "customerHintLegalName": "E.g.: Central Gym Ltd.",
+  "establishmentType": "Type of establishment",
+  "productPrice": "Price",
+  "productHintPrice": "E.g.: 49.90",
+  "orderListTitle": "Orders",
+  "orderListEmpty": "No orders were found",
+  "orderSelectProducts": "Select products",
+  "orderSearchProducts": "Search by name or EAN",
+  "orderProductsLoadError": "Could not load products",
+  "orderNoProducts": "No products registered",
+  "orderPrice": "Price: {price}",
+  "commonAdd": "Add",
+  "orderAddProducts": "Add to order - {count} products",
+  "orderSelectCustomer": "Select customer",
+  "orderSearchCustomer": "Search by name or CNPJ",
+  "orderCustomersLoadError": "Could not load customers",
+  "orderNoCustomers": "No customers registered",
+  "orderSelectCarrier": "Select carrier",
+  "orderSearchCarrier": "Search by name or CNPJ",
+  "orderCarriersLoadError": "Could not load carriers",
+  "orderNoCarriers": "No carriers registered",
+  "orderSelectPayment": "Select payment method",
+  "paymentInFull": "In full",
+  "paymentInstallments": "Installments",
+  "commonFinish": "Done",
+  "orderTitleNew": "New order",
+  "orderCustomer": "Customer",
+  "orderSelectCustomerUpper": "Select customer",
+  "orderProducts": "Products",
+  "orderAddProduct": "Add product",
+  "orderAddProductUpper": "Add product",
+  "orderNoProductsHint": "Add the items requested by the customer",
+  "orderCarrier": "Carrier",
+  "orderSelectCarrierUpper": "Select carrier",
+  "orderDeliveryAddress": "Delivery address",
+  "orderPaymentType": "Payment method",
+  "orderSelectPaymentUpper": "Select payment method",
+  "orderInstallments": "Installments",
+  "orderSummary": "Order summary",
+  "orderDistanceNotCalculated": "Distance not calculated",
+  "orderSubtotalProducts": "Products subtotal",
+  "orderDiscounts": "Discounts",
+  "orderDelivery": "Delivery",
+  "orderTotal": "Total",
+  "orderPaymentNotesTitle": "Payment notes",
+  "orderNotesTitle": "Notes",
+  "orderPaymentNotesLabel": "Payment notes",
+  "orderNotesLabel": "Order notes",
+  "orderNotesHint": "Add a note",
+  "commonWarning": "Warning",
+  "commonFillRequired": "Please fill in all required fields",
+  "commonError": "Error",
+  "orderSaveError": "Could not save the order.",
+  "orderEdit": "Edit order",
+  "orderSave": "Save order",
+  "orderDelete": "Delete",
+  "profileStoreLocation": "Store location",
+  "profileSaveError": "Could not save the profile.",
+  "storeLocation": "Store location",
+  "customerLocation": "Customer location",
+  "deliveryDistance": "Delivery distance: {distance} km",
+  "productCountSingular": "{count} product",
+  "productCountPlural": "{count} products",
+  "customerTypeGym": "Gym",
+  "customerTypeSchool": "School",
+  "customerTypeOther": "Other",
+  "commonContact": "Contact: {value}",
+  "productDiscount": "Discount",
+  "productSubtotal": "Subtotal",
+  "commonSearch": "Search",
+  "commonCnpj": "CNPJ",
+  "commonStore": "Store location",
+  "paymentInstallmentUnit": "{count}x of {value}",
+  "@orderPrice": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderAddProducts": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@deliveryDistance": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@productCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@commonContact": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "@paymentInstallmentUnit": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "navHome": "Home",
+  "navOrders": "Orders",
+  "navRecords": "Records",
+  "navStore": "My store",
+  "orderSingleTitle": "Order",
+  "orderNumber": "Order #{id}",
+  "orderProductsCountSingular": "{count} product",
+  "orderProductsCountPlural": "{count} products",
+  "@orderNumber": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountSingular": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@orderProductsCountPlural": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commonRequired": "This field is required",
+  "cnpjDigitsInvalid": "CNPJ must contain 14 digits",
+  "cnpjInvalid": "Invalid CNPJ",
+  "phoneRequired": "Phone number is required",
+  "phoneInvalid": "Invalid phone number",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Invalid email address",
+  "cepRequired": "ZIP code is required",
+  "cepInvalid": "Invalid ZIP code",
+  "moneyMustBePositive": "Enter an amount greater than zero",
+  "carrierMinimumShort": "min.",
+  "orderDeliveryCalculation": "{distance} km × {rate}/km · minimum {minimum}",
+  "@carrierMinimumShort": {
+    "placeholders": {}
+  },
+  "@orderDeliveryCalculation": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      }
+    }
+  },
+  "productEAN": "EAN: {value}",
+  "@productEAN": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

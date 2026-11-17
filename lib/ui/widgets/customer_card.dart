@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../entities/customer/costumer.dart';
+import '../../l10n/app_localizations.dart';
 
 class CustomerCard extends StatelessWidget {
   CustomerCard({super.key, required this.customer, required this.onTap});
@@ -10,6 +11,7 @@ class CustomerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       height: 100,
       margin: const EdgeInsets.only(bottom: 12),
@@ -35,7 +37,7 @@ class CustomerCard extends StatelessWidget {
                 style: TextStyle(color: Colors.grey.shade600),
               ),
               Text(
-                'Contato: ${customer.phoneNumber}',
+                l10n.commonContact(customer.phoneNumber ?? '—'),
                 style: TextStyle(color: Colors.grey.shade600),
               ),
             ],
@@ -43,7 +45,10 @@ class CustomerCard extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(onPressed: onTap, icon: const Icon(Icons.chevron_right)),
+              IconButton(
+                onPressed: onTap,
+                icon: const Icon(Icons.chevron_right),
+              ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
