@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     final settings = context.watch<ProfileController>();
 
     return MaterialApp(
-      title: AppLocalizations.of(context)!.appName,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
