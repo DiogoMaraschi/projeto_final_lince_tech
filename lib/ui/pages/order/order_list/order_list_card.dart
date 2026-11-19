@@ -10,10 +10,12 @@ class OrderListCard extends StatelessWidget {
     super.key,
     required this.orderSummary,
     required this.onTap,
+    required this.onGeneratePdf,
   });
 
   final OrderSummary orderSummary;
   final VoidCallback onTap;
+  final VoidCallback onGeneratePdf;
 
   String get formattedDate {
     final date = DateTime.tryParse(orderSummary.created_at);
@@ -25,6 +27,7 @@ class OrderListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -98,7 +101,7 @@ class OrderListCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   '${orderSummary.paymentItem.paymentType.translate(context)}'
-                  '${orderSummary.paymentItem.installments > 1 ? ' · ${orderSummary.paymentItem.installments}x' : ''}',
+                      '${orderSummary.paymentItem.installments > 1 ? ' · ${orderSummary.paymentItem.installments}x' : ''}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -110,7 +113,14 @@ class OrderListCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 4),
+          IconButton(
+            tooltip: 'Gerar PDF',
+            onPressed: onGeneratePdf,
+            icon: const Icon(
+              Icons.picture_as_pdf_outlined,
+              color: Color(0xFF4F46E5),
+            ),
+          ),
           IconButton(
             onPressed: onTap,
             icon: const Icon(

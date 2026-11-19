@@ -9,6 +9,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
 import '../../../controllers/order/order_list_controller.dart';
 import '../order_details.dart';
+import '../order_pdf_preview.dart';
 import 'order_list_card.dart';
 
 class OrderListPage extends StatelessWidget {
@@ -19,6 +20,8 @@ class OrderListPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => OrderListController(
         getAllOrderSummariesUsecase: injection.getAllOrderSummariesUsecase,
+        getOrderForEditingUsecase: injection.getOrderForEditingUsecase,
+        generateOrderPdfUsecase: injection.generateOrderPdfUsecase,
       )..getAllOrderSummary(),
       child: const _OrderListPage(),
     );
@@ -32,7 +35,7 @@ class _OrderListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OrderListController>(
       builder: (context, controller, child) {
-        final l10n = AppLocalizations.of(context);
+        final l10n = AppLocalizations.of(context)!;
 
         return Scaffold(
           appBar: AppBar(
@@ -51,6 +54,21 @@ class _OrderListPage extends StatelessWidget {
                     final orderSummary = controller.orderSummary[index];
                     return OrderListCard(
                       orderSummary: orderSummary,
+                      onGeneratePdf: () async {
+                        final bytes = await controller.generatePdf(
+                          orderSummary.id,
+                        );
+
+                        if (!context.mounted) return;
+
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                OrderPdfPreview(pdfBytes: bytes),
+                          ),
+                        );
+                      },
                       onTap: () async {
                         await Navigator.push(
                           context,

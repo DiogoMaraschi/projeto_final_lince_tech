@@ -16,9 +16,11 @@ import '../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../modules/customer/usecases/update_customer_usecase.dart';
 import '../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 import '../../modules/order/repository.dart';
+import '../../modules/order/services/order_pdf_generator.dart';
 import '../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../modules/order/usecases/create_order_usecase.dart';
 import '../../modules/order/usecases/delete_order_usecase.dart';
+import '../../modules/order/usecases/generate_order_pdf_usecase.dart';
 import '../../modules/order/usecases/get_all_order_summaries_usecase.dart';
 import '../../modules/order/usecases/get_installments_usecase.dart';
 import '../../modules/order/usecases/get_order_for_editing_usecase.dart';
@@ -79,6 +81,7 @@ class Injection {
   late final GetOrderForEditingUsecase getOrderForEditingUsecase;
   late final UpdateOrderUsecase updateOrderUsecase;
   late final DeleteOrderUsecase deleteOrderUsecase;
+  late final GenerateOrderPdfUsecase generateOrderPdfUsecase;
 
   late final PreferencesService preferencesService;
 
@@ -120,6 +123,9 @@ class Injection {
       routesDatasource: routesDatasource,
     );
     final orderRepository = OrderRepositoryImpl(databaseHelper: database);
+
+    //SERVICES
+    final orderPdfGenerator = OrderPdfGenerator();
 
     //USECASES
     createProductUsecase = CreateProductUsecase(repository: productRepository);
@@ -182,5 +188,8 @@ class Injection {
     );
     updateOrderUsecase = UpdateOrderUsecase(repository: orderRepository);
     deleteOrderUsecase = DeleteOrderUsecase(repository: orderRepository);
+    generateOrderPdfUsecase = GenerateOrderPdfUsecase(
+      generator: orderPdfGenerator,
+    );
   }
 }

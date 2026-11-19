@@ -683,7 +683,8 @@ class _OrderDetailsPage extends StatelessWidget {
                       controller: context
                           .read<OrderDetailsController>()
                           .paymentNotesController,
-                      maxLines: null,
+                      maxLines: 3,
+                      maxLength: 90,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
                         labelText: l10n.orderPaymentNotesLabel,
@@ -722,8 +723,7 @@ class _OrderDetailsPage extends StatelessWidget {
                       controller: context
                           .read<OrderDetailsController>()
                           .generalNotesController,
-                      maxLines: 3,
-                      maxLength: 90,
+                      maxLines: null,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
                         labelText: l10n.orderNotesLabel,
@@ -743,6 +743,7 @@ class _OrderDetailsPage extends StatelessWidget {
           Divider(height: 1),
         ],
       ),
+
       bottomNavigationBar: SafeArea(
         top: false,
         child: Material(
