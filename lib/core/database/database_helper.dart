@@ -148,15 +148,4 @@ class DatabaseHelper {
     await DatabaseSeed.insertInitialData(db);
   }
 
-  Future<void> resetDatabase() async {
-    final databasePath = await getDatabasesPath();
-    final path = join(databasePath, _databaseName);
-
-    await _database?.close();
-    _database = null;
-
-    print('banco resetado');
-
-    await deleteDatabase(path);
-  }
 }
