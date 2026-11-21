@@ -59,7 +59,7 @@ class OrderListCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        l10n.orderNumber((orderSummary.id ?? '—').toString()),
+                        l10n.orderNumber((orderSummary.id).toString()),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

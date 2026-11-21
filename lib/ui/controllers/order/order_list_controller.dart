@@ -6,16 +6,19 @@ import '../../../entities/order/order_summary.dart';
 import '../../../modules/order/usecases/generate_order_pdf_usecase.dart';
 import '../../../modules/order/usecases/get_all_order_summaries_usecase.dart';
 import '../../../modules/order/usecases/get_order_for_editing_usecase.dart';
+import '../../../modules/profile/usecases/get_profile_usecase.dart';
 
 class OrderListController with ChangeNotifier {
   final GetAllOrderSummariesUsecase getAllOrderSummariesUsecase;
   final GenerateOrderPdfUsecase generateOrderPdfUsecase;
   final GetOrderForEditingUsecase getOrderForEditingUsecase;
+  final GetProfileUsecase getProfileUsecase;
 
   OrderListController({
     required this.getAllOrderSummariesUsecase,
     required this.generateOrderPdfUsecase,
     required this.getOrderForEditingUsecase,
+    required this.getProfileUsecase,
   });
 
   bool _isLoading = false;
@@ -45,7 +48,16 @@ class OrderListController with ChangeNotifier {
 
   Future<Uint8List> generatePdf(int orderId) async{
     final order = await getOrderForEditingUsecase(orderId);
+    final profile = await getProfileUsecase();
 
-    return await generateOrderPdfUsecase(order!);
+    if (order == null) {
+      throw StateError('Pedido não encontrado.');
+    }
+
+    if (profile == null) {
+      throw StateError('Cadastre o perfil da loja antes de gerar o comprovante.');
+    }
+
+    return await generateOrderPdfUsecase(order, profile);
   }
 }

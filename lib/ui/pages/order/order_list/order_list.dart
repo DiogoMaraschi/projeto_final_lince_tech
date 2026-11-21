@@ -9,7 +9,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
 import '../../../controllers/order/order_list_controller.dart';
 import '../order_details.dart';
-import '../order_pdf_preview.dart';
+import '../pdf/order_pdf_preview.dart';
 import 'order_list_card.dart';
 
 class OrderListPage extends StatelessWidget {
@@ -22,6 +22,7 @@ class OrderListPage extends StatelessWidget {
         getAllOrderSummariesUsecase: injection.getAllOrderSummariesUsecase,
         getOrderForEditingUsecase: injection.getOrderForEditingUsecase,
         generateOrderPdfUsecase: injection.generateOrderPdfUsecase,
+        getProfileUsecase: injection.getProfileUsecase,
       )..getAllOrderSummary(),
       child: const _OrderListPage(),
     );
