@@ -9,7 +9,11 @@ class GenerateOrderPdfUsecase {
 
   GenerateOrderPdfUsecase({required this._generator});
 
-  Future<Uint8List> call(OrderEditData order, Profile profile) {
-    return _generator.generate(order, profile);
+  Future<Uint8List> call(
+    OrderEditData order,
+    Profile profile,
+    int primaryColorArgb,
+  ) {
+    return _generator.generate(order, profile, primaryColorArgb);
   }
 }

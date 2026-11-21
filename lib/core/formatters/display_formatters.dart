@@ -34,5 +34,14 @@ class DisplayFormatters {
     ).format(value);
   }
 
+  static String formatDate(String? value) {
+    if (value == null || value.isEmpty) return '';
+
+    final date = DateTime.tryParse(value);
+    if (date == null) return value;
+
+    return DateFormat('dd/MM/yyyy HH:mm').format(date);
+  }
+
 
 }

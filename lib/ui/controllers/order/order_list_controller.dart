@@ -46,7 +46,7 @@ class OrderListController with ChangeNotifier {
     }
   }
 
-  Future<Uint8List> generatePdf(int orderId) async{
+  Future<Uint8List> generatePdf(int orderId, int primaryColorArgb) async {
     final order = await getOrderForEditingUsecase(orderId);
     final profile = await getProfileUsecase();
 
@@ -58,6 +58,6 @@ class OrderListController with ChangeNotifier {
       throw StateError('Cadastre o perfil da loja antes de gerar o comprovante.');
     }
 
-    return await generateOrderPdfUsecase(order, profile);
+    return await generateOrderPdfUsecase(order, profile, primaryColorArgb);
   }
 }

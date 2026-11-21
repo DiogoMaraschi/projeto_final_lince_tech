@@ -55,9 +55,14 @@ class _OrderListPage extends StatelessWidget {
                     final orderSummary = controller.orderSummary[index];
                     return OrderListCard(
                       orderSummary: orderSummary,
+
                       onGeneratePdf: () async {
+                        final primaryColorArgb =
+                            Theme.of(context).colorScheme.primary.toARGB32();
+
                         final bytes = await controller.generatePdf(
                           orderSummary.id,
+                          primaryColorArgb,
                         );
 
                         if (!context.mounted) return;
