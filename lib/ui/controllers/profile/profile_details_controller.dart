@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../core/utils/digits_only.dart';
 import '../../../entities/profile.dart';
 import '../../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../../modules/address/usecases/get_location_by_address_usecase.dart';
@@ -11,7 +12,7 @@ import '../../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dar
 import '../../../modules/profile/usecases/create_profile_usecase.dart';
 import '../../../modules/profile/usecases/get_profile_usecase.dart';
 import '../../../modules/profile/usecases/update_profile_usecase.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 class ProfileDetailsController with ChangeNotifier {
   Profile? _profileReceived;
@@ -223,10 +224,10 @@ class ProfileDetailsController with ChangeNotifier {
       id: _profileReceived?.id,
       name: nameController.text,
       legalName: legalNameController.text,
-      cnpj: AppFormatters.onlyNumber(cnpjController.text),
+      cnpj: digitsOnly(cnpjController.text),
       state: stateController.text,
       city: cityController.text,
-      zipCode: AppFormatters.onlyNumber(zipcodeController.text),
+      zipCode: digitsOnly(zipcodeController.text),
       street: streetController.text,
       number: numberController.text,
       neighborhood: neighborhoodController.text,

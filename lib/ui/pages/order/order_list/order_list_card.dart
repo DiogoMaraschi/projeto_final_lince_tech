@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/formatters/display_formatters.dart';
 import '../../../../entities/order/order_summary.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../formatters/app_formatters.dart';
+import '../../../formatters/input_formatters.dart';
 
 class OrderListCard extends StatelessWidget {
   const OrderListCard({
@@ -71,7 +72,7 @@ class OrderListCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      AppFormatters.formatMoney(orderSummary.total),
+                      DisplayFormatters.formatMoney(orderSummary.total),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,

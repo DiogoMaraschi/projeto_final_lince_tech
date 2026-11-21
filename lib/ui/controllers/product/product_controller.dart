@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/digits_only.dart';
 import '../../../entities/product.dart';
 import '../../../modules/imagePicker/usecases/capture_image_usecase.dart';
 import '../../../modules/product/usecases/create_product_usecase.dart';
 import '../../../modules/product/usecases/delete_product_usecase.dart';
 import '../../../modules/product/usecases/update_product_usecase.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 class ProductController with ChangeNotifier {
   Product? _productReceived;
@@ -85,7 +86,7 @@ class ProductController with ChangeNotifier {
   }
 
   double _parseMoney(String value) {
-    final digits = AppFormatters.onlyNumber(value);
+    final digits = digitsOnly(value);
     return int.parse(digits) / 100;
   }
 

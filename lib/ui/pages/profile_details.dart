@@ -9,7 +9,7 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/profile/profile_details_controller.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/not_empty_validator.dart';
 import '../widgets/address_form.dart';
@@ -42,7 +42,7 @@ class _ProfileDetailsPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _zipcodeFieldKey = GlobalKey<FormFieldState>();
 
-  final cnpjFormatter = AppFormatters.cnpj();
+  final cnpjFormatter = InputFormatters.cnpj();
 
   @override
   Widget build(BuildContext context) {

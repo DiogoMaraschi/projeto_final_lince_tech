@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../core/formatters/display_formatters.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/carrier/carrier_list_controller.dart';
 import '../../controllers/order/order_details_controller.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 Future<void> showCarrierModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
@@ -94,10 +95,10 @@ Future<void> showCarrierModal(BuildContext context) async {
                         subtitle: Row(
                           children: [
                             Text(
-                              '${AppFormatters.formatMoney(carrier.costPerKm)}/km',
+                              '${DisplayFormatters.formatMoney(carrier.costPerKm)}/km',
                             ),
                             Text(
-                              '${l10n.carrierMinimumShort} ${AppFormatters.formatMoney(carrier.minimumPrice)}',
+                              '${l10n.carrierMinimumShort} ${DisplayFormatters.formatMoney(carrier.minimumPrice)}',
                             ),
                           ],
                         ),

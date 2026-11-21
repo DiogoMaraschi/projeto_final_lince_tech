@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../../core/formatters/display_formatters.dart';
 import '../../entities/product.dart';
 import '../../l10n/app_localizations.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this._product, required this.onTap});
@@ -92,7 +93,7 @@ class ProductCard extends StatelessWidget {
 
                 //SALE PRICE
                 Text(
-                  AppFormatters.formatMoney(_product.salePrice),
+                  DisplayFormatters.formatMoney(_product.salePrice),
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,

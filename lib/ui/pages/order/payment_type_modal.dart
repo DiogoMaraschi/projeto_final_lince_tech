@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../core/formatters/display_formatters.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/order/payment_type.dart';
 import '../../controllers/order/order_details_controller.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 Future<void> showPaymentTypeModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
@@ -226,7 +227,7 @@ Future<void> showPaymentTypeModal(BuildContext context) async {
                                       title: Text(
                                         l10n.paymentInstallmentUnit(
                                           index.toString(),
-                                          AppFormatters.formatMoney(
+                                          DisplayFormatters.formatMoney(
                                             total / index,
                                           ),
                                         ),

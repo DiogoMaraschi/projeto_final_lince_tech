@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../app_colors.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import '../validators/cep_validator.dart';
 import '../validators/not_empty_validator.dart';
 import 'commom_label.dart';
@@ -34,7 +34,7 @@ class AddressForm extends StatelessWidget {
     required this.zipcodeFieldKey,
   });
 
-  final zipcodeFormatter = AppFormatters.zipcode();
+  final zipcodeFormatter = InputFormatters.zipcode();
 
   @override
   Widget build(BuildContext context) {

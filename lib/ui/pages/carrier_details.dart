@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/formatters/display_formatters.dart';
 import '../../entities/carrier.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../controllers/carrier/carrier_controller.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';
 import '../validators/not_empty_validator.dart';
@@ -154,7 +155,7 @@ class _CarrierDetailPage extends StatelessWidget {
                                                 l10n,
                                               ),
                                           inputFormatters: [
-                                            AppFormatters.money(),
+                                            InputFormatters.money(),
                                           ],
                                         ),
                                       ],
@@ -182,7 +183,7 @@ class _CarrierDetailPage extends StatelessWidget {
                                                 l10n,
                                               ),
                                           inputFormatters: [
-                                            AppFormatters.money(),
+                                            InputFormatters.money(),
                                           ],
                                         ),
                                       ],

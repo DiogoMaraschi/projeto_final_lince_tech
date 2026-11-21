@@ -8,7 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/product/product_controller.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import '../validators/not_empty_validator.dart';
 import '../validators/positive_money_validator.dart';
 import '../widgets/bottom_button.dart';
@@ -185,7 +185,7 @@ class _ProductDetailsState extends StatelessWidget {
                           ),
                           validator: (value) =>
                               validatePositiveMoney(value, l10n),
-                          inputFormatters: [AppFormatters.money()],
+                          inputFormatters: [InputFormatters.money()],
                         ),
                       ],
                     ),

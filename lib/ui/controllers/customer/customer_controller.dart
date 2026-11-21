@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/dependencies/injection.dart';
+import '../../../core/utils/digits_only.dart';
 import '../../../entities/customer/costumer.dart';
 import '../../../entities/customer/establishment_type.dart';
 import '../../../modules/address/usecases/get_address_by_zipcode.dart';
@@ -14,7 +15,7 @@ import '../../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../../modules/customer/usecases/get_all_customers_usecase.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../modules/customer/usecases/update_customer_usecase.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 class CustomerController with ChangeNotifier {
   final Customer? _customerReceived;
@@ -159,15 +160,15 @@ class CustomerController with ChangeNotifier {
     return Customer(
       id: _customerReceived?.id,
       name: nameController.text,
-      cnpj: AppFormatters.onlyNumber(cnpjController.text),
+      cnpj: digitsOnly(cnpjController.text),
       legalName: legalNameController.text,
       establishmentType: _establishmentType!,
       state: stateController.text,
       city: cityController.text,
-      zipCode: AppFormatters.onlyNumber(zipcodeController.text),
+      zipCode: digitsOnly(zipcodeController.text),
       street: streetController.text,
       number: numberController.text,
-      phoneNumber: AppFormatters.onlyNumber(phoneController.text),
+      phoneNumber: digitsOnly(phoneController.text),
       email: emailController.text,
       latitude: location.latitude,
       longitude: location.longitude,

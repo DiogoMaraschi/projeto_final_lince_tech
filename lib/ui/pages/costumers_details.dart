@@ -8,7 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../../main.dart';
 import '../app_colors.dart';
 import '../controllers/customer/customer_controller.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import '../validators/cnpj_validator.dart';
 import '../validators/email_validator.dart';
 import '../validators/not_empty_validator.dart';
@@ -48,8 +48,8 @@ class _CostumerDetailsPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _zipcodeFieldKey = GlobalKey<FormFieldState>();
 
-  final cnpjFormatter = AppFormatters.cnpj();
-  final phoneFormatter = AppFormatters.phone();
+  final cnpjFormatter = InputFormatters.cnpj();
+  final phoneFormatter = InputFormatters.phone();
 
   @override
   Widget build(BuildContext context) {

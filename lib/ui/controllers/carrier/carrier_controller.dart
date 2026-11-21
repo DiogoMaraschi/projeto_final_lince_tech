@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/digits_only.dart';
 import '../../../entities/carrier.dart';
 import '../../../modules/carrier/usecases/create_carrier_usecase.dart';
 import '../../../modules/carrier/usecases/delete_carrier_usecase.dart';
 import '../../../modules/carrier/usecases/update_carrier_usecase.dart';
 import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 class CarrierController with ChangeNotifier {
   final Carrier? _carrierReceived;
@@ -99,13 +100,13 @@ class CarrierController with ChangeNotifier {
       minimumPrice: _parseMoney(minimumPriceController.text),
       legalName: legalNameController.text,
       email: emailController.text,
-      cnpj: AppFormatters.onlyNumber(cnpjController.text),
-      phoneNumber: AppFormatters.onlyNumber(phoneController.text),
+      cnpj: digitsOnly(cnpjController.text),
+      phoneNumber: digitsOnly(phoneController.text),
     );
   }
 
   double _parseMoney(String value) {
-    final digits = AppFormatters.onlyNumber(value);
+    final digits = digitsOnly(value);
     return int.parse(digits) / 100;
   }
 

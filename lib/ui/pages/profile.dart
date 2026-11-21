@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../controllers/profile/profile_controller.dart';
-import '../formatters/app_formatters.dart';
+import '../formatters/input_formatters.dart';
 import 'profile_details.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -20,7 +20,7 @@ class ProfilePage extends StatelessWidget {
 class _ProfilePage extends StatelessWidget {
   _ProfilePage();
 
-  final cnpjFormatter = AppFormatters.cnpj();
+  final cnpjFormatter = InputFormatters.cnpj();
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/formatters/display_formatters.dart';
 import '../../../entities/product.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 
 class OrderItemCard extends StatelessWidget {
   const OrderItemCard({
@@ -184,7 +185,7 @@ class OrderItemCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      AppFormatters.formatMoney(subtotal),
+                      DisplayFormatters.formatMoney(subtotal),
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

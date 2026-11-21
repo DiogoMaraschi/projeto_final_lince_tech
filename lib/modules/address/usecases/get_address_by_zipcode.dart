@@ -1,5 +1,6 @@
+import '../../../core/utils/digits_only.dart';
 import '../../../entities/address.dart';
-import '../../../ui/formatters/app_formatters.dart';
+import '../../../ui/formatters/input_formatters.dart';
 import '../repository.dart';
 
 class GetAddressByZipcodeUsecase {
@@ -8,7 +9,7 @@ class GetAddressByZipcodeUsecase {
   GetAddressByZipcodeUsecase({required this.repository});
 
   Future<Address> call(String zipcode) {
-    final onlyDigitsZipcode = AppFormatters.onlyNumber(zipcode);
+    final onlyDigitsZipcode = digitsOnly(zipcode);
     return repository.getByZipcode(onlyDigitsZipcode);
   }
 }

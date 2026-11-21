@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/formatters/display_formatters.dart';
 import '../../../entities/carrier.dart';
 import '../../../entities/customer/costumer.dart';
 import '../../../entities/order/order_item.dart';
@@ -12,7 +13,7 @@ import '../../controllers/carrier/carrier_list_controller.dart';
 import '../../controllers/customer/customer_list_controller.dart';
 import '../../controllers/order/order_details_controller.dart';
 import '../../controllers/product/product_list_controller.dart';
-import '../../formatters/app_formatters.dart';
+import '../../formatters/input_formatters.dart';
 import '../../widgets/delete_button.dart';
 import 'carrier_modal.dart';
 import 'customer_modal.dart';
@@ -173,7 +174,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   children: [
                                     Text(customer.name),
                                     Text(
-                                      AppFormatters.formatCnpj(customer.cnpj),
+                                      DisplayFormatters.formatCnpj(customer.cnpj),
                                     ),
                                   ],
                                 );
@@ -357,10 +358,10 @@ class _OrderDetailsPage extends StatelessWidget {
                                     Row(
                                       children: [
                                         Text(
-                                          '${AppFormatters.formatMoney(carrier.costPerKm)}/km',
+                                          '${DisplayFormatters.formatMoney(carrier.costPerKm)}/km',
                                         ),
                                         Text(
-                                          '${l10n.carrierMinimumShort} ${AppFormatters.formatMoney(carrier.minimumPrice)}',
+                                          '${l10n.carrierMinimumShort} ${DisplayFormatters.formatMoney(carrier.minimumPrice)}',
                                         ),
                                       ],
                                     ),
@@ -531,10 +532,10 @@ class _OrderDetailsPage extends StatelessWidget {
                             : l10n.orderDeliveryCalculation(
                                 (controller.deliveryDistance! / 1000)
                                     .toStringAsFixed(2),
-                                AppFormatters.formatMoney(
+                              DisplayFormatters.formatMoney(
                                   controller.selectedCarrier!.costPerKm,
                                 ),
-                                AppFormatters.formatMoney(
+                              DisplayFormatters.formatMoney(
                                   controller.selectedCarrier!.minimumPrice,
                                 ),
                               );
@@ -553,7 +554,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  AppFormatters.formatMoney(
+                                  DisplayFormatters.formatMoney(
                                     controller.productsSubtotal,
                                   ),
                                   textAlign: TextAlign.end,
@@ -576,7 +577,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  AppFormatters.formatMoney(
+                                  DisplayFormatters.formatMoney(
                                     controller.totalDiscount,
                                   ),
                                   textAlign: TextAlign.end,
@@ -599,7 +600,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  AppFormatters.formatMoney(
+                                  DisplayFormatters.formatMoney(
                                     controller.deliveryValue,
                                   ),
                                   textAlign: TextAlign.end,
@@ -638,7 +639,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    AppFormatters.formatMoney(
+                                    DisplayFormatters.formatMoney(
                                       controller.orderTotal,
                                     ),
                                     textAlign: TextAlign.right,
@@ -759,7 +760,7 @@ class _OrderDetailsPage extends StatelessWidget {
                     children: [
                       Text(l10n.orderTotal),
                       Text(
-                        AppFormatters.formatMoney(
+                        DisplayFormatters.formatMoney(
                           context.watch<OrderDetailsController>().orderTotal,
                         ),
                         style: TextStyle(fontSize: 20, fontWeight: .w700),
