@@ -8,7 +8,7 @@ import '../../../../entities/product.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
 import '../../../controllers/order/order_list_controller.dart';
-import '../order_details.dart';
+import '../order_details/order_details.dart';
 import '../pdf/order_pdf_preview.dart';
 import 'order_list_card.dart';
 

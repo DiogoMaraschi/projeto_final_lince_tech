@@ -4,13 +4,10 @@
   "commonCancel": "Cancelar",
   "commonDelete": "Excluir",
   "commonEdit": "Editar",
-  "commonBack": "Voltar",
-  "commomName": "Nome",
   "commomPhone": "Telefone",
   "commomHintPhone": "(47)99900-5060",
   "commomEmail": "E-mail",
   "commomHintEmail": "seuemail@dominio.com",
-  "commomAdress": "Endereço",
   "commomAddImage": "Adicionar Imagem",
   "commomCnpj": "CNPJ",
   "commomHintCnpj": "Ex: 11.222.333/0001-81",
@@ -144,17 +141,9 @@
   "storeLocation": "Localização da loja",
   "customerLocation": "Localização do cliente",
   "deliveryDistance": "Distância da entrega: {distance} km",
-  "productCountSingular": "{count} produto",
-  "productCountPlural": "{count} produtos",
-  "customerTypeGym": "Academia",
-  "customerTypeSchool": "Escola",
-  "customerTypeOther": "Outro",
   "commonContact": "Contato: {value}",
   "productDiscount": "Desc.",
   "productSubtotal": "Subtotal",
-  "commonSearch": "Buscar",
-  "commonCnpj": "CNPJ",
-  "commonStore": "Local da loja",
   "paymentInstallmentUnit": "{count}x de {value}",
   "@orderPrice": {
     "placeholders": {
@@ -173,20 +162,6 @@
   "@deliveryDistance": {
     "placeholders": {
       "distance": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountSingular": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountPlural": {
-    "placeholders": {
-      "count": {
         "type": "String"
       }
     }
@@ -212,7 +187,6 @@
   "navOrders": "Pedidos",
   "navRecords": "Cadastros",
   "navStore": "Minha loja",
-  "orderSingleTitle": "Pedido",
   "orderNumber": "Pedido #{id}",
   "orderProductsCountSingular": "{count} produto",
   "orderProductsCountPlural": "{count} produtos",
@@ -249,9 +223,6 @@
   "moneyMustBePositive": "Informe um valor maior que zero",
   "carrierMinimumShort": "mín.",
   "orderDeliveryCalculation": "{distance} km × {rate}/km · mínimo {minimum}",
-  "@carrierMinimumShort": {
-    "placeholders": {}
-  },
   "@orderDeliveryCalculation": {
     "placeholders": {
       "distance": {

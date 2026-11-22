@@ -30,7 +30,6 @@ class _CarrierListPage extends StatelessWidget {
       builder: (context, state, child) {
         final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: Text(l10n.carrierListTitle)),
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
               : state.carriers.isEmpty

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/formatters/display_formatters.dart';
-import '../../../entities/product.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../formatters/input_formatters.dart';
+import '../../../../../core/formatters/display_formatters.dart';
+import '../../../../../entities/product.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 class OrderItemCard extends StatelessWidget {
   const OrderItemCard({

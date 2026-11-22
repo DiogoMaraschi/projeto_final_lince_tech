@@ -41,13 +41,6 @@ class ProfileController with ChangeNotifier {
     notifyListeners();
   }
 
-  String getFirstWord() {
-    final name = _profile?.name.trim() ?? '';
-
-    if (name.isEmpty) return '';
-
-    return name.substring(0, 1).toUpperCase();
-  }
   Future<void> loadProfile() async {
     try {
       _profile = await _getProfileUsecase();

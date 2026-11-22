@@ -24,12 +24,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonEdit => 'Edit';
 
   @override
-  String get commonBack => 'Back';
-
-  @override
-  String get commomName => 'Name';
-
-  @override
   String get commomPhone => 'Phone';
 
   @override
@@ -40,9 +34,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commomHintEmail => 'youremail@domain.com';
-
-  @override
-  String get commomAdress => 'Address';
 
   @override
   String get commomAddImage => 'Add Image';
@@ -453,25 +444,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String productCountSingular(String count) {
-    return '$count product';
-  }
-
-  @override
-  String productCountPlural(String count) {
-    return '$count products';
-  }
-
-  @override
-  String get customerTypeGym => 'Gym';
-
-  @override
-  String get customerTypeSchool => 'School';
-
-  @override
-  String get customerTypeOther => 'Other';
-
-  @override
   String commonContact(String value) {
     return 'Contact: $value';
   }
@@ -481,15 +453,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productSubtotal => 'Subtotal';
-
-  @override
-  String get commonSearch => 'Search';
-
-  @override
-  String get commonCnpj => 'CNPJ';
-
-  @override
-  String get commonStore => 'Store location';
 
   @override
   String paymentInstallmentUnit(String count, String value) {
@@ -507,9 +470,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navStore => 'My store';
-
-  @override
-  String get orderSingleTitle => 'Order';
 
   @override
   String orderNumber(String id) {

@@ -4,13 +4,10 @@
   "commonCancel": "Cancelar",
   "commonDelete": "Eliminar",
   "commonEdit": "Editar",
-  "commonBack": "Volver",
-  "commomName": "Nombre",
   "commomPhone": "Teléfono",
   "commomHintPhone": "(47) 99900-5060",
   "commomEmail": "Correo electrónico",
   "commomHintEmail": "tucorreo@dominio.com",
-  "commomAdress": "Dirección",
   "commomAddImage": "Agregar imagen",
   "commomCnpj": "CNPJ",
   "commomHintCnpj": "Ej.: 11.222.333/0001-81",
@@ -144,17 +141,9 @@
   "storeLocation": "Ubicación de la tienda",
   "customerLocation": "Ubicación del cliente",
   "deliveryDistance": "Distancia de entrega: {distance} km",
-  "productCountSingular": "{count} producto",
-  "productCountPlural": "{count} productos",
-  "customerTypeGym": "Gimnasio",
-  "customerTypeSchool": "Escuela",
-  "customerTypeOther": "Otro",
   "commonContact": "Contacto: {value}",
   "productDiscount": "Desc.",
   "productSubtotal": "Subtotal",
-  "commonSearch": "Buscar",
-  "commonCnpj": "CNPJ",
-  "commonStore": "Ubicación de la tienda",
   "paymentInstallmentUnit": "{count}x de {value}",
   "@orderPrice": {
     "placeholders": {
@@ -173,20 +162,6 @@
   "@deliveryDistance": {
     "placeholders": {
       "distance": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountSingular": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountPlural": {
-    "placeholders": {
-      "count": {
         "type": "String"
       }
     }
@@ -212,7 +187,6 @@
   "navOrders": "Pedidos",
   "navRecords": "Registros",
   "navStore": "Mi tienda",
-  "orderSingleTitle": "Pedido",
   "orderNumber": "Pedido n.º {id}",
   "orderProductsCountSingular": "{count} producto",
   "orderProductsCountPlural": "{count} productos",
@@ -249,9 +223,6 @@
   "moneyMustBePositive": "Ingresa un valor mayor que cero",
   "carrierMinimumShort": "mín.",
   "orderDeliveryCalculation": "{distance} km × {rate}/km · mínimo {minimum}",
-  "@carrierMinimumShort": {
-    "placeholders": {}
-  },
   "@orderDeliveryCalculation": {
     "placeholders": {
       "distance": {

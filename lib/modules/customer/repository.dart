@@ -43,15 +43,29 @@ class CustomerRepositoryImpl implements CustomerRepository {
   }
 
   @override
-  Future<int> update(Customer customer) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<int> update(Customer customer) async {
+    final customerModel = CustomerModel.fromEntity(customer);
+
+    final conn = await databaseHelper.database;
+
+    return conn.update(
+      tableName,
+      customerModel.toMap(),
+      where: 'id = ?',
+      whereArgs: [customer.id],
+    );
   }
 
   @override
-  Future<int> softDelete(int id) {
-    // TODO: implement softDelete
-    throw UnimplementedError();
+  Future<int> softDelete(int id) async {
+    final conn = await databaseHelper.database;
+
+    return conn.update(
+      tableName,
+      {'deleted_at': DateTime.now().toIso8601String()},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   @override

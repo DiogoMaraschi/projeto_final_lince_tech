@@ -24,12 +24,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get commonEdit => 'Editar';
 
   @override
-  String get commonBack => 'Volver';
-
-  @override
-  String get commomName => 'Nombre';
-
-  @override
   String get commomPhone => 'Teléfono';
 
   @override
@@ -40,9 +34,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get commomHintEmail => 'tucorreo@dominio.com';
-
-  @override
-  String get commomAdress => 'Dirección';
 
   @override
   String get commomAddImage => 'Agregar imagen';
@@ -455,25 +446,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String productCountSingular(String count) {
-    return '$count producto';
-  }
-
-  @override
-  String productCountPlural(String count) {
-    return '$count productos';
-  }
-
-  @override
-  String get customerTypeGym => 'Gimnasio';
-
-  @override
-  String get customerTypeSchool => 'Escuela';
-
-  @override
-  String get customerTypeOther => 'Otro';
-
-  @override
   String commonContact(String value) {
     return 'Contacto: $value';
   }
@@ -483,15 +455,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get productSubtotal => 'Subtotal';
-
-  @override
-  String get commonSearch => 'Buscar';
-
-  @override
-  String get commonCnpj => 'CNPJ';
-
-  @override
-  String get commonStore => 'Ubicación de la tienda';
 
   @override
   String paymentInstallmentUnit(String count, String value) {
@@ -509,9 +472,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get navStore => 'Mi tienda';
-
-  @override
-  String get orderSingleTitle => 'Pedido';
 
   @override
   String orderNumber(String id) {

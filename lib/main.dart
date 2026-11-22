@@ -4,18 +4,7 @@ import 'package:provider/provider.dart';
 import 'core/dependencies/injection.dart';
 import 'ui/app_theme.dart';
 import 'ui/controllers/profile/profile_controller.dart';
-import 'ui/pages/carrier_details.dart';
-import 'ui/pages/carrier_list.dart';
-import 'ui/pages/costumer_list.dart';
 import 'ui/pages/main_navigation_page.dart';
-import 'ui/pages/order/order_details.dart';
-import 'ui/pages/product_details.dart';
-import 'ui/pages/product_list.dart';
-import 'ui/pages/profile.dart';
-import 'ui/pages/profile_details.dart';
-import 'ui/widgets/carrier_card.dart';
-import 'ui/pages/order/order_item_card.dart';
-import 'ui/widgets/product_card.dart';
 
 late final Injection injection;
 
@@ -59,47 +48,6 @@ class MyApp extends StatelessWidget {
       themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
 
       home: MainNavigationPage(),
-    );
-  }
-}
-
-class _initialPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => CustomerListPage()),
-            ),
-            child: Text(AppLocalizations.of(context)!.navCustomers),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => CarrierListPage()),
-            ),
-            child: Text(AppLocalizations.of(context)!.navCarriers),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => ProductListPage()),
-            ),
-            child: Text(AppLocalizations.of(context)!.navProducts),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => ProfilePage()),
-            ),
-            child: Text(AppLocalizations.of(context)!.navProfile),
-          ),
-        ],
-      ),
     );
   }
 }

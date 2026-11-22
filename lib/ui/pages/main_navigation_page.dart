@@ -3,11 +3,12 @@ import '../../l10n/app_localizations.dart';
 
 import 'carrier_list.dart';
 import 'costumer_list.dart';
-import 'order/order_details.dart';
+import 'order/order_details/order_details.dart';
 import 'order/order_list/order_list.dart';
 import 'product_list.dart';
 import 'profile.dart';
 import 'profile_details.dart';
+import 'records_page.dart';
 
 class MainNavigationPage extends StatefulWidget {
   const MainNavigationPage({super.key});
@@ -20,9 +21,9 @@ class _MainNavigationPage extends State<MainNavigationPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    ProductListPage(),
+    RecordsPage(),
     OrderListPage(),
-    CarrierListPage(),
+    RecordsPage(),
     ProfilePage(),
   ];
 

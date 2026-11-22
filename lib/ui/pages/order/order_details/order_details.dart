@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/formatters/display_formatters.dart';
-import '../../../entities/carrier.dart';
-import '../../../entities/customer/costumer.dart';
-import '../../../entities/order/order_item.dart';
-import '../../../entities/order/payment_type.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../../main.dart';
-import '../../controllers/carrier/carrier_list_controller.dart';
-import '../../controllers/customer/customer_list_controller.dart';
-import '../../controllers/order/order_details_controller.dart';
-import '../../controllers/product/product_list_controller.dart';
-import '../../formatters/input_formatters.dart';
-import '../../widgets/delete_button.dart';
-import 'carrier_modal.dart';
-import 'customer_modal.dart';
-import 'delivery_card.dart';
-import 'order_item_card.dart';
-import 'payment_type_modal.dart';
-import 'product_modal.dart';
+import '../../../../core/formatters/display_formatters.dart';
+import '../../../../entities/carrier.dart';
+import '../../../../entities/customer/costumer.dart';
+import '../../../../entities/order/order_item.dart';
+import '../../../../entities/order/payment_type.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../main.dart';
+import '../../../controllers/carrier/carrier_list_controller.dart';
+import '../../../controllers/customer/customer_list_controller.dart';
+import '../../../controllers/order/order_details_controller.dart';
+import '../../../controllers/product/product_list_controller.dart';
+import 'cards/delivery_card.dart';
+import 'cards/order_item_card.dart';
+import 'modal/carrier_modal.dart';
+import 'modal/customer_modal.dart';
+import 'modal/payment_type_modal.dart';
+import 'modal/product_modal.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   const OrderDetailsPage({super.key, this.orderId});
@@ -174,7 +172,9 @@ class _OrderDetailsPage extends StatelessWidget {
                                   children: [
                                     Text(customer.name),
                                     Text(
-                                      DisplayFormatters.formatCnpj(customer.cnpj),
+                                      DisplayFormatters.formatCnpj(
+                                        customer.cnpj,
+                                      ),
                                     ),
                                   ],
                                 );
@@ -532,10 +532,10 @@ class _OrderDetailsPage extends StatelessWidget {
                             : l10n.orderDeliveryCalculation(
                                 (controller.deliveryDistance! / 1000)
                                     .toStringAsFixed(2),
-                              DisplayFormatters.formatMoney(
+                                DisplayFormatters.formatMoney(
                                   controller.selectedCarrier!.costPerKm,
                                 ),
-                              DisplayFormatters.formatMoney(
+                                DisplayFormatters.formatMoney(
                                   controller.selectedCarrier!.minimumPrice,
                                 ),
                               );

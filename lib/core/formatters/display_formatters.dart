@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import '../utils/digits_only.dart';
 
 class DisplayFormatters {
-
   DisplayFormatters._();
 
   static String formatCnpj(String? value) {
@@ -43,5 +42,23 @@ class DisplayFormatters {
     return DateFormat('dd/MM/yyyy HH:mm').format(date);
   }
 
+  static String formatPhone(String? value) {
+    if (value == null || value.trim().isEmpty) return '';
 
+    final digits = digitsOnly(value);
+
+    if (digits.length == 10) {
+      return '(${digits.substring(0, 2)}) '
+          '${digits.substring(2, 6)}-'
+          '${digits.substring(6)}';
+    }
+
+    if (digits.length == 11) {
+      return '(${digits.substring(0, 2)}) '
+          '${digits.substring(2, 7)}-'
+          '${digits.substring(7)}';
+    }
+
+    return value;
+  }
 }

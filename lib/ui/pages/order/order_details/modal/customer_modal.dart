@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../../core/formatters/display_formatters.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../../../l10n/app_localizations.dart';
+import '../../../../controllers/customer/customer_list_controller.dart';
+import '../../../../controllers/order/order_details_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/carrier/carrier_list_controller.dart';
-import '../../controllers/order/order_details_controller.dart';
-import '../../formatters/input_formatters.dart';
-
-Future<void> showCarrierModal(BuildContext context) async {
+Future<void> showCustomerModal(BuildContext context) async {
   final colors = Theme.of(context).colorScheme;
   final height = MediaQuery.sizeOf(context).height;
 
-  final carrierController = context.read<CarrierListController>();
+  final customerController = context.read<CustomerListController>();
 
-  final carrierFuture = carrierController.getAllCarriers();
+  final customersFuture = customerController.getAllCustomers();
 
-  final carrierId = await showModalBottomSheet<int>(
+  final customerId = await showModalBottomSheet<int>(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
@@ -33,7 +30,7 @@ Future<void> showCarrierModal(BuildContext context) async {
                 children: [
                   Expanded(
                     child: Text(
-                      l10n.orderSelectCarrier,
+                      l10n.orderSelectCustomer,
                       style: Theme.of(modalContext).textTheme.titleLarge,
                     ),
                   ),
@@ -49,7 +46,7 @@ Future<void> showCarrierModal(BuildContext context) async {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: l10n.orderSearchCarrier,
+                  hintText: l10n.orderSearchCustomer,
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: colors.surfaceContainer,
@@ -65,46 +62,37 @@ Future<void> showCarrierModal(BuildContext context) async {
 
             Expanded(
               child: FutureBuilder<void>(
-                future: carrierFuture,
+                future: customersFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
                   if (snapshot.hasError) {
-                    return Center(child: Text(l10n.orderCarriersLoadError));
+                    return Center(child: Text(l10n.orderCustomersLoadError));
                   }
 
-                  final carriers = carrierController.carriers;
+                  final customers = customerController.customers;
 
-                  if (carriers.isEmpty) {
-                    return Center(child: Text(l10n.orderNoCarriers));
+                  if (customers.isEmpty) {
+                    return Center(child: Text(l10n.orderNoCustomers));
                   }
 
                   return ListView.builder(
                     padding: const EdgeInsets.all(16),
-                    itemCount: carriers.length,
+                    itemCount: customers.length,
                     itemBuilder: (context, index) {
-                      final carrier = carriers[index];
+                      final customer = customers[index];
 
                       return ListTile(
                         leading: const CircleAvatar(
-                          child: Icon(Icons.local_shipping_outlined),
+                          child: Icon(Icons.storefront_outlined),
                         ),
-                        title: Text(carrier.name),
-                        subtitle: Row(
-                          children: [
-                            Text(
-                              '${DisplayFormatters.formatMoney(carrier.costPerKm)}/km',
-                            ),
-                            Text(
-                              '${l10n.carrierMinimumShort} ${DisplayFormatters.formatMoney(carrier.minimumPrice)}',
-                            ),
-                          ],
-                        ),
+                        title: Text(customer.name),
+                        subtitle: Text('CNPJ: ${customer.cnpj}'),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () {
-                          Navigator.pop(modalContext, carrier.id);
+                          Navigator.pop(modalContext, customer.id);
                         },
                       );
                     },
@@ -118,7 +106,7 @@ Future<void> showCarrierModal(BuildContext context) async {
     },
   );
 
-  if (!context.mounted || carrierId == null) return;
+  if (!context.mounted || customerId == null) return;
 
-  await context.read<OrderDetailsController>().selectCarrier(carrierId);
+  await context.read<OrderDetailsController>().selectCustomer(customerId);
 }

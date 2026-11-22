@@ -130,18 +130,6 @@ abstract class AppLocalizations {
   /// **'Editar'**
   String get commonEdit;
 
-  /// No description provided for @commonBack.
-  ///
-  /// In pt, this message translates to:
-  /// **'Voltar'**
-  String get commonBack;
-
-  /// No description provided for @commomName.
-  ///
-  /// In pt, this message translates to:
-  /// **'Nome'**
-  String get commomName;
-
   /// No description provided for @commomPhone.
   ///
   /// In pt, this message translates to:
@@ -165,12 +153,6 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'seuemail@dominio.com'**
   String get commomHintEmail;
-
-  /// No description provided for @commomAdress.
-  ///
-  /// In pt, this message translates to:
-  /// **'Endereço'**
-  String get commomAdress;
 
   /// No description provided for @commomAddImage.
   ///
@@ -970,36 +952,6 @@ abstract class AppLocalizations {
   /// **'Distância da entrega: {distance} km'**
   String deliveryDistance(String distance);
 
-  /// No description provided for @productCountSingular.
-  ///
-  /// In pt, this message translates to:
-  /// **'{count} produto'**
-  String productCountSingular(String count);
-
-  /// No description provided for @productCountPlural.
-  ///
-  /// In pt, this message translates to:
-  /// **'{count} produtos'**
-  String productCountPlural(String count);
-
-  /// No description provided for @customerTypeGym.
-  ///
-  /// In pt, this message translates to:
-  /// **'Academia'**
-  String get customerTypeGym;
-
-  /// No description provided for @customerTypeSchool.
-  ///
-  /// In pt, this message translates to:
-  /// **'Escola'**
-  String get customerTypeSchool;
-
-  /// No description provided for @customerTypeOther.
-  ///
-  /// In pt, this message translates to:
-  /// **'Outro'**
-  String get customerTypeOther;
-
   /// No description provided for @commonContact.
   ///
   /// In pt, this message translates to:
@@ -1017,24 +969,6 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Subtotal'**
   String get productSubtotal;
-
-  /// No description provided for @commonSearch.
-  ///
-  /// In pt, this message translates to:
-  /// **'Buscar'**
-  String get commonSearch;
-
-  /// No description provided for @commonCnpj.
-  ///
-  /// In pt, this message translates to:
-  /// **'CNPJ'**
-  String get commonCnpj;
-
-  /// No description provided for @commonStore.
-  ///
-  /// In pt, this message translates to:
-  /// **'Local da loja'**
-  String get commonStore;
 
   /// No description provided for @paymentInstallmentUnit.
   ///
@@ -1065,12 +999,6 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Minha loja'**
   String get navStore;
-
-  /// No description provided for @orderSingleTitle.
-  ///
-  /// In pt, this message translates to:
-  /// **'Pedido'**
-  String get orderSingleTitle;
 
   /// No description provided for @orderNumber.
   ///

@@ -73,7 +73,7 @@ class _ProfilePage extends StatelessWidget {
                                 ),
                               )
                             : Text(
-                                state.getFirstWord(),
+                                profile!.name[0].toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 50,
                                   fontWeight: FontWeight.w500,

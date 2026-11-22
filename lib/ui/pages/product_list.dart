@@ -30,7 +30,6 @@ class _ProductListPage extends StatelessWidget {
       builder: (context, state, child) {
         final l10n = AppLocalizations.of(context)!;
         return Scaffold(
-          appBar: AppBar(title: Text(l10n.productListTitle)),
           body: state.products.isEmpty
               ? Center(child: Text(l10n.productListEmpty))
               : ListView.builder(

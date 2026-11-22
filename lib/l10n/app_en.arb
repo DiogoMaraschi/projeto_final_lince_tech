@@ -4,13 +4,10 @@
   "commonCancel": "Cancel",
   "commonDelete": "Delete",
   "commonEdit": "Edit",
-  "commonBack": "Back",
-  "commomName": "Name",
   "commomPhone": "Phone",
   "commomHintPhone": "(47) 99900-5060",
   "commomEmail": "Email",
   "commomHintEmail": "youremail@domain.com",
-  "commomAdress": "Address",
   "commomAddImage": "Add Image",
   "commomCnpj": "CNPJ",
   "commomHintCnpj": "E.g.: 11.222.333/0001-81",
@@ -144,17 +141,9 @@
   "storeLocation": "Store location",
   "customerLocation": "Customer location",
   "deliveryDistance": "Delivery distance: {distance} km",
-  "productCountSingular": "{count} product",
-  "productCountPlural": "{count} products",
-  "customerTypeGym": "Gym",
-  "customerTypeSchool": "School",
-  "customerTypeOther": "Other",
   "commonContact": "Contact: {value}",
   "productDiscount": "Discount",
   "productSubtotal": "Subtotal",
-  "commonSearch": "Search",
-  "commonCnpj": "CNPJ",
-  "commonStore": "Store location",
   "paymentInstallmentUnit": "{count}x of {value}",
   "@orderPrice": {
     "placeholders": {
@@ -173,20 +162,6 @@
   "@deliveryDistance": {
     "placeholders": {
       "distance": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountSingular": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
-  "@productCountPlural": {
-    "placeholders": {
-      "count": {
         "type": "String"
       }
     }
@@ -212,7 +187,6 @@
   "navOrders": "Orders",
   "navRecords": "Records",
   "navStore": "My store",
-  "orderSingleTitle": "Order",
   "orderNumber": "Order #{id}",
   "orderProductsCountSingular": "{count} product",
   "orderProductsCountPlural": "{count} products",
@@ -249,9 +223,6 @@
   "moneyMustBePositive": "Enter an amount greater than zero",
   "carrierMinimumShort": "min.",
   "orderDeliveryCalculation": "{distance} km × {rate}/km · minimum {minimum}",
-  "@carrierMinimumShort": {
-    "placeholders": {}
-  },
   "@orderDeliveryCalculation": {
     "placeholders": {
       "distance": {
