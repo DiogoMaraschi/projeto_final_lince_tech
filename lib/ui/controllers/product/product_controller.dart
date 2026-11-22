@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/digits_only.dart';
 import '../../../entities/product.dart';
 import '../../../modules/imagePicker/usecases/capture_image_usecase.dart';
+import '../../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 import '../../../modules/product/usecases/create_product_usecase.dart';
 import '../../../modules/product/usecases/delete_product_usecase.dart';
 import '../../../modules/product/usecases/update_product_usecase.dart';
@@ -13,12 +14,14 @@ class ProductController with ChangeNotifier {
   final CaptureImageUsecase _captureImageUsecase;
   final UpdateProductUsecase _updateProductUsecase;
   final DeleteProductUsecase _deleteProductUsecase;
+  final PickImageFromGaleryUsecase _pickImageFromGaleryUsecase;
 
   ProductController({
     required this._createProductUsecase,
     required this._captureImageUsecase,
     required this._updateProductUsecase,
     required this._deleteProductUsecase,
+    required this._pickImageFromGaleryUsecase,
     Product? product,
   }) : _productReceived = product {
     if (product != null) {
@@ -51,6 +54,15 @@ class ProductController with ChangeNotifier {
 
   Future<void> captureImage() async {
     final path = await _captureImageUsecase();
+
+    if (path != null) {
+      _imagePath = path;
+      notifyListeners();
+    }
+  }
+
+  Future<void> pickImageFromGalery() async {
+    final path = await _pickImageFromGaleryUsecase();
 
     if (path != null) {
       _imagePath = path;

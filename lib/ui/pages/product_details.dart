@@ -28,6 +28,7 @@ class ProductDetailsPage extends StatelessWidget {
         captureImageUsecase: injection.captureImageUsecase,
         updateProductUsecase: injection.updateProductUsecase,
         deleteProductUsecase: injection.deleteProductUsecase,
+        pickImageFromGaleryUsecase: injection.pickImageFromGaleryUsecase,
         product: product,
       ),
       child: _ProductDetailsState(),
@@ -45,6 +46,7 @@ class _ProductDetailsState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
 
     return Consumer<ProductController>(
       builder: (context, state, child) {
@@ -78,12 +80,14 @@ class _ProductDetailsState extends StatelessWidget {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: state.captureImage,
+                                onTap: () async {
+                                  await showImageSourceOptions(context, state);
+                                },
                                 child: Container(
                                   width: 110,
                                   height: 110,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFEEF2F6),
+                                  decoration:  BoxDecoration(
+                                    color: colors.surfaceContainer,
                                     shape: BoxShape.circle,
                                   ),
                                   child: state.imagePath != null
@@ -106,7 +110,9 @@ class _ProductDetailsState extends StatelessWidget {
                               const SizedBox(height: 8),
 
                               GestureDetector(
-                                onTap: state.captureImage,
+                                onTap: () async {
+                                  await showImageSourceOptions(context, state);
+                                },
                                 child: Text(
                                   l10n.commomAddImage,
                                   style: TextStyle(
@@ -255,4 +261,45 @@ class _ProductDetailsState extends StatelessWidget {
       },
     );
   }
+
+  Future<void> showImageSourceOptions(
+    BuildContext context,
+    ProductController controller,
+  ) async {
+
+    final option = await showModalBottomSheet<_ImageSourceOption>(
+      context: context,
+      builder: (sheetContext) {
+        final l10n = AppLocalizations.of(context)!;
+        return SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined),
+              title: Text(l10n.imageSourceTakePhoto),
+              onTap: () =>
+                  Navigator.pop(sheetContext, _ImageSourceOption.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: Text(l10n.imageSourceChooseGallery),
+              onTap: () =>
+                  Navigator.pop(sheetContext, _ImageSourceOption.gallery),
+            ),
+          ],
+        ),
+      );
+      },
+    );
+
+    if (!context.mounted || option == null) return;
+
+    if (option == _ImageSourceOption.camera) {
+      await controller.captureImage();
+    } else {
+      await controller.pickImageFromGalery();
+    }
+  }
 }
+
+enum _ImageSourceOption { camera, gallery }

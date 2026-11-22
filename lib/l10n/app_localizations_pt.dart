@@ -51,7 +51,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get commomCnpj => 'CNPJ';
 
   @override
-  String get commomHintCnpj => 'Ex: 34.562.785/0001-40';
+  String get commomHintCnpj => 'Ex: 11.222.333/0001-81';
 
   @override
   String get productTitle => 'Cadastro de Produto';
@@ -66,7 +66,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get productBarcode => 'Código de Barras';
 
   @override
-  String get productHintBarcode => '984651654892318974';
+  String get productHintBarcode => '7891234567895';
 
   @override
   String get productDescription => 'Descrição';
@@ -99,13 +99,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get carrierCostPerKm => 'Custo por km';
 
   @override
-  String get carrierHintCostPerKm => 'Ex: 7.20';
+  String get carrierHintCostPerKm => 'Ex: 7,20';
 
   @override
   String get carrierMinimumPrice => 'Preço mínimo';
 
   @override
-  String get carrierHintMinimumPrice => 'Ex: 2.30';
+  String get carrierHintMinimumPrice => 'Ex: 2,30';
 
   @override
   String get addressTitle => 'Endereço';
@@ -258,13 +258,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get customerName => 'Nome do cliente';
 
   @override
-  String get customerHintName => 'Ex.: Academia Central';
+  String get customerHintName => 'Ex: Academia Central';
 
   @override
   String get customerLegalName => 'Razão social';
 
   @override
-  String get customerHintLegalName => 'Ex.: Academia Central Ltda.';
+  String get customerHintLegalName => 'Ex: Academia Central Ltda.';
 
   @override
   String get establishmentType => 'Tipo de estabelecimento';
@@ -273,7 +273,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get productPrice => 'Preço';
 
   @override
-  String get productHintPrice => 'Ex.: 49,90';
+  String get productHintPrice => 'Ex: 49,90';
 
   @override
   String get orderListTitle => 'Pedidos';
@@ -572,4 +572,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String productEAN(String value) {
     return 'EAN: $value';
   }
+
+  @override
+  String get imageSourceTakePhoto => 'Tirar foto';
+
+  @override
+  String get imageSourceChooseGallery => 'Escolher da galeria';
 }

@@ -51,7 +51,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get commomCnpj => 'CNPJ';
 
   @override
-  String get commomHintCnpj => 'Ej.: 34.562.785/0001-40';
+  String get commomHintCnpj => 'Ej.: 11.222.333/0001-81';
 
   @override
   String get productTitle => 'Registro de producto';
@@ -66,7 +66,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get productBarcode => 'Código de barras';
 
   @override
-  String get productHintBarcode => '984651654892318974';
+  String get productHintBarcode => '7891234567895';
 
   @override
   String get productDescription => 'Descripción';
@@ -99,13 +99,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get carrierCostPerKm => 'Costo por km';
 
   @override
-  String get carrierHintCostPerKm => 'Ej.: 7.20';
+  String get carrierHintCostPerKm => 'Ej.: 7,20';
 
   @override
   String get carrierMinimumPrice => 'Precio mínimo';
 
   @override
-  String get carrierHintMinimumPrice => 'Ej.: 2.30';
+  String get carrierHintMinimumPrice => 'Ej.: 2,30';
 
   @override
   String get addressTitle => 'Dirección';
@@ -335,7 +335,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get orderSelectPayment => 'Seleccionar forma de pago';
 
   @override
-  String get paymentInFull => 'Al contado';
+  String get paymentInFull => 'Pago único';
 
   @override
   String get paymentInstallments => 'A plazos';
@@ -574,4 +574,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String productEAN(String value) {
     return 'EAN: $value';
   }
+
+  @override
+  String get imageSourceTakePhoto => 'Tomar una foto';
+
+  @override
+  String get imageSourceChooseGallery => 'Elegir una imagen de la galería';
 }

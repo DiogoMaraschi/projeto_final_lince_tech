@@ -51,7 +51,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commomCnpj => 'CNPJ';
 
   @override
-  String get commomHintCnpj => 'Ex: 34.562.785/0001-40';
+  String get commomHintCnpj => 'E.g.: 11.222.333/0001-81';
 
   @override
   String get productTitle => 'Product Registration';
@@ -60,13 +60,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productName => 'Product Name';
 
   @override
-  String get productHintName => 'Ex: Soccer Ball';
+  String get productHintName => 'E.g.: Soccer Ball';
 
   @override
   String get productBarcode => 'Barcode';
 
   @override
-  String get productHintBarcode => '984651654892318974';
+  String get productHintBarcode => '7891234567895';
 
   @override
   String get productDescription => 'Description';
@@ -78,7 +78,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productBrand => 'Brand';
 
   @override
-  String get productHintBrand => 'Ex: Nike';
+  String get productHintBrand => 'E.g.: Nike';
 
   @override
   String get carrierTitle => 'Carrier Registration';
@@ -87,70 +87,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String get carrierName => 'Carrier Name';
 
   @override
-  String get carrierHintName => 'Ex: Boa Vista Transport';
+  String get carrierHintName => 'E.g.: Boa Vista Transport';
 
   @override
   String get carrierLegalName => 'Legal Name';
 
   @override
-  String get carrierHintLegalName => 'Ex: Boa Vista Transport Ltd.';
+  String get carrierHintLegalName => 'E.g.: Boa Vista Transport Ltd.';
 
   @override
   String get carrierCostPerKm => 'Cost per km';
 
   @override
-  String get carrierHintCostPerKm => 'Ex: 7.20';
+  String get carrierHintCostPerKm => 'E.g.: 7,20';
 
   @override
   String get carrierMinimumPrice => 'Minimum price';
 
   @override
-  String get carrierHintMinimumPrice => 'Ex: 2.30';
+  String get carrierHintMinimumPrice => 'E.g.: 2,30';
 
   @override
   String get addressTitle => 'Address';
 
   @override
-  String get addressCep => 'ZIP Code';
+  String get addressCep => 'Postal Code';
 
   @override
-  String get addressHintCep => 'Ex: 89110-001';
+  String get addressHintCep => 'E.g.: 89110-001';
 
   @override
   String get addressState => 'State';
 
   @override
-  String get addressHintState => 'Ex: SC';
+  String get addressHintState => 'E.g.: SC';
 
   @override
   String get addressCity => 'City';
 
   @override
-  String get addressHintCity => 'Ex: Gaspar';
+  String get addressHintCity => 'E.g.: Gaspar';
 
   @override
   String get addressStreet => 'Street';
 
   @override
-  String get addressHintStreet => 'Ex: Gisele Brick Maraschi Street';
+  String get addressHintStreet => 'E.g.: Gisele Brick Maraschi Street';
 
   @override
   String get addressNumber => 'Number';
 
   @override
-  String get addressHintNumber => 'Ex: 20';
+  String get addressHintNumber => 'E.g.: 20';
 
   @override
   String get addressNeighborhood => 'Neighborhood';
 
   @override
-  String get addressHintNeighborhood => 'Ex: Santa Terezinha';
+  String get addressHintNeighborhood => 'E.g.: Santa Terezinha';
 
   @override
   String get addressComplement => 'Complement';
 
   @override
-  String get addressHintComplement => 'Ex: Suite 01';
+  String get addressHintComplement => 'E.g.: Suite 01';
 
   @override
   String get costumerCategoryGym => 'Gym';
@@ -273,7 +273,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productPrice => 'Price';
 
   @override
-  String get productHintPrice => 'E.g.: 49.90';
+  String get productHintPrice => 'E.g.: 49,90';
 
   @override
   String get orderListTitle => 'Orders';
@@ -334,7 +334,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderSelectPayment => 'Select payment method';
 
   @override
-  String get paymentInFull => 'In full';
+  String get paymentInFull => 'Paid in full';
 
   @override
   String get paymentInstallments => 'Installments';
@@ -572,4 +572,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String productEAN(String value) {
     return 'EAN: $value';
   }
+
+  @override
+  String get imageSourceTakePhoto => 'Take a photo';
+
+  @override
+  String get imageSourceChooseGallery => 'Choose from the gallery';
 }

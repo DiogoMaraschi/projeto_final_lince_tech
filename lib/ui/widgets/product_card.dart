@@ -30,12 +30,14 @@ class ProductCard extends StatelessWidget {
               Container(
                 width: 74,
                 height: 74,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: const Color(0xFFEEF3F7),
                   borderRadius: BorderRadius.circular(16),
+
                 ),
                 child: _product.imagePath != null
-                    ? Image.file(File(_product.imagePath!))
+                    ? Image.file(File(_product.imagePath!),fit: BoxFit.cover,)
                     : Icon(
                         Icons.inventory_2_outlined,
                         size: 36,

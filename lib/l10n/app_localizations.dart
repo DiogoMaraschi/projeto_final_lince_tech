@@ -187,7 +187,7 @@ abstract class AppLocalizations {
   /// No description provided for @commomHintCnpj.
   ///
   /// In pt, this message translates to:
-  /// **'Ex: 34.562.785/0001-40'**
+  /// **'Ex: 11.222.333/0001-81'**
   String get commomHintCnpj;
 
   /// No description provided for @productTitle.
@@ -217,7 +217,7 @@ abstract class AppLocalizations {
   /// No description provided for @productHintBarcode.
   ///
   /// In pt, this message translates to:
-  /// **'984651654892318974'**
+  /// **'7891234567895'**
   String get productHintBarcode;
 
   /// No description provided for @productDescription.
@@ -283,7 +283,7 @@ abstract class AppLocalizations {
   /// No description provided for @carrierHintCostPerKm.
   ///
   /// In pt, this message translates to:
-  /// **'Ex: 7.20'**
+  /// **'Ex: 7,20'**
   String get carrierHintCostPerKm;
 
   /// No description provided for @carrierMinimumPrice.
@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @carrierHintMinimumPrice.
   ///
   /// In pt, this message translates to:
-  /// **'Ex: 2.30'**
+  /// **'Ex: 2,30'**
   String get carrierHintMinimumPrice;
 
   /// No description provided for @addressTitle.
@@ -595,7 +595,7 @@ abstract class AppLocalizations {
   /// No description provided for @customerHintName.
   ///
   /// In pt, this message translates to:
-  /// **'Ex.: Academia Central'**
+  /// **'Ex: Academia Central'**
   String get customerHintName;
 
   /// No description provided for @customerLegalName.
@@ -607,7 +607,7 @@ abstract class AppLocalizations {
   /// No description provided for @customerHintLegalName.
   ///
   /// In pt, this message translates to:
-  /// **'Ex.: Academia Central Ltda.'**
+  /// **'Ex: Academia Central Ltda.'**
   String get customerHintLegalName;
 
   /// No description provided for @establishmentType.
@@ -625,7 +625,7 @@ abstract class AppLocalizations {
   /// No description provided for @productHintPrice.
   ///
   /// In pt, this message translates to:
-  /// **'Ex.: 49,90'**
+  /// **'Ex: 49,90'**
   String get productHintPrice;
 
   /// No description provided for @orderListTitle.
@@ -1167,6 +1167,18 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'EAN: {value}'**
   String productEAN(String value);
+
+  /// No description provided for @imageSourceTakePhoto.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tirar foto'**
+  String get imageSourceTakePhoto;
+
+  /// No description provided for @imageSourceChooseGallery.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escolher da galeria'**
+  String get imageSourceChooseGallery;
 }
 
 class _AppLocalizationsDelegate
