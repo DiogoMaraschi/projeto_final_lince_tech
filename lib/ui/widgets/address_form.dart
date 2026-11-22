@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../app_colors.dart';
+import '../app_theme.dart';
 import '../formatters/input_formatters.dart';
 import '../validators/cep_validator.dart';
 import '../validators/not_empty_validator.dart';
-import 'commom_label.dart';
-import 'commom_text_form_field.dart';
 import 'labeled_text_form_field.dart';
 
 class AddressForm extends StatelessWidget {
@@ -51,7 +49,7 @@ class AddressForm extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: AppColors.primaryColor,
+            color: AppTheme.primaryColor,
           ),
         ),
 

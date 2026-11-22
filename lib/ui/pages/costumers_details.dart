@@ -6,7 +6,7 @@ import '../../entities/customer/costumer.dart';
 import '../../entities/customer/establishment_type.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../app_colors.dart';
+import '../app_theme.dart';
 import '../controllers/customer/customer_controller.dart';
 import '../formatters/input_formatters.dart';
 import '../validators/cnpj_validator.dart';
@@ -16,9 +16,8 @@ import '../validators/not_selected_validator.dart';
 import '../validators/phone_validator.dart';
 import '../widgets/address_form.dart';
 import '../widgets/bottom_button.dart';
-import '../widgets/commom_label.dart';
-import '../widgets/commom_text_form_field.dart';
 import '../widgets/delete_button.dart';
+import '../widgets/labeled_text_form_field.dart';
 
 class CustomerDetailsPage extends StatelessWidget {
   const CustomerDetailsPage({super.key, this._customer});
@@ -78,11 +77,8 @@ class _CostumerDetailsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CommomLabel(text: l10n.commomCnpj),
-
-                        const SizedBox(height: 6),
-
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.commomCnpj,
                           controller: state.cnpjController,
                           hintText: l10n.commomCnpj,
                           keyboardType: TextInputType.number,
@@ -96,9 +92,8 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-                        CommomLabel(text: l10n.customerName),
-                        const SizedBox(height: 6),
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.customerName,
                           controller: state.nameController,
                           hintText: l10n.customerHintName,
                           validator: (value) => isNotEmpty(value, l10n),
@@ -106,9 +101,8 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-                        CommomLabel(text: l10n.customerLegalName),
-                        const SizedBox(height: 6),
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.customerLegalName,
                           controller: state.legalNameController,
                           hintText: l10n.customerHintLegalName,
                           validator: (value) => isNotEmpty(value, l10n),
@@ -117,9 +111,8 @@ class _CostumerDetailsPage extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         // Email
-                        CommomLabel(text: l10n.commomEmail, isPrimary: true),
-                        const SizedBox(height: 6),
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.commomEmail,
                           controller: state.emailController,
                           hintText: l10n.commomHintEmail,
                           keyboardType: TextInputType.emailAddress,
@@ -129,9 +122,8 @@ class _CostumerDetailsPage extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         // Phone
-                        CommomLabel(text: l10n.commomPhone, isPrimary: true),
-                        const SizedBox(height: 6),
-                        CommomTextFormField(
+                        LabeledTextFormField(
+                          label: l10n.commomPhone,
                           controller: state.phoneController,
                           hintText: l10n.commomHintPhone,
                           keyboardType: TextInputType.phone,
@@ -141,9 +133,14 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-                        CommomLabel(
-                          text: l10n.establishmentType,
-                          isPrimary: true,
+
+                        Text(
+                          l10n.establishmentType,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppTheme.labelColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
 
                         const SizedBox(height: 6),
@@ -158,10 +155,9 @@ class _CostumerDetailsPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                               ),
 
-                              // focusedBorder: b,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: AppColors.primaryColor,
+                                  color: AppTheme.primaryColor,
                                   width: 2,
                                 ),
                               ),
@@ -169,7 +165,7 @@ class _CostumerDetailsPage extends StatelessWidget {
                             hint: Text(l10n.customerChooseOption),
                             icon: const Icon(
                               Icons.arrow_downward_sharp,
-                              color: AppColors.primaryColor,
+                              color: AppTheme.primaryColor,
                             ),
                             elevation: 1,
                             style: const TextStyle(

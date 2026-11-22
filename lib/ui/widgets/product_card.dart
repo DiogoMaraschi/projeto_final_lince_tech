@@ -16,106 +16,106 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      height: 145,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(left: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade100, width: 1.5),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          //PRODUCT IMAGE
-          Container(
-            width: 80,
-            height: 100,
-            decoration: BoxDecoration(
-              color: const Color(0xFFEEF3F7),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: _product.imagePath != null
-                ? Image.file(File(_product.imagePath!))
-                : Icon(
-                    Icons.inventory_2_outlined,
-                    size: 36,
-                    color: Color(0xFF71717A),
-                  ),
+    final colors = Theme.of(context).colorScheme;
+
+    return Card(
+      child: SizedBox(
+        height: 110,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              //PRODUCT IMAGE
+              Container(
+                width: 74,
+                height: 74,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEEF3F7),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: _product.imagePath != null
+                    ? Image.file(File(_product.imagePath!))
+                    : Icon(
+                        Icons.inventory_2_outlined,
+                        size: 36,
+                        color: Color(0xFF71717A),
+                      ),
+              ),
+
+              const SizedBox(width: 16),
+
+              //PRODUCT INFORMATION
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //PRODUCT NAME
+                    Text(
+                      _product.name,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: colors.onSurface,
+                      ),
+                    ),
+
+                    const SizedBox(height: 4),
+
+                    //BRAND
+                    Text(
+                      _product.brand,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: colors.onSurfaceVariant,
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    //BARCODE
+                    Text(
+                      l10n.productEAN(_product.barcode),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: colors.primary,
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    //SALE PRICE
+                    Text(
+                      DisplayFormatters.formatMoney(_product.salePrice),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: colors.onSurface,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              //ARROW
+              IconButton(
+                onPressed: onTap,
+                icon: const Icon(
+                  Icons.chevron_right,
+                  size: 28,
+                  color: Color(0xFFA1A1AA),
+                ),
+              ),
+            ],
           ),
-
-          const SizedBox(width: 16),
-
-          //PRODUCT INFORMATION
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //PRODUCT NAME
-                Text(
-                  _product.name,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF18181B),
-                  ),
-                ),
-
-                const SizedBox(height: 4),
-
-                //BRAND
-                Text(
-                  _product.brand,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF71717A),
-                  ),
-                ),
-
-                const SizedBox(height: 6),
-
-                //BARCODE
-                Text(
-                  l10n.productEAN(_product.barcode),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4F46E5),
-                  ),
-                ),
-
-                const SizedBox(height: 6),
-
-                //SALE PRICE
-                Text(
-                  DisplayFormatters.formatMoney(_product.salePrice),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF18181B),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(width: 8),
-
-          //ARROW
-          IconButton(
-            onPressed: onTap,
-            icon: const Icon(
-              Icons.chevron_right,
-              size: 28,
-              color: Color(0xFFA1A1AA),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

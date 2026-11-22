@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../app_colors.dart';
+import '../app_theme.dart';
 
 class LabeledTextFormField extends StatefulWidget {
   const LabeledTextFormField({
@@ -69,7 +69,7 @@ class _LabeledTextFormFieldState extends State<LabeledTextFormField> {
               fontSize: 16,
               color: _focusNode.hasFocus
                   ? colors.primary
-                  : AppColors.labelColor,
+                  : AppTheme.labelColor,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -81,7 +81,7 @@ class _LabeledTextFormFieldState extends State<LabeledTextFormField> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: _focusNode.hasFocus
-                  ? AppColors.primaryColor
+                  ? AppTheme.primaryColor
                   : const Color(0xFFE4E4E7),
               width: 1,
             ),
@@ -97,14 +97,14 @@ class _LabeledTextFormFieldState extends State<LabeledTextFormField> {
             inputFormatters: widget.inputFormatters,
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: TextStyle(fontSize: 16, color: AppColors.hintColor),
+              hintStyle: TextStyle(fontSize: 16, color: AppTheme.hintColor),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 16,
               ),
               border: InputBorder.none,
               suffixIcon: widget.suffixIcon,
-              suffixIconColor: AppColors.primaryColor,
+              suffixIconColor: AppTheme.primaryColor,
               errorStyle: const TextStyle(fontSize: 13, height: 0.8),
             ),
           ),

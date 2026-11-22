@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/formatters/display_formatters.dart';
 import '../../entities/carrier.dart';
 import '../../l10n/app_localizations.dart';
-import '../app_colors.dart';
+import '../app_theme.dart';
 import '../formatters/input_formatters.dart';
 
 class CarrierCard extends StatelessWidget {
@@ -51,7 +51,7 @@ class CarrierCard extends StatelessWidget {
                       Text(
                         DisplayFormatters.formatMoney(carrier.costPerKm),
                         style: TextStyle(
-                          color: AppColors.primaryColor,
+                          color: AppTheme.primaryColor,
                           fontWeight: .w600,
                           fontSize: 18,
                         ),

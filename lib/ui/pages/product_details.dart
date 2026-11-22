@@ -6,14 +6,12 @@ import 'package:provider/provider.dart';
 import '../../entities/product.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../app_colors.dart';
+import '../app_theme.dart';
 import '../controllers/product/product_controller.dart';
 import '../formatters/input_formatters.dart';
 import '../validators/not_empty_validator.dart';
 import '../validators/positive_money_validator.dart';
 import '../widgets/bottom_button.dart';
-import '../widgets/commom_label.dart';
-import '../widgets/commom_text_form_field.dart';
 import '../widgets/delete_button.dart';
 import '../widgets/labeled_text_form_field.dart';
 
@@ -42,7 +40,7 @@ class _ProductDetailsState extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  final primaryColor = AppColors.primaryColor;
+  final primaryColor = AppTheme.primaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,7 @@ class _ProductDetailsState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
+                color: primaryColor,
               ),
             ),
             leading: IconButton(

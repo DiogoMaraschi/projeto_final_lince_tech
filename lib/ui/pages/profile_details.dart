@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
-import '../app_colors.dart';
+import '../app_theme.dart';
 import '../controllers/profile/profile_details_controller.dart';
 import '../formatters/input_formatters.dart';
 import '../validators/cnpj_validator.dart';
@@ -104,7 +104,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                             : Icon(
                                                 Icons.camera_alt_outlined,
                                                 size: 32,
-                                                color: AppColors.primaryColor,
+                                                color: AppTheme.primaryColor,
                                               ),
                                       ),
                                     ),
@@ -117,7 +117,7 @@ class _ProfileDetailsPage extends StatelessWidget {
                                         l10n.commomAddImage,
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: AppColors.primaryColor,
+                                          color: AppTheme.primaryColor,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
