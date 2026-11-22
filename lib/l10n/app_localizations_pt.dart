@@ -388,6 +388,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get orderDelivery => 'Entrega';
 
   @override
+  String get orderPaymentFee => 'Taxa do pagamento';
+
+  @override
   String get orderTotal => 'Total';
 
   @override

@@ -27,11 +27,17 @@ class OrderPdfGenerator {
       0,
       (total, item) => total + item.discountAmount,
     );
-    final orderTotal = productsSubtotal - discountsTotal + order.freight;
+    final orderTotal =
+        productsSubtotal -
+        discountsTotal +
+        order.freight +
+        order.paymentItem.additionalFee;
+
     final installments = order.paymentItem.installments;
     final installmentValue = installments > 1
         ? orderTotal / installments
         : orderTotal;
+
     final paymentLabel = switch (order.paymentItem.paymentType) {
       PaymentType.creditCard => 'Cartão de crédito',
       PaymentType.cash => 'Dinheiro',
@@ -275,9 +281,7 @@ class OrderPdfGenerator {
                         paymentDescription,
                         style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                       ),
-                      if (paymentNotes.isNotEmpty)...[
-                        pw.Text(paymentNotes),
-                      ] ,
+                      if (paymentNotes.isNotEmpty) ...[pw.Text(paymentNotes)],
                     ],
                   ),
                 ),
@@ -299,6 +303,12 @@ class OrderPdfGenerator {
                           '- ${DisplayFormatters.formatMoney(discountsTotal)}',
                         ),
                         _summaryRow(
+                          'Taxa do pagamento',
+                          DisplayFormatters.formatMoney(
+                            order.paymentItem.additionalFee,
+                          ),
+                        ),
+                        _summaryRow(
                           'Entrega',
                           DisplayFormatters.formatMoney(order.freight),
                         ),
@@ -315,7 +325,8 @@ class OrderPdfGenerator {
                             ),
                           ),
                           child: pw.Row(
-                            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
                             children: [
                               pw.Text(
                                 'Total',

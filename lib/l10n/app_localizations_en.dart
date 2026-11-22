@@ -388,6 +388,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderDelivery => 'Delivery';
 
   @override
+  String get orderPaymentFee => 'Payment fee';
+
+  @override
   String get orderTotal => 'Total';
 
   @override

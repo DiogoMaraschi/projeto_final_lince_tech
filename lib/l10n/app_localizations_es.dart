@@ -390,6 +390,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get orderDelivery => 'Entrega';
 
   @override
+  String get orderPaymentFee => 'Recargo por pago';
+
+  @override
   String get orderTotal => 'Total';
 
   @override

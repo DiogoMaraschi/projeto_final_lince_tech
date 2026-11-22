@@ -106,20 +106,23 @@ class OrderDetailsController with ChangeNotifier {
   bool get isEditing => _orderId != null;
 
   int maxInstallmentsFor(PaymentType type) =>
-      getInstallmentsUsecase(type, orderTotal);
+      getInstallmentsUsecase(type, _orderBaseTotal);
 
   double paymentTotalFor(PaymentType type, int installments) =>
       calculatePaymentTotalUsecase(
         PaymentItem(paymentType: type, installments: installments),
-        orderTotal,
+        _orderBaseTotal,
       );
 
-  double get orderTotal {
+  double get additionalFee {
     final paymentItem = _selectedPaymentItem;
-    if (paymentItem == null) return _orderBaseTotal;
+    if (paymentItem == null) return 0;
 
-    return calculatePaymentTotalUsecase(paymentItem, _orderBaseTotal);
+    return calculatePaymentTotalUsecase(paymentItem, _orderBaseTotal) -
+        _orderBaseTotal;
   }
+
+  double get orderTotal => _orderBaseTotal + additionalFee;
 
   List<LatLng> get geoPoints {
     return _routeResult?.points
@@ -328,17 +331,21 @@ class OrderDetailsController with ChangeNotifier {
   Future<bool> saveOrder() async {
     final carrier = _selectedCarrier;
     final customer = _selectedCustomer;
-    final paymentItem = _selectedPaymentItem;
     final products = _selectedProducts;
     final paymentNotes = paymentNotesController.text;
     final generalNotes = generalNotesController.text;
-
+    final selectedPaymentItem = _selectedPaymentItem!;
+    final paymentItem = PaymentItem(
+      paymentType: selectedPaymentItem.paymentType,
+      installments: selectedPaymentItem.installments,
+      additionalFee: additionalFee,
+    );
 
     final order = Order(
         id: _orderId,
         customerId: customer!.id!,
         carrierId: carrier!.id!,
-        paymentItem: paymentItem!,
+        paymentItem: paymentItem,
         freight: _deliveryValue ?? 0,
         paymentNotes: paymentNotes,
         generalNotes: generalNotes,

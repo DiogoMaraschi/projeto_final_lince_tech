@@ -63,7 +63,7 @@ class OrderRepositoryImpl implements OrderRepository {
       COALESCE(
         SUM(oi.unit_price * oi.quantity - oi.discount_amount),
         0
-      ) + o.freight AS total
+      ) + o.freight + o.additional_fee AS total
     FROM orders o
     JOIN customers c ON c.id = o.customer_id
     LEFT JOIN order_items oi ON oi.order_id = o.id
@@ -74,7 +74,8 @@ class OrderRepositoryImpl implements OrderRepository {
       o.payment_method,
       o.installments,
       o.created_at,
-      o.freight
+      o.freight,
+       o.additional_fee
     ORDER BY o.created_at DESC, o.id DESC
   ''');
 
@@ -199,10 +200,7 @@ class OrderRepositoryImpl implements OrderRepository {
       for (final item in order.items) {
         final itemModel = OrderItemModel.fromEntity(item);
 
-        await txn.insert(
-          'order_items',
-          itemModel.toMap(orderId),
-        );
+        await txn.insert('order_items', itemModel.toMap(orderId));
       }
 
       return updatedRows;
@@ -210,7 +208,7 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<int> softDelete(int orderId) async{
+  Future<int> softDelete(int orderId) async {
     final conn = await databaseHelper.database;
 
     return conn.update(
@@ -219,6 +217,5 @@ class OrderRepositoryImpl implements OrderRepository {
       where: 'id = ? AND deleted_at IS NULL',
       whereArgs: [orderId],
     );
-
   }
 }

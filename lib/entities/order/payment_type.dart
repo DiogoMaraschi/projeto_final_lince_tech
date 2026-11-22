@@ -46,8 +46,13 @@ enum PaymentType {
 }
 
 class PaymentItem {
-  PaymentType paymentType;
-  int installments;
+  final PaymentType paymentType;
+  final int installments;
+  final double additionalFee;
 
-  PaymentItem({required this.paymentType, required this.installments});
+  const PaymentItem({
+    required this.paymentType,
+    required this.installments,
+    this.additionalFee = 0,
+  });
 }

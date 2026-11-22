@@ -25,11 +25,7 @@ class DatabaseHelper {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, _databaseName);
 
-    return openDatabase(
-      path,
-      version: _databaseVersion,
-      onCreate: _onCreate,
-    );
+    return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -113,6 +109,7 @@ class DatabaseHelper {
         carrier_id INTEGER NOT NULL,
         payment_method TEXT NOT NULL,
         installments INTEGER NOT NULL,
+        additional_fee REAL NOT NULL DEFAULT 0,
         freight REAL NOT NULL DEFAULT 0,
         payment_notes TEXT,
         general_notes TEXT,
@@ -147,5 +144,4 @@ class DatabaseHelper {
 
     await DatabaseSeed.insertInitialData(db);
   }
-
 }

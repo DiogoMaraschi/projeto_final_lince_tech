@@ -548,20 +548,58 @@ class _OrderDetailsPage extends StatelessWidget {
                               children: [
                                 Text(
                                   l10n.orderSubtotalProducts,
-                                  style: TextStyle(
-                                    color: Color(0xFFA0AAB8),
-                                    fontSize: 16,
-                                  ),
+                                  style: TextStyle(fontSize: 16),
                                 ),
                                 Text(
                                   DisplayFormatters.formatMoney(
                                     controller.productsSubtotal,
                                   ),
                                   textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    color: Color(0xFFA0AAB8),
-                                    fontSize: 16,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  l10n.orderDelivery,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  DisplayFormatters.formatMoney(
+                                    controller.deliveryValue,
                                   ),
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                distanceText,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  l10n.orderPaymentFee,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  DisplayFormatters.formatMoney(
+                                    controller.additionalFee,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
@@ -572,8 +610,8 @@ class _OrderDetailsPage extends StatelessWidget {
                                 Text(
                                   l10n.orderDiscounts,
                                   style: TextStyle(
-                                    color: Color(0xFFA0AAB8),
                                     fontSize: 16,
+                                    color: colors.primary,
                                   ),
                                 ),
                                 Text(
@@ -582,45 +620,11 @@ class _OrderDetailsPage extends StatelessWidget {
                                   ),
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
-                                    color: Color(0xFF829BFF),
                                     fontSize: 16,
+                                    color: colors.primary,
                                   ),
                                 ),
                               ],
-                            ),
-                            const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  l10n.orderDelivery,
-                                  style: TextStyle(
-                                    color: Color(0xFFA0AAB8),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  DisplayFormatters.formatMoney(
-                                    controller.deliveryValue,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    color: Color(0xFFA0AAB8),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                distanceText,
-                                style: TextStyle(
-                                  color: Color(0xFFA0AAB8),
-                                  fontSize: 14,
-                                ),
-                              ),
                             ),
                             const SizedBox(height: 16),
                             const Divider(height: 1),
@@ -631,7 +635,6 @@ class _OrderDetailsPage extends StatelessWidget {
                                   child: Text(
                                     l10n.orderTotal,
                                     style: TextStyle(
-                                      color: Color(0xFFF0F2F5),
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -644,7 +647,6 @@ class _OrderDetailsPage extends StatelessWidget {
                                     ),
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                      color: Color(0xFFF0F2F5),
                                       fontSize: 26,
                                       fontWeight: FontWeight.w900,
                                     ),

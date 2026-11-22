@@ -123,6 +123,7 @@
   "orderSubtotalProducts": "Subtotal de productos",
   "orderDiscounts": "Descuentos",
   "orderDelivery": "Entrega",
+  "orderPaymentFee": "Recargo por pago",
   "orderTotal": "Total",
   "orderPaymentNotesTitle": "Observaciones del pago",
   "orderNotesTitle": "Observaciones",

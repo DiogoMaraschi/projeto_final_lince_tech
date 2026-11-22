@@ -123,6 +123,7 @@
   "orderSubtotalProducts": "Products subtotal",
   "orderDiscounts": "Discounts",
   "orderDelivery": "Delivery",
+  "orderPaymentFee": "Payment fee",
   "orderTotal": "Total",
   "orderPaymentNotesTitle": "Payment notes",
   "orderNotesTitle": "Notes",

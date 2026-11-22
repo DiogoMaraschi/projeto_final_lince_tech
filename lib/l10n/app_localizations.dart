@@ -844,6 +844,12 @@ abstract class AppLocalizations {
   /// **'Entrega'**
   String get orderDelivery;
 
+  /// No description provided for @orderPaymentFee.
+  ///
+  /// In pt, this message translates to:
+  /// **'Taxa do pagamento'**
+  String get orderPaymentFee;
+
   /// No description provided for @orderTotal.
   ///
   /// In pt, this message translates to:
