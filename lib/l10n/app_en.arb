@@ -134,6 +134,11 @@
   "commonFillRequired": "Please fill in all required fields",
   "commonError": "Error",
   "orderSaveError": "Could not save the order.",
+  "invalidOrder": "Check the order details and try again.",
+  "deliveryNotCalculated": "Calculate the delivery cost before saving the order.",
+  "profileCoordinatesMissing": "Set the store location in the profile before calculating delivery.",
+  "orderSaveFailed": "Could not save the order.",
+  "orderNotFound": "The order was not found. Refresh the list and try again.",
   "orderEdit": "Edit order",
   "orderSave": "Save order",
   "orderDelete": "Delete",
@@ -240,6 +245,7 @@
   "productEAN": "EAN: {value}",
   "imageSourceTakePhoto": "Take a photo",
   "imageSourceChooseGallery": "Choose from the gallery",
+  "removeImage": "Remove image",
   "@productEAN": {
     "placeholders": {
       "value": {

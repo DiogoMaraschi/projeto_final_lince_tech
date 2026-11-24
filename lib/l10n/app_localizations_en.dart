@@ -421,6 +421,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderSaveError => 'Could not save the order.';
 
   @override
+  String get invalidOrder => 'Check the order details and try again.';
+
+  @override
+  String get deliveryNotCalculated =>
+      'Calculate the delivery cost before saving the order.';
+
+  @override
+  String get profileCoordinatesMissing =>
+      'Set the store location in the profile before calculating delivery.';
+
+  @override
+  String get orderSaveFailed => 'Could not save the order.';
+
+  @override
+  String get orderNotFound =>
+      'The order was not found. Refresh the list and try again.';
+
+  @override
   String get orderEdit => 'Edit order';
 
   @override
@@ -541,4 +559,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get imageSourceChooseGallery => 'Choose from the gallery';
+
+  @override
+  String get removeImage => 'Remove image';
 }

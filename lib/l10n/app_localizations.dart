@@ -910,6 +910,36 @@ abstract class AppLocalizations {
   /// **'Não foi possível salvar o pedido.'**
   String get orderSaveError;
 
+  /// No description provided for @invalidOrder.
+  ///
+  /// In pt, this message translates to:
+  /// **'Revise os dados do pedido e tente novamente.'**
+  String get invalidOrder;
+
+  /// No description provided for @deliveryNotCalculated.
+  ///
+  /// In pt, this message translates to:
+  /// **'Calcule o frete antes de salvar o pedido.'**
+  String get deliveryNotCalculated;
+
+  /// No description provided for @profileCoordinatesMissing.
+  ///
+  /// In pt, this message translates to:
+  /// **'Configure a localização da loja no perfil antes de calcular o frete.'**
+  String get profileCoordinatesMissing;
+
+  /// No description provided for @orderSaveFailed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar o pedido.'**
+  String get orderSaveFailed;
+
+  /// No description provided for @orderNotFound.
+  ///
+  /// In pt, this message translates to:
+  /// **'O pedido não foi encontrado. Atualize a lista e tente novamente.'**
+  String get orderNotFound;
+
   /// No description provided for @orderEdit.
   ///
   /// In pt, this message translates to:
@@ -1113,6 +1143,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Escolher da galeria'**
   String get imageSourceChooseGallery;
+
+  /// No description provided for @removeImage.
+  ///
+  /// In pt, this message translates to:
+  /// **'Remover imagem'**
+  String get removeImage;
 }
 
 class _AppLocalizationsDelegate

@@ -9,10 +9,12 @@ import '../../../../entities/order/order_item.dart';
 import '../../../../entities/order/payment_type.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
+import '../../../../modules/order/order_failure.dart';
 import '../../../controllers/carrier/carrier_list_controller.dart';
 import '../../../controllers/customer/customer_list_controller.dart';
 import '../../../controllers/order/order_details_controller.dart';
 import '../../../controllers/product/product_list_controller.dart';
+import '../../../widgets/error_dialog.dart';
 import 'cards/delivery_card.dart';
 import 'cards/order_item_card.dart';
 import 'modal/carrier_modal.dart';
@@ -810,26 +812,29 @@ class _OrderDetailsPage extends StatelessWidget {
                                 }
 
                                 final saved = await controller.saveOrder();
+
                                 if (!context.mounted) return;
 
                                 if (saved) {
                                   Navigator.of(context).pop(true);
                                 } else {
-                                  await showDialog<void>(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return AlertDialog(
-                                        title: Text(l10n.commonError),
-                                        content: Text(l10n.orderSaveError),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(dialogContext),
-                                            child: Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                  final message = switch (controller.error) {
+                                    OrderFailure.invalidOrder =>
+                                      l10n.invalidOrder,
+                                    OrderFailure.deliveryNotCalculated =>
+                                      l10n.deliveryNotCalculated,
+                                    OrderFailure.profileCoordinatesMissing =>
+                                      l10n.profileCoordinatesMissing,
+                                    OrderFailure.saveFailed =>
+                                      l10n.orderSaveFailed,
+                                    OrderFailure.orderNotFound =>
+                                      l10n.orderNotFound,
+                                    null => l10n.orderSaveFailed,
+                                  };
+
+                                  await showErrorDialog(
+                                    context,
+                                    message: message,
                                   );
                                 }
                               },

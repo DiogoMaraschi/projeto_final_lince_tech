@@ -70,6 +70,11 @@ class ProductController with ChangeNotifier {
     }
   }
 
+  void deleteSelectedImage(){
+    _imagePath = null;
+    notifyListeners();
+  }
+
   Future<bool> saveProduct() async {
     final productEdited = convertTextToProduct();
 

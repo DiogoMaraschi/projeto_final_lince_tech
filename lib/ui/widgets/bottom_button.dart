@@ -15,33 +15,35 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(color: colors.surface),
-      child: SizedBox(
-        height: 54,
-        width: double.infinity,
-        child: FilledButton(
-          onPressed: btnAction,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colors.primary,
-            foregroundColor: Colors.white,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(color: colors.surface),
+        child: SizedBox(
+          height: 54,
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: btnAction,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.primary,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              textStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.check, size: 24),
+                const SizedBox(width: 8),
+                Text(btnText, style: const TextStyle(fontSize: 18)),
+              ],
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.check, size: 24),
-              const SizedBox(width: 8),
-              Text(btnText, style: const TextStyle(fontSize: 18)),
-            ],
           ),
         ),
       ),

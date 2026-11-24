@@ -134,6 +134,11 @@
   "commonFillRequired": "Preencha todos os campos",
   "commonError": "Erro",
   "orderSaveError": "Não foi possível salvar o pedido.",
+  "invalidOrder": "Revise os dados do pedido e tente novamente.",
+  "deliveryNotCalculated": "Calcule o frete antes de salvar o pedido.",
+  "profileCoordinatesMissing": "Configure a localização da loja no perfil antes de calcular o frete.",
+  "orderSaveFailed": "Não foi possível salvar o pedido.",
+  "orderNotFound": "O pedido não foi encontrado. Atualize a lista e tente novamente.",
   "orderEdit": "Editar pedido",
   "orderSave": "Salvar pedido",
   "orderDelete": "Excluir",
@@ -240,6 +245,7 @@
   "productEAN": "EAN: {value}",
   "imageSourceTakePhoto": "Tirar foto",
   "imageSourceChooseGallery": "Escolher da galeria",
+  "removeImage": "Remover imagem",
   "@productEAN": {
     "placeholders": {
       "value": {

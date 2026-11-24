@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart' hide Order;
+import 'package:sqflite/sqflite.dart';
+
 import '../../core/database/database_helper.dart';
 import '../../entities/order/order.dart';
 import '../../entities/order/order_edit_data.dart';
-import '../../entities/order/order_item.dart';
 import '../../entities/order/order_summary.dart';
 import '../carrier/models/carrier_model.dart';
 import '../customer/models/customer_model.dart';
@@ -9,15 +11,16 @@ import '../product/models/product_model.dart';
 import 'models/order_item_model.dart';
 import 'models/order_model.dart';
 import 'models/order_summary_model.dart';
+import 'order_failure.dart';
 
 abstract class OrderRepository {
-  Future<int> insert(Order order);
+  Future<Either<OrderFailure, int>> insert(Order order);
 
   Future<List<OrderSummary>> getAllOrderSummaries();
 
   Future<OrderEditData?> getOrderForEditing(int orderId);
 
-  Future<int> update(Order order);
+  Future<Either<OrderFailure, int>> update(int orderId, Order order);
 
   Future<int> softDelete(int orderId);
 }
@@ -30,22 +33,26 @@ class OrderRepositoryImpl implements OrderRepository {
   static const String tableName = 'orders';
 
   @override
-  Future<int> insert(Order order) async {
+  Future<Either<OrderFailure, int>> insert(Order order) async {
     final orderModel = OrderModel.fromEntity(order);
 
-    final conn = await databaseHelper.database;
+    try {
+      final conn = await databaseHelper.database;
 
-    return conn.transaction((txn) async {
-      final orderId = await txn.insert('orders', orderModel.toMap());
+      return await conn.transaction((txn) async {
+        final orderId = await txn.insert('orders', orderModel.toMap());
 
-      for (final item in order.items) {
-        final itemModel = OrderItemModel.fromEntity(item);
+        for (final item in order.items) {
+          final itemModel = OrderItemModel.fromEntity(item);
 
-        await txn.insert('order_items', itemModel.toMap(orderId));
-      }
+          await txn.insert('order_items', itemModel.toMap(orderId));
+        }
 
-      return orderId;
-    });
+        return Right(orderId);
+      });
+    } on DatabaseException {
+      return const Left(OrderFailure.saveFailed);
+    }
   }
 
   @override
@@ -170,41 +177,39 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<int> update(Order order) async {
-    final orderId = order.id;
-
-    if (orderId == null) {
-      throw ArgumentError('Não é possível atualizar um pedido sem ID.');
-    }
-
+  Future<Either<OrderFailure, int>> update(int orderId, Order order) async {
     final orderModel = OrderModel.fromEntity(order);
 
-    final conn = await databaseHelper.database;
+    try {
+      final conn = await databaseHelper.database;
 
-    return conn.transaction((txn) async {
-      final updatedRows = await txn.update(
-        'orders',
-        orderModel.toMap(),
-        where: 'id = ? AND deleted_at IS NULL',
-        whereArgs: [orderId],
-      );
+      return await conn.transaction((txn) async {
+        final updatedRows = await txn.update(
+          'orders',
+          orderModel.toMap(),
+          where: 'id = ? AND deleted_at IS NULL',
+          whereArgs: [orderId],
+        );
 
-      if (updatedRows == 0) return 0;
+        if (updatedRows == 0) return Right(0);
 
-      await txn.delete(
-        'order_items',
-        where: 'order_id = ?',
-        whereArgs: [orderId],
-      );
+        await txn.delete(
+          'order_items',
+          where: 'order_id = ?',
+          whereArgs: [orderId],
+        );
 
-      for (final item in order.items) {
-        final itemModel = OrderItemModel.fromEntity(item);
+        for (final item in order.items) {
+          final itemModel = OrderItemModel.fromEntity(item);
 
-        await txn.insert('order_items', itemModel.toMap(orderId));
-      }
+          await txn.insert('order_items', itemModel.toMap(orderId));
+        }
 
-      return updatedRows;
-    });
+        return Right(updatedRows);
+      });
+    } on DatabaseException {
+      return const Left(OrderFailure.saveFailed);
+    }
   }
 
   @override

@@ -8,6 +8,7 @@ import '../../../entities/profile.dart';
 import '../../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../../modules/address/usecases/get_location_by_address_usecase.dart';
 import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../../../modules/imagePicker/usecases/capture_image_usecase.dart';
 import '../../../modules/imagePicker/usecases/pick_image_from_galery_usecase.dart';
 import '../../../modules/profile/usecases/create_profile_usecase.dart';
 import '../../../modules/profile/usecases/get_profile_usecase.dart';
@@ -20,6 +21,7 @@ class ProfileDetailsController with ChangeNotifier {
   final GetLocationByAddressUsecase _getLocationByAddressUsecase;
   final GetCnpjUsecase _getCnpjUsecase;
   final PickImageFromGaleryUsecase _pickImageFromGaleryUsecase;
+  final CaptureImageUsecase _captureImageUsecase;
   final CreateProfileUsecase _createProfileUsecase;
   final UpdateProfileUsecase _updateProfileUsecase;
   final GetProfileUsecase _getProfileUsecase;
@@ -29,6 +31,7 @@ class ProfileDetailsController with ChangeNotifier {
     required this._getAddressByZipcodeUsecase,
     required this._getLocationByAddressUsecase,
     required this._pickImageFromGaleryUsecase,
+    required this._captureImageUsecase,
     required this._createProfileUsecase,
     required this._updateProfileUsecase,
     required this._getProfileUsecase,
@@ -117,6 +120,15 @@ class ProfileDetailsController with ChangeNotifier {
     }
   }
 
+  Future<void> captureImage() async {
+    final path = await _captureImageUsecase();
+
+    if (path != null) {
+      _imagePath = path;
+      notifyListeners();
+    }
+  }
+
   Future<void> pickImageFromGalery() async {
     final path = await _pickImageFromGaleryUsecase();
 
@@ -124,6 +136,11 @@ class ProfileDetailsController with ChangeNotifier {
       _imagePath = path;
       notifyListeners();
     }
+  }
+
+  void deleteSelectedImage() {
+    _imagePath = null;
+    notifyListeners();
   }
 
   Future<void> getLocationByAddress() async {

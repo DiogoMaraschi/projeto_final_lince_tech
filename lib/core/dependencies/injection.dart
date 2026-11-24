@@ -88,6 +88,7 @@ class Injection {
   Future<void> inicialize() async {
     //DATABASE
     final database = DatabaseHelper();
+    // await database.resetDatabase();
 
     //SHARED PREFERENCE
     final preferences = await SharedPreferences.getInstance();

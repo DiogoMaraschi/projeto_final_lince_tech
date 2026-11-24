@@ -13,6 +13,7 @@ import '../validators/not_empty_validator.dart';
 import '../validators/positive_money_validator.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/delete_button.dart';
+import '../widgets/image_source_options_modal.dart';
 import '../widgets/labeled_text_form_field.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -77,52 +78,54 @@ class _ProductDetailsState extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  await showImageSourceOptions(context, state);
-                                },
-                                child: Container(
-                                  width: 110,
-                                  height: 110,
-                                  decoration:  BoxDecoration(
-                                    color: colors.surfaceContainer,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: state.imagePath != null
-                                      ? ClipOval(
-                                          child: Image.file(
-                                            File(state.imagePath!),
-                                            width: 110,
-                                            height: 110,
-                                            fit: BoxFit.cover,
+                          child: Material(
+                            child: InkWell(
+                              onTap: () async {
+                                await showImageSourceOptions(
+                                  context,
+                                  hasPath: state.imagePath != null,
+                                  onCameraSelected: state.captureImage,
+                                  onGallerySelected: state.pickImageFromGalery,
+                                  onRemoveSelected: state.deleteSelectedImage,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 110,
+                                    height: 110,
+                                    decoration: BoxDecoration(
+                                      color: colors.surfaceContainer,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: state.imagePath != null
+                                        ? ClipOval(
+                                            child: Image.file(
+                                              File(state.imagePath!),
+                                              width: 110,
+                                              height: 110,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : Icon(
+                                            Icons.camera_alt_outlined,
+                                            size: 32,
+                                            color: primaryColor,
                                           ),
-                                        )
-                                      : Icon(
-                                          Icons.camera_alt_outlined,
-                                          size: 32,
-                                          color: primaryColor,
-                                        ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 8),
-
-                              GestureDetector(
-                                onTap: () async {
-                                  await showImageSourceOptions(context, state);
-                                },
-                                child: Text(
-                                  l10n.commomAddImage,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.w500,
                                   ),
-                                ),
+                                  const SizedBox(height: 8),
+
+                                  Text(
+                                    l10n.commomAddImage,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
 
@@ -261,45 +264,4 @@ class _ProductDetailsState extends StatelessWidget {
       },
     );
   }
-
-  Future<void> showImageSourceOptions(
-    BuildContext context,
-    ProductController controller,
-  ) async {
-
-    final option = await showModalBottomSheet<_ImageSourceOption>(
-      context: context,
-      builder: (sheetContext) {
-        final l10n = AppLocalizations.of(context)!;
-        return SafeArea(
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.camera_alt_outlined),
-              title: Text(l10n.imageSourceTakePhoto),
-              onTap: () =>
-                  Navigator.pop(sheetContext, _ImageSourceOption.camera),
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_library_outlined),
-              title: Text(l10n.imageSourceChooseGallery),
-              onTap: () =>
-                  Navigator.pop(sheetContext, _ImageSourceOption.gallery),
-            ),
-          ],
-        ),
-      );
-      },
-    );
-
-    if (!context.mounted || option == null) return;
-
-    if (option == _ImageSourceOption.camera) {
-      await controller.captureImage();
-    } else {
-      await controller.pickImageFromGalery();
-    }
-  }
 }
-
-enum _ImageSourceOption { camera, gallery }

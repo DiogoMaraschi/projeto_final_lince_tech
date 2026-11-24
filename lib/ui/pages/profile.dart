@@ -30,6 +30,8 @@ class _ProfilePage extends StatelessWidget {
         final l10n = AppLocalizations.of(context)!;
         final profile = state.profile;
 
+        final name = profile?.name.trim() ?? '';
+
         return Scaffold(
           backgroundColor: colors.surface,
           appBar: AppBar(
@@ -72,13 +74,15 @@ class _ProfilePage extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                               )
-                            : Text(
-                                profile!.name[0].toUpperCase(),
+                            : name.isNotEmpty
+                            ? Text(
+                                name[0].toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 50,
                                   fontWeight: FontWeight.w500,
                                 ),
-                              ),
+                              )
+                            : Icon(Icons.account_circle_outlined, size: 30),
                       ),
                     ),
                     Expanded(
@@ -119,7 +123,7 @@ class _ProfilePage extends StatelessWidget {
                     ListTile(
                       title: Text(l10n.profileStoreInformation),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () async{
+                      onTap: () async {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(

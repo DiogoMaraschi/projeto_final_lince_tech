@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -15,6 +16,7 @@ import '../../../entities/profile.dart';
 import '../../../entities/route_result.dart';
 import '../../../modules/carrier/usecases/get_carrier_by_id_usecase.dart';
 import '../../../modules/customer/usecases/get_customer_by_id_usecase.dart';
+import '../../../modules/order/order_failure.dart';
 import '../../../modules/order/usecases/calculate_payment_total_usecase.dart';
 import '../../../modules/order/usecases/create_order_usecase.dart';
 import '../../../modules/order/usecases/delete_order_usecase.dart';
@@ -51,7 +53,7 @@ class OrderDetailsController with ChangeNotifier {
     required this.deleteOrderUsecase,
     int? orderId,
   }) : _orderId = orderId {
-    if(orderId != null) {
+    if (orderId != null) {
       print('id no controller ${orderId}');
       _inicializeForEditing(orderId);
     }
@@ -67,6 +69,7 @@ class OrderDetailsController with ChangeNotifier {
   double? _deliveryValue;
   PaymentItem? _selectedPaymentItem;
   String? _createdAt;
+  OrderFailure? error;
 
   double? get deliveryValue => _deliveryValue;
 
@@ -101,6 +104,7 @@ class OrderDetailsController with ChangeNotifier {
   String? _errorMessage;
 
   bool get isLoading => _isLoading;
+
   String? get errorMessage => _errorMessage;
 
   bool get isEditing => _orderId != null;
@@ -126,8 +130,8 @@ class OrderDetailsController with ChangeNotifier {
 
   List<LatLng> get geoPoints {
     return _routeResult?.points
-        .map((point) => LatLng(point.latitude, point.longitude))
-        .toList() ??
+            .map((point) => LatLng(point.latitude, point.longitude))
+            .toList() ??
         [];
   }
 
@@ -145,6 +149,8 @@ class OrderDetailsController with ChangeNotifier {
   }
 
   Future<void> selectCustomer(int id) async {
+    _deliveryValue = null;
+
     try {
       final result = await getCustomerByIdUsecase(id);
 
@@ -163,6 +169,8 @@ class OrderDetailsController with ChangeNotifier {
   }
 
   Future<void> selectCarrier(int id) async {
+    _deliveryValue = null;
+
     try {
       final result = await getCarrierByIdUsecase(id);
       _selectedCarrier = result;
@@ -182,13 +190,13 @@ class OrderDetailsController with ChangeNotifier {
     _selectedProducts = productsCompleteList
         .where((p) => p.id != null && quantities.containsKey(p.id))
         .map((p) {
-      final id = p.id!;
-      return OrderItem(
-        product: p,
-        quantity: quantities[id]!,
-        unitPrice: p.salePrice,
-      );
-    })
+          final id = p.id!;
+          return OrderItem(
+            product: p,
+            quantity: quantities[id]!,
+            unitPrice: p.salePrice,
+          );
+        })
         .toList();
 
     notifyListeners();
@@ -332,44 +340,67 @@ class OrderDetailsController with ChangeNotifier {
     final carrier = _selectedCarrier;
     final customer = _selectedCustomer;
     final products = _selectedProducts;
-    final paymentNotes = paymentNotesController.text;
-    final generalNotes = generalNotesController.text;
-    final selectedPaymentItem = _selectedPaymentItem!;
-    final paymentItem = PaymentItem(
-      paymentType: selectedPaymentItem.paymentType,
-      installments: selectedPaymentItem.installments,
-      additionalFee: additionalFee,
-    );
+    final selectedPaymentItem = _selectedPaymentItem;
+
+    final freight = _deliveryValue;
+
+    if (customer?.id == null ||
+        carrier?.id == null ||
+        selectedPaymentItem == null ||
+        products.isEmpty) {
+      error = OrderFailure.invalidOrder;
+      notifyListeners();
+      return false;
+    }
+
+    if (freight == null) {
+      error = OrderFailure.deliveryNotCalculated;
+      notifyListeners();
+      return false;
+    }
 
     final order = Order(
-        id: _orderId,
-        customerId: customer!.id!,
-        carrierId: carrier!.id!,
-        paymentItem: paymentItem,
-        freight: _deliveryValue ?? 0,
-        paymentNotes: paymentNotes,
-        generalNotes: generalNotes,
-        createdAt: _createdAt ?? DateTime.now().toString(),
-        items: products);
+      id: _orderId,
+      customerId: customer!.id!,
+      carrierId: carrier!.id!,
+      paymentItem: PaymentItem(
+        paymentType: selectedPaymentItem.paymentType,
+        installments: selectedPaymentItem.installments,
+        additionalFee: additionalFee,
+      ),
+      freight: freight,
+      paymentNotes: paymentNotesController.text,
+      generalNotes: generalNotesController.text,
+      createdAt: _createdAt ?? DateTime.now().toString(),
+      items: products,
+    );
 
     try {
-      if(isEditing) {
-        await updateOrderUsecase(order);
-        print('editado');
-      } else {
-        await createOrderUsecase(order);
-        print('salvo');
-      }
-      return true;
-    } catch (e) {
+      final result = isEditing
+          ? await updateOrderUsecase(order: order, profile: _profile)
+          : await createOrderUsecase(order: order, profile: _profile);
+
+      return result.fold<bool>(
+        (failure) {
+          error = failure;
+          return false;
+        },
+        (_) {
+          error = null;
+          return true;
+        },
+      );
+    } on Exception catch (e) {
       debugPrint('Erro $e');
+
+      error = OrderFailure.saveFailed;
       return false;
+    } finally {
+      notifyListeners();
     }
   }
 
-
-
-  void _inicializeForEditing(int orderId) async{
+  void _inicializeForEditing(int orderId) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
@@ -392,7 +423,6 @@ class OrderDetailsController with ChangeNotifier {
         _selectedPaymentItem = order.paymentItem;
         _deliveryValue = order.freight;
         _createdAt = order.createdAt;
-
 
         paymentNotesController.text = order.paymentNotes ?? '';
         generalNotesController.text = order.generalNotes ?? '';

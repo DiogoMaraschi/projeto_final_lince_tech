@@ -14,6 +14,7 @@ import '../validators/cnpj_validator.dart';
 import '../validators/not_empty_validator.dart';
 import '../widgets/address_form.dart';
 import '../widgets/bottom_button.dart';
+import '../widgets/image_source_options_modal.dart';
 import '../widgets/labeled_text_form_field.dart';
 
 class ProfileDetailsPage extends StatelessWidget {
@@ -26,6 +27,7 @@ class ProfileDetailsPage extends StatelessWidget {
         getAddressByZipcodeUsecase: injection.getAddressByZipcodeUsecase,
         getCnpjUsecase: injection.getCnpjUsecase,
         pickImageFromGaleryUsecase: injection.pickImageFromGaleryUsecase,
+        captureImageUsecase: injection.captureImageUsecase,
         getLocationByAddressUsecase: injection.getLocationByAddressUsecase,
         createProfileUsecase: injection.createProfileUsecase,
         updateProfileUsecase: injection.updateProfileUsecase,
@@ -81,48 +83,58 @@ class _ProfileDetailsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: state.pickImageFromGalery,
-                                      child: Container(
-                                        width: 140,
-                                        height: 140,
-                                        decoration: BoxDecoration(
-                                          color: colors.surfaceContainer,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: state.imagePath != null
-                                            ? ClipOval(
-                                                child: Image.file(
-                                                  File(state.imagePath!),
-                                                  width: 140,
-                                                  height: 140,
-                                                  fit: BoxFit.cover,
+                                child: Material(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await showImageSourceOptions(
+                                        context,
+                                        hasPath: state.imagePath != null,
+                                        onCameraSelected: state.captureImage,
+                                        onGallerySelected:
+                                            state.pickImageFromGalery,
+                                        onRemoveSelected:
+                                            state.deleteSelectedImage,
+                                      );
+                                    },
+
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: 140,
+                                          height: 140,
+                                          decoration: BoxDecoration(
+                                            color: colors.surfaceContainer,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: state.imagePath != null
+                                              ? ClipOval(
+                                                  child: Image.file(
+                                                    File(state.imagePath!),
+                                                    width: 140,
+                                                    height: 140,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              : Icon(
+                                                  Icons.camera_alt_outlined,
+                                                  size: 32,
+                                                  color: AppTheme.primaryColor,
                                                 ),
-                                              )
-                                            : Icon(
-                                                Icons.camera_alt_outlined,
-                                                size: 32,
-                                                color: AppTheme.primaryColor,
-                                              ),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 8),
-
-                                    GestureDetector(
-                                      onTap: state.pickImageFromGalery,
-                                      child: Text(
-                                        l10n.commomAddImage,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppTheme.primaryColor,
-                                          fontWeight: FontWeight.w500,
                                         ),
-                                      ),
+
+                                        const SizedBox(height: 8),
+
+                                        Text(
+                                          l10n.commomAddImage,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppTheme.primaryColor,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
 
@@ -224,9 +236,9 @@ class _ProfileDetailsPage extends StatelessWidget {
               if (saved) {
                 Navigator.pop(context, true);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.profileSaveError)),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(l10n.profileSaveError)));
               }
             },
           ),

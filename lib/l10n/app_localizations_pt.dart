@@ -421,6 +421,24 @@ class AppLocalizationsPt extends AppLocalizations {
   String get orderSaveError => 'Não foi possível salvar o pedido.';
 
   @override
+  String get invalidOrder => 'Revise os dados do pedido e tente novamente.';
+
+  @override
+  String get deliveryNotCalculated =>
+      'Calcule o frete antes de salvar o pedido.';
+
+  @override
+  String get profileCoordinatesMissing =>
+      'Configure a localização da loja no perfil antes de calcular o frete.';
+
+  @override
+  String get orderSaveFailed => 'Não foi possível salvar o pedido.';
+
+  @override
+  String get orderNotFound =>
+      'O pedido não foi encontrado. Atualize a lista e tente novamente.';
+
+  @override
   String get orderEdit => 'Editar pedido';
 
   @override
@@ -541,4 +559,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get imageSourceChooseGallery => 'Escolher da galeria';
+
+  @override
+  String get removeImage => 'Remover imagem';
 }

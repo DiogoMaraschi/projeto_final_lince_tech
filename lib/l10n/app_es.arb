@@ -134,6 +134,11 @@
   "commonFillRequired": "Completa todos los campos obligatorios",
   "commonError": "Error",
   "orderSaveError": "No se pudo guardar el pedido.",
+  "invalidOrder": "Revisa los datos del pedido e inténtalo de nuevo.",
+  "deliveryNotCalculated": "Calcula el costo de envío antes de guardar el pedido.",
+  "profileCoordinatesMissing": "Configura la ubicación de la tienda en el perfil antes de calcular el envío.",
+  "orderSaveFailed": "No se pudo guardar el pedido.",
+  "orderNotFound": "No se encontró el pedido. Actualiza la lista e inténtalo de nuevo.",
   "orderEdit": "Editar pedido",
   "orderSave": "Guardar pedido",
   "orderDelete": "Eliminar",
@@ -240,6 +245,7 @@
   "productEAN": "EAN: {value}",
   "imageSourceTakePhoto": "Tomar una foto",
   "imageSourceChooseGallery": "Elegir una imagen de la galería",
+  "removeImage": "Eliminar imagen",
   "@productEAN": {
     "placeholders": {
       "value": {
