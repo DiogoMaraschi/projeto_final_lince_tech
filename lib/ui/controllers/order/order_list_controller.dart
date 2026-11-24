@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../../entities/order/order_summary.dart';
+import '../../../modules/order/order_failure.dart';
 import '../../../modules/order/usecases/generate_order_pdf_usecase.dart';
 import '../../../modules/order/usecases/get_all_order_summaries_usecase.dart';
 import '../../../modules/order/usecases/get_order_for_editing_usecase.dart';
@@ -25,20 +26,33 @@ class OrderListController with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
+  OrderSummaryFailure? error;
+
   List<OrderSummary> _orderSummary = [];
 
   List<OrderSummary> get orderSummary => List.unmodifiable(_orderSummary);
 
   Future<void> getAllOrderSummary() async {
     _isLoading = true;
+    error = null;
     notifyListeners();
 
     try {
       final result = await getAllOrderSummariesUsecase();
 
-      _orderSummary = result;
-    } catch (e) {
-      print(e);
+
+      result.fold(
+        (failure) {
+          error = failure;
+        },
+        (list) {
+          _orderSummary = list;
+          error = null;
+        },
+      );
+    } on Exception catch (e) {
+      debugPrint('Erro $e');
+      error = OrderSummaryFailure.orderSummariesLoadFailed;
     } finally {
       _isLoading = false;
 
@@ -55,7 +69,9 @@ class OrderListController with ChangeNotifier {
     }
 
     if (profile == null) {
-      throw StateError('Cadastre o perfil da loja antes de gerar o comprovante.');
+      throw StateError(
+        'Cadastre o perfil da loja antes de gerar o comprovante.',
+      );
     }
 
     return await generateOrderPdfUsecase(order, profile, primaryColorArgb);

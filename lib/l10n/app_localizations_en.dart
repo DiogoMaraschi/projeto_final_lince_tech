@@ -273,6 +273,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderListEmpty => 'No orders were found';
 
   @override
+  String get orderSummaryLoadError => 'Could not load orders.';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
   String get orderSelectProducts => 'Select products';
 
   @override

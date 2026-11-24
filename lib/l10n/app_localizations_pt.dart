@@ -273,6 +273,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get orderListEmpty => 'Nenhum pedido foi encontrado';
 
   @override
+  String get orderSummaryLoadError => 'Não foi possível carregar os pedidos.';
+
+  @override
+  String get tryAgain => 'Tentar novamente';
+
+  @override
   String get orderSelectProducts => 'Selecionar produtos';
 
   @override

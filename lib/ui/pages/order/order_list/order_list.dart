@@ -44,6 +44,20 @@ class _OrderListPage extends StatelessWidget {
           ),
           body: controller.isLoading
               ? Center(child: CircularProgressIndicator())
+              : controller.error != null
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.orderSummaryLoadError),
+                      const SizedBox(height: 12),
+                      TextButton(
+                        onPressed: () => controller.getAllOrderSummary(),
+                        child: Text(l10n.tryAgain),
+                      ),
+                    ],
+                  ),
+                )
               : controller.orderSummary.isEmpty
               ? Center(
                   child: Text(AppLocalizations.of(context)!.orderListEmpty),
@@ -57,8 +71,9 @@ class _OrderListPage extends StatelessWidget {
                       orderSummary: orderSummary,
 
                       onGeneratePdf: () async {
-                        final primaryColorArgb =
-                            Theme.of(context).colorScheme.primary.toARGB32();
+                        final primaryColorArgb = Theme.of(
+                          context,
+                        ).colorScheme.primary.toARGB32();
 
                         final bytes = await controller.generatePdf(
                           orderSummary.id,

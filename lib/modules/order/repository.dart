@@ -16,7 +16,7 @@ import 'order_failure.dart';
 abstract class OrderRepository {
   Future<Either<OrderFailure, int>> insert(Order order);
 
-  Future<List<OrderSummary>> getAllOrderSummaries();
+  Future<Either<OrderSummaryFailure, List<OrderSummary>>> getAllOrderSummaries();
 
   Future<OrderEditData?> getOrderForEditing(int orderId);
 
@@ -56,10 +56,12 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<List<OrderSummary>> getAllOrderSummaries() async {
-    final conn = await databaseHelper.database;
+  Future<Either<OrderSummaryFailure, List<OrderSummary>>>
+  getAllOrderSummaries() async {
+    try {
+      final conn = await databaseHelper.database;
 
-    final rows = await conn.rawQuery('''
+      final rows = await conn.rawQuery('''
     SELECT
       o.id AS order_id,
       c.name AS customer_name,
@@ -86,9 +88,12 @@ class OrderRepositoryImpl implements OrderRepository {
     ORDER BY o.created_at DESC, o.id DESC
   ''');
 
-    return rows
-        .map<OrderSummary>((row) => OrderSummaryModel.fromMap(row))
-        .toList();
+      return Right(rows
+          .map<OrderSummary>(OrderSummaryModel.fromMap)
+          .toList());
+    } on DatabaseException {
+      return const Left(OrderSummaryFailure.orderSummariesLoadFailed);
+    }
   }
 
   @override

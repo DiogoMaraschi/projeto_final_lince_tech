@@ -622,6 +622,18 @@ abstract class AppLocalizations {
   /// **'Nenhum pedido foi encontrado'**
   String get orderListEmpty;
 
+  /// No description provided for @orderSummaryLoadError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível carregar os pedidos.'**
+  String get orderSummaryLoadError;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tentar novamente'**
+  String get tryAgain;
+
   /// No description provided for @orderSelectProducts.
   ///
   /// In pt, this message translates to:

@@ -5,3 +5,5 @@ enum OrderFailure {
   saveFailed,
   orderNotFound,
 }
+
+enum OrderSummaryFailure { orderSummariesLoadFailed }

@@ -86,6 +86,8 @@
   "productHintPrice": "E.g.: 49,90",
   "orderListTitle": "Orders",
   "orderListEmpty": "No orders were found",
+  "orderSummaryLoadError": "Could not load orders.",
+  "tryAgain": "Try again",
   "orderSelectProducts": "Select products",
   "orderSearchProducts": "Search by name or EAN",
   "orderProductsLoadError": "Could not load products",

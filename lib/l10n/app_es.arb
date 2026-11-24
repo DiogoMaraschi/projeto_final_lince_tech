@@ -86,6 +86,8 @@
   "productHintPrice": "Ej.: 49,90",
   "orderListTitle": "Pedidos",
   "orderListEmpty": "No se encontraron pedidos",
+  "orderSummaryLoadError": "No se pudieron cargar los pedidos.",
+  "tryAgain": "Reintentar",
   "orderSelectProducts": "Seleccionar productos",
   "orderSearchProducts": "Buscar por nombre o EAN",
   "orderProductsLoadError": "No se pudieron cargar los productos",
