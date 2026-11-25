@@ -9,6 +9,7 @@ import '../../../entities/customer/establishment_type.dart';
 import '../../../modules/address/usecases/get_address_by_zipcode.dart';
 import '../../../modules/address/usecases/get_location_by_address_usecase.dart';
 import '../../../modules/cnpj/usecases/get_cnpj_usecase.dart';
+import '../../../modules/customer/customer_failure.dart';
 import '../../../modules/customer/usecases/create_customer_usecase.dart';
 import '../../../modules/customer/usecases/delete_customer_usecase.dart';
 import '../../../modules/customer/usecases/update_customer_usecase.dart';
@@ -59,6 +60,8 @@ class CustomerController with ChangeNotifier {
   LatLng? _location;
   Timer? _addressDebounce;
   String? _lastSearchedAddress;
+
+  CustomerFailure? error;
 
   LatLng? get location => _location;
 
@@ -131,29 +134,15 @@ class CustomerController with ChangeNotifier {
     }
   }
 
-  Future<bool> saveCostumer() async {
-    final customerEdited = convertTextToCustomer();
-
-    try {
-      if (isEditing) {
-        await _updateCustomerUsecase(customerEdited);
-      } else {
-        await _createCustomerUsecase(customerEdited);
-      }
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Customer convertTextToCustomer() {
+  Future<bool> saveCustomer() async {
     final location = _location;
     if (location == null) {
-      throw StateError('Busque a localização do endereço antes de salvar.');
+      error = CustomerFailure.locationNotObtained;
+      notifyListeners();
+      return false;
     }
 
-    return Customer(
+    final customerEdited = Customer(
       id: _customerReceived?.id,
       name: nameController.text,
       cnpj: digitsOnly(cnpjController.text),
@@ -169,6 +158,31 @@ class CustomerController with ChangeNotifier {
       latitude: location.latitude,
       longitude: location.longitude,
     );
+
+    try {
+      final result = isEditing
+          ? await _updateCustomerUsecase(customerEdited)
+          : await _createCustomerUsecase(customerEdited);
+
+      return result.fold<bool>(
+        (failure) {
+          error = failure;
+          return false;
+        },
+        (_) {
+          error = null;
+          return true;
+        },
+      );
+    } on Exception catch (e) {
+      debugPrint('Erro $e');
+
+      error = CustomerFailure.saveFailed;
+
+      return false;
+    } finally {
+      notifyListeners();
+    }
   }
 
   void _fillFields(Customer customer) {

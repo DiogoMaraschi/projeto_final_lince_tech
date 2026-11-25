@@ -6,6 +6,7 @@ import '../../entities/customer/costumer.dart';
 import '../../entities/customer/establishment_type.dart';
 import '../../l10n/app_localizations.dart';
 import '../../main.dart';
+import '../../modules/customer/customer_failure.dart';
 import '../app_theme.dart';
 import '../controllers/customer/customer_controller.dart';
 import '../formatters/input_formatters.dart';
@@ -17,6 +18,7 @@ import '../validators/phone_validator.dart';
 import '../widgets/address_form.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/delete_button.dart';
+import '../widgets/error_dialog.dart';
 import '../widgets/labeled_text_form_field.dart';
 
 class CustomerDetailsPage extends StatelessWidget {
@@ -133,7 +135,6 @@ class _CostumerDetailsPage extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-
                         Text(
                           l10n.establishmentType,
                           style: TextStyle(
@@ -213,11 +214,25 @@ class _CostumerDetailsPage extends StatelessWidget {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  await state.saveCostumer();
+                  final saved = await state.saveCustomer();
 
                   if (!context.mounted) return;
 
-                  Navigator.pop(context);
+                  if (saved) {
+                    Navigator.pop(context);
+                  } else {
+                    final message = switch (state.error) {
+                      CustomerFailure.saveFailed => l10n.customerSaveFailed,
+                      CustomerFailure.cnpjAlreadyRegistered =>
+                        l10n.cnpjAlreadyRegistered,
+                      CustomerFailure.locationNotObtained =>
+                        l10n.locationNotObtained,
+                      CustomerFailure.customerNotFound => l10n.customerNotFound,
+                      null => l10n.customerSaveFailed,
+                    };
+
+                    await showErrorDialog(context, message: message);
+                  }
                 },
               ),
               if (state.isEditing)

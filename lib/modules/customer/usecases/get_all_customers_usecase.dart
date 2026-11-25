@@ -1,4 +1,7 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../entities/customer/costumer.dart';
+import '../customer_failure.dart';
 import '../repository.dart';
 
 class GetAllCustomersUsecase {
@@ -6,7 +9,7 @@ class GetAllCustomersUsecase {
 
   GetAllCustomersUsecase({required this.repository});
 
-  Future<List<Customer>> call() async {
+  Future<Either<CustomerListFailure, List<Customer>>> call() async {
     return await repository.getAllCustomers();
   }
 }

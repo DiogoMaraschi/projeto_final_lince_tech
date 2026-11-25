@@ -816,7 +816,7 @@ class _OrderDetailsPage extends StatelessWidget {
                                 if (!context.mounted) return;
 
                                 if (saved) {
-                                  Navigator.of(context).pop(true);
+                                  Navigator.pop(context);
                                 } else {
                                   final message = switch (controller.error) {
                                     OrderFailure.invalidOrder =>

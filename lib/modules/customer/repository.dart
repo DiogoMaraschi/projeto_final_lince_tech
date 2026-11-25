@@ -1,13 +1,17 @@
+import 'package:dartz/dartz.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '../../core/database/database_helper.dart';
-import './models/customer_model.dart';
 import '../../entities/customer/costumer.dart';
+import './models/customer_model.dart';
+import 'customer_failure.dart';
 
 abstract class CustomerRepository {
-  Future<int> insert(Customer customer);
+  Future<Either<CustomerFailure, int>> createOrReactivate(Customer customer);
 
-  Future<List<Customer>> getAllCustomers();
+  Future<Either<CustomerListFailure, List<Customer>>> getAllCustomers();
 
-  Future<int> update(Customer customer);
+  Future<Either<CustomerFailure, int>> update(Customer customer);
 
   Future<int> softDelete(int id);
 
@@ -21,39 +25,119 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
   CustomerRepositoryImpl({required this.databaseHelper});
 
-  @override
-  Future<int> insert(Customer customer) async {
+  Future<Either<CustomerFailure, int>> createOrReactivate(
+    Customer customer,
+  ) async {
     final customerModel = CustomerModel.fromEntity(customer);
 
-    final conn = await databaseHelper.database;
+    try {
+      final conn = await databaseHelper.database;
 
-    final id = await conn.insert(tableName, customerModel.toMap());
-    print('${customer.establishmentType}');
+      return await conn.transaction<Either<CustomerFailure, int>>((txn) async {
+        final existingRows = await txn.query(
+          tableName,
+          where: 'cnpj = ?',
+          whereArgs: [customer.cnpj],
+        );
 
-    return id;
+        if (existingRows.isNotEmpty) {
+          final row = existingRows.first;
+          final existingId = row['id'] as int;
+          final isDeleted = row['deleted_at'] != null;
+
+          if (!isDeleted) {
+            return const Left(CustomerFailure.cnpjAlreadyRegistered);
+          }
+
+          await txn.update(
+            tableName,
+            {'deleted_at': null},
+            where: 'id = ? AND deleted_at IS NOT NULL',
+            whereArgs: [existingId],
+          );
+
+          return Right(existingId);
+        }
+
+        final newId = await txn.insert(tableName, customerModel.toMap());
+
+        return Right(newId);
+      });
+    } on DatabaseException catch (e) {
+      if (e.isUniqueConstraintError()) {
+        return const Left(CustomerFailure.cnpjAlreadyRegistered);
+      }
+
+      return const Left(CustomerFailure.saveFailed);
+    }
   }
 
   @override
-  Future<List<Customer>> getAllCustomers() async {
-    final conn = await databaseHelper.database;
+  Future<Either<CustomerListFailure, List<Customer>>> getAllCustomers() async {
+    try {
+      final conn = await databaseHelper.database;
 
-    final result = await conn.query(tableName, where: 'deleted_at IS NULL');
+      final rows = await conn.query(tableName, where: 'deleted_at IS NULL');
 
-    return result.map((map) => CustomerModel.fromMap(map)).toList();
+      return Right(rows.map(CustomerModel.fromMap).toList());
+    } on DatabaseException {
+      return const Left(CustomerListFailure.customersLoadFailed);
+    }
   }
 
   @override
-  Future<int> update(Customer customer) async {
+  Future<Either<CustomerFailure, int>> update(Customer customer) async {
     final customerModel = CustomerModel.fromEntity(customer);
 
-    final conn = await databaseHelper.database;
+    try {
+      final conn = await databaseHelper.database;
 
-    return conn.update(
-      tableName,
-      customerModel.toMap(),
-      where: 'id = ?',
-      whereArgs: [customer.id],
-    );
+      return await conn.transaction<Either<CustomerFailure, int>>((txn) async {
+        final currentRows = await txn.query(
+          tableName,
+          columns: ['cnpj'],
+          where: 'id = ?',
+          whereArgs: [customer.id],
+          limit: 1,
+        );
+
+        if (currentRows.isEmpty) {
+          return const Left(CustomerFailure.customerNotFound);
+        }
+
+        final currentCnpj = currentRows.first['cnpj'] as String;
+
+        if (currentCnpj != customer.cnpj) {
+          final duplicateRows = await txn.query(
+            tableName,
+            columns: ['id'],
+            where: 'cnpj = ?',
+            whereArgs: [customer.cnpj],
+            limit: 1,
+          );
+
+          if (duplicateRows.isNotEmpty) {
+            return const Left(CustomerFailure.cnpjAlreadyRegistered);
+          }
+        }
+
+        final updatedRows = await txn.update(
+          tableName,
+          customerModel.toMap(),
+          where: 'id = ?',
+          whereArgs: [customer.id],
+        );
+
+        return updatedRows > 0
+            ? Right(updatedRows)
+            : const Left(CustomerFailure.customerNotFound);
+      });
+    } on DatabaseException catch (e) {
+      if (e.isUniqueConstraintError()) {
+        return const Left(CustomerFailure.cnpjAlreadyRegistered);
+      }
+      return const Left(CustomerFailure.saveFailed);
+    }
   }
 
   @override
@@ -63,7 +147,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
     return conn.update(
       tableName,
       {'deleted_at': DateTime.now().toIso8601String()},
-      where: 'id = ?',
+      where: 'id = ? AND deleted_at IS NULL',
       whereArgs: [id],
     );
   }

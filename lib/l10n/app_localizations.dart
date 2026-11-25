@@ -694,6 +694,36 @@ abstract class AppLocalizations {
   /// **'Erro ao carregar clientes'**
   String get orderCustomersLoadError;
 
+  /// No description provided for @customerSaveFailed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar o cliente.'**
+  String get customerSaveFailed;
+
+  /// No description provided for @customerNotFound.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cliente não encontrado.'**
+  String get customerNotFound;
+
+  /// No description provided for @cnpjAlreadyRegistered.
+  ///
+  /// In pt, this message translates to:
+  /// **'Este CNPJ já está cadastrado.'**
+  String get cnpjAlreadyRegistered;
+
+  /// No description provided for @customersLoadFailed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível carregar os clientes.'**
+  String get customersLoadFailed;
+
+  /// No description provided for @locationNotObtained.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível obter a localização do endereço.'**
+  String get locationNotObtained;
+
   /// No description provided for @orderNoCustomers.
   ///
   /// In pt, this message translates to:

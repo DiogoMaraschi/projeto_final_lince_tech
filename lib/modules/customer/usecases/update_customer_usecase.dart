@@ -1,4 +1,7 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../entities/customer/costumer.dart';
+import '../customer_failure.dart';
 import '../repository.dart';
 
 class UpdateCustomerUsecase {
@@ -6,7 +9,7 @@ class UpdateCustomerUsecase {
 
   UpdateCustomerUsecase({required this.repository});
 
-  Future<int> call (Customer customer) async{
+  Future<Either<CustomerFailure, int>> call (Customer customer) async{
     return await repository.update(customer);
   }
 

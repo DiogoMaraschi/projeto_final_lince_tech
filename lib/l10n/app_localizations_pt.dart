@@ -313,6 +313,22 @@ class AppLocalizationsPt extends AppLocalizations {
   String get orderCustomersLoadError => 'Erro ao carregar clientes';
 
   @override
+  String get customerSaveFailed => 'Não foi possível salvar o cliente.';
+
+  @override
+  String get customerNotFound => 'Cliente não encontrado.';
+
+  @override
+  String get cnpjAlreadyRegistered => 'Este CNPJ já está cadastrado.';
+
+  @override
+  String get customersLoadFailed => 'Não foi possível carregar os clientes.';
+
+  @override
+  String get locationNotObtained =>
+      'Não foi possível obter a localização do endereço.';
+
+  @override
   String get orderNoCustomers => 'Nenhum cliente cadastrado';
 
   @override

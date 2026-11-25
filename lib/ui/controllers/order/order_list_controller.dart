@@ -55,7 +55,6 @@ class OrderListController with ChangeNotifier {
       error = OrderSummaryFailure.orderSummariesLoadFailed;
     } finally {
       _isLoading = false;
-
       notifyListeners();
     }
   }

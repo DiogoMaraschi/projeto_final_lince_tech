@@ -32,6 +32,20 @@ class _CostumerListPage extends StatelessWidget {
         return Scaffold(
           body: state.isLoading
               ? Center(child: CircularProgressIndicator())
+              : state.error != null
+              ? Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(l10n.customersLoadFailed),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: () => state.getAllCustomers(),
+                  child: Text(l10n.tryAgain),
+                ),
+              ],
+            ),
+          )
               : state.customers.isEmpty
               ? Center(child: Text(l10n.customerListEmpty))
               : ListView.builder(
